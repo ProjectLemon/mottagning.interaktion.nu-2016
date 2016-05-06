@@ -1,0 +1,16 @@
+@mixin animateCardExpand {
+  display: block;
+  opacity: 0;
+  animation-duration: .5s;
+  animation-name: fadeInFromNone;
+  animation-fill-mode: forwards;
+  animation-delay: .3s;
+  -webkit-animation-duration: .5s;
+  -webkit-animation-name: fadeInFromNone;
+  -webkit-animation-fill-mode: forwards;
+  animation-delay: .3s;
+  -ms-animation-duration: .5s;
+  -ms-animation-name: fadeInFromNoneIE;
+  -ms-animation-fill-mode: forwards;
+  animation-delay: .3s;
+}
