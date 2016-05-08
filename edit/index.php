@@ -14,28 +14,17 @@ $selected = false;
 
 ?>
 
-<html>
+<html lang="sv">
   <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <style>
-      #image-upload-show {
-          width: 23em;
-          display: block;
-      }
-      #form-error {
-          display: none;
-      }
-      .input-error {
-          color: red;
-      }
-    </style>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="wrapper">
-      <form id="edit-activity-form" action="edit.php" method="POST" enctype="multipart/form-data">
-          
-        <select id="activity-select" name="activity">
+      <form id="edit-activity-form" action="edit.php" method="POST" enctype="multipart/form-data">          
+        <select id="activity-select" name="activity" class="button">
           <option value="Ny aktivitet" required>Ny aktivitet</option>
           <?php
             foreach ($activites as $title => $activity) {
@@ -50,54 +39,54 @@ $selected = false;
         </select>
         <input type="submit" name="delete" value="Radera" 
             <?php 
-              if (!$selected) { echo 'disabled';}
+              if (!$selected) { echo 'disabled'; } else { echo 'class="button"'; }
             ?>>
-        <br>
         
         <label>Titel:<input type="text" name="title" required 
             <?php
               if ($selected && property_exists($selected, 'title')) echo 'value="'.$selected->title.'"'
             ?>>
         </label>
-        <br>
         
-        <?php
-          if ($selected && property_exists($selected, 'image')) {
-            echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
-          }
-        ?>
-        <label>Bild:<input id="image-upload" type="file" name="image" 
-            <?php
-              if (!$selected || ($selected && !property_exists($selected, 'image'))) {
-                echo 'required';
-              }
-            ?>>
-        </label>
-        <br>
+        <div class="form-content">
         
-        <label>Beskrivning:<textarea name="description" rows="5" cols="30" required
-        ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
-            ?></textarea>
-        </label>
-        <br>
+          <?php
+            if ($selected && property_exists($selected, 'image')) {
+              echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
+            }
+          ?>
+          <label>Bild:<input id="image-upload" type="file" name="image" 
+              <?php
+                if (!$selected || ($selected && !property_exists($selected, 'image'))) {
+                  echo 'required';
+                }
+              ?>>
+          </label>
+          <br>
         
-        <label>Tid:<input type="text" name="time" required
-            <?php 
-              if ($selected && property_exists($selected, 'time')) echo 'value="'.$selected->time.'"'   
-            ?>>
-        </label>
-        <br>
-        
-        <label>Datum:<input type="text" name="date" required
-            <?php 
-              if ($selected && property_exists($selected, 'date')) echo 'value="'.$selected->date.'"'   
-            ?>>
-        </label>
-        <br>
-        
-        <input type="submit" name="save" value="Spara">
-        <span id="form-error">Var snäll och fyll i hela formuläret</span>
+          <label>Tid:<input type="text" name="time" required
+              <?php 
+                if ($selected && property_exists($selected, 'time')) echo 'value="'.$selected->time.'"'   
+              ?>>
+          </label>
+          
+          <label class="form-date">Datum:<input type="text" name="date" required
+              <?php 
+                if ($selected && property_exists($selected, 'date')) echo 'value="'.$selected->date.'"'   
+              ?>>
+          </label>
+          <br>
+          
+          <label class="form-description">Beskrivning:<textarea name="description" rows="5" cols="30" required
+          ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
+              ?></textarea>
+          </label>
+          <br>
+          <input type="submit" name="save" value="Spara" class="button">
+          <span id="form-error">Var snäll och fyll i hela formuläret</span>
+        </div>
       </form>
+      <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
     </div>
     
     <script>
