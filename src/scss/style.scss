@@ -3,8 +3,12 @@
 html {
   color: white;
   font-family: 'Quicksand', sans-serif;
+  touch-action: none;
 }
 
+.no-select {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
 
 // ======= Cards =======
 .mo-card {

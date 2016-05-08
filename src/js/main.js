@@ -1,4 +1,4 @@
-var config1 = {
+/*var config1 = {
   title: "Vinbrännboll",
   startTime: "19:00",
   date: "27/5",
@@ -34,4 +34,36 @@ var config3 = {
 var exampleCard = new CardFactory();
 document.body.appendChild(exampleCard.newActivityCard(config1));
 document.body.appendChild(exampleCard.newActivityCard(config2));
-document.body.appendChild(exampleCard.newStaticCard(config3));
+document.body.appendChild(exampleCard.newStaticCard(config3));*/
+var cardFactory = new CardFactory();
+var activities = [];
+
+function getActivityContent() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      var json = JSON.parse(this.response);
+      for (let obj in json) {
+        activities.push(json[obj]);
+      }
+      paintActiviyCards();
+    }
+  };
+  xhttp.open("GET", "/edit/content/activities.json", true);
+  xhttp.send();
+}
+
+function paintActiviyCards() {
+  //Because the cards will be painted chronologically
+  activities.sort(function(a,b) {
+    var dateA = new Date(a.startTime);
+    var dateB = new Date(b.startTime);
+    return dateA.getTime() - dateB.getTime();
+  });
+
+  for (let index in activities) {
+    document.body.appendChild(cardFactory.newActivityCard(activities[index]));
+  }
+}
+
+getActivityContent();
