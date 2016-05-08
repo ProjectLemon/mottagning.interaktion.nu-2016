@@ -26,6 +26,9 @@ $selected = false;
       #form-error {
           display: none;
       }
+      .input-error {
+          color: red;
+      }
     </style>
   </head>
   <body>
@@ -51,10 +54,11 @@ $selected = false;
             ?>>
         <br>
         
-        Titel:<input type="text" name="title" required 
+        <label>Titel:<input type="text" name="title" required 
             <?php
               if ($selected && property_exists($selected, 'title')) echo 'value="'.$selected->title.'"'
             ?>>
+        </label>
         <br>
         
         <?php
@@ -62,31 +66,35 @@ $selected = false;
             echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
           }
         ?>
-        Bild:<input id="image-upload" type="file" name="image" 
+        <label>Bild:<input id="image-upload" type="file" name="image" 
             <?php
               if (!$selected || ($selected && !property_exists($selected, 'image'))) {
                 echo 'required';
               }
             ?>>
+        </label>
         <br>
         
-        Beskrivning:<textarea name="description" rows="5" cols="30" required
+        <label>Beskrivning:<textarea name="description" rows="5" cols="30" required
         ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
             ?></textarea>
+        </label>
         <br>
         
-        Tid:<input type="text" name="time" required
+        <label>Tid:<input type="text" name="time" required
             <?php 
               if ($selected && property_exists($selected, 'time')) echo 'value="'.$selected->time.'"'   
             ?>>
+        </label>
         <br>
         
-        Datum:<input type="text" name="date" required
+        <label>Datum:<input type="text" name="date" required
             <?php 
               if ($selected && property_exists($selected, 'date')) echo 'value="'.$selected->date.'"'   
             ?>>
-            
+        </label>
         <br>
+        
         <input type="submit" name="save" value="Spara">
         <span id="form-error">Var snäll och fyll i hela formuläret</span>
       </form>
@@ -104,24 +112,41 @@ $selected = false;
           }
       });
       
-      /* Preivew image before uploading */
+      /* Preview image before uploading */
       var imageUpload = document.getElementById('image-upload');
       imageUpload.addEventListener('change', function changeActivity(event) {
           var imageUploadShow = document.getElementById('image-upload-show');
+          var image = URL.createObjectURL(event.target.files[0])
           if (imageUploadShow) {
-              imageUploadShow.src = URL.createObjectURL(event.target.files[0]);
+              imageUploadShow.src = image;
+          } else {
+              imageUpload.parentNode.insertAdjacentHTML('beforebegin', '<img id="image-upload-show" src="'+image+'">Ersätt ');
           }
       });
       
       /* Add cross-browser support for required */
       var form = document.getElementById('edit-activity-form');
       form.noValidate = true;
+      errorTime = 4000 // 4 seconds
       form.addEventListener('submit', function(event) {
           if (!event.target.checkValidity()) {
               event.preventDefault();
               formError = document.getElementById('form-error');
               formError.style.display = 'inline';
-              window.setTimeout(function(){ formError.style.display = 'none'; }, 4000); // 4 seconds
+              window.setTimeout(function(){ formError.style.display = 'none'; }, errorTime);
+              // Mark all invalid inputs labels
+              for (i=0; i<event.target.length; i++) {
+                  var input = event.target[i];
+                  if (!input.validity.valid) {
+                      input.parentNode.classList.add('input-error');
+                      // Use closure to capture correct input
+                      window.setTimeout((function(inputParent) {
+                          return function() {
+                              inputParent.classList.remove('input-error');
+                          };
+                      })(input.parentNode), errorTime);
+                  }
+              }
           }
       }, false);
     </script>
