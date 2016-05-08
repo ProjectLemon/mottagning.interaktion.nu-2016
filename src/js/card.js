@@ -1,5 +1,5 @@
 
-var ExpandableCardFactory = (function Card() {
+var CardFactory = (function Card() {
   var _attributes = {
     title: "",
     startTime: "",
@@ -14,10 +14,8 @@ var ExpandableCardFactory = (function Card() {
   return function cardConstructor() {
     var _this = this; //Cache the value for this
 
-    //New activity card returns a new activity card containing
-    //data that has been provided through the config object
-    _this.newActivityCard = function(config) {
-      _this._attributes = config;
+    //Returns a base card containing a html strucure and data provided by config
+    _this.newCard = function(config) {
       var card = document.createElement('div');
       var headerImg = "<img src='"+config.img+"' alt=''>";
       var titleText = "<h1 class='titleText'>"+config.title+"</h1>";
@@ -27,8 +25,18 @@ var ExpandableCardFactory = (function Card() {
       var description = "<div class='description animate'>"+config.description+"</div>";
       var directions = "<a onclick='exampleCard.openDirections(event)'><img src='/resources/img/icons/directions.svg' class='directions'></a>"
 
-      card.classList.add('mo-card', 'mo-card-activity');
       card.innerHTML += headerImg + titleText + startTime + startDate + location + description + directions;
+
+      return card;
+    }
+
+    //New activity card returns a new activity card containing
+    //data that has been provided through the config object
+    _this.newActivityCard = function(config) {
+      _this._attributes = config;
+      var card = _this.newCard(config);
+
+      card.classList.add('mo-card', 'mo-card-activity');
       card.addEventListener("click", function(e){
           this.classList.toggle('mo-card-expanded');
       }, false);
@@ -36,6 +44,18 @@ var ExpandableCardFactory = (function Card() {
       return card;
     };
 
+    //Creates a headline card filled with data from config
+    _this.newStaticCard = function(config) {
+      _this._attributes = config;
+      var card = _this.newCard(config);
+      card.id = "spotlight-card";
+      card.classList.add('mo-card', 'mo-card-spotlight');
+
+      return card;
+    }
+
+    //This is called whenever the directions icon is pressed. It redirects the
+    //user to google maps with directions from their localtion to the activity
     _this.openDirections = function(e) {
       e.stopPropagation();
       if (navigator.geolocation) {

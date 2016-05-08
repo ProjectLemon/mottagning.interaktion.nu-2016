@@ -20,6 +20,18 @@ var config2 = {
   img: "/resources/img/DSC0477_small.jpg"
 }
 
-var exampleCard = new ExpandableCardFactory();
+var config3 = {
+  title: "Test large",
+  startTime: "13:00",
+  date: "31/5",
+  description: "This is a super masive card!",
+  place: "Campusängarna",
+  lat: "63.821171",
+  long: "20.310395",
+  img: "/resources/img/DSC0477_small.jpg"
+}
+
+var exampleCard = new CardFactory();
 document.body.appendChild(exampleCard.newActivityCard(config1));
 document.body.appendChild(exampleCard.newActivityCard(config2));
+document.body.appendChild(exampleCard.newStaticCard(config3));
