@@ -1,16 +1,22 @@
 {
-    "something": {
-        "title": "something",
-        "description": "d",
-        "time": "fdsa",
-        "date": "asdf",
-        "image": "content\/images\/1462618173.jpg"
+    "Test2": {
+      "title": "Test2",
+      "time": "13:00",
+      "date": "31/5",
+      "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! <p>Utgång: Origo</p>",
+      "place": "Campusängarna",
+      "lat": "63.821171",
+      "long": "20.310395",
+      "image": "../resources/img/DSC0477_small.jpg"
     },
     "Vinbr\u00e4nnboll": {
-        "title": "Vinbr\u00e4nnboll",
-        "description": "Hejsan\r\nd\r\nd\r\nd\r\nsaf\r\n",
-        "time": "12:00",
-        "date": "13\/2",
-        "image": "content\/images\/1462733716.jpg"
+      "title": "Vinbr\u00e4nnboll",
+      "time": "19:10",
+      "date": "27/5",
+      "description": "This is an example card",
+      "place": "Campusängarna",
+      "lat": "63.821171",
+      "long": "20.310395",
+      "image": "..//resources/img/DSC0477_small.jpg"
     }
 }

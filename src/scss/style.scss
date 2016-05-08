@@ -3,8 +3,12 @@
 html {
   color: white;
   font-family: 'Quicksand', sans-serif;
+  touch-action: none;
 }
 
+.no-select {
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
 
 // ======= Cards =======
 .mo-card {
@@ -13,21 +17,43 @@ html {
   height: 350px;
   color: white;
   position: relative;
-  background-color: #7A1EA1;
+  background-color: #7A1EA1; /*Falback color if javascript fails*/
   display: block;
   float: left;
   margin: 1em;
-  cursor: pointer;
 
-  /*Material box shadows*/
-  -webkit-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
-  -moz-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
-  box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
+  &.mo-card-activity {
+    cursor: pointer;
+    /*Material box shadows*/
+    -webkit-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
+    -moz-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
+    box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
 
-  /*Animate height*/
-	-webkit-transition: height 0.8s;
-	-moz-transition: height 0.8s;
-	transition: height 0.8s;
+    /*Animate height*/
+  	-webkit-transition: height 0.8s;
+  	-moz-transition: height 0.8s;
+  	transition: height 0.8s;
+  }
+
+  &.mo-card-spotlight {
+    max-width: 400px;
+    height: 550px;
+
+    div.description {
+      display: block;
+      font-weight: 100;
+      margin-left: 10px;
+    }
+    img.directions {
+      display: block;
+      position: absolute;
+      cursor: pointer;
+      z-index: 10;
+      bottom: 10px;
+      right: 10px;
+      max-width: 30px;
+    }
+  }
 
   img {
     width: 100%;
@@ -68,10 +94,8 @@ html {
     bottom: 10px;
     right: 10px;
     max-width: 30px;
+    cursor: pointer;
     @include animateCardExpand();
-    &:hover {
-      cursor: pointer;
-    }
   }
 
   @-webkit-keyframes fadeInFromNone {
