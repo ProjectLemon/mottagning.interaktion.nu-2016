@@ -16,6 +16,7 @@ var CardFactory = (function Card() {
 
     //Returns a base card containing a html strucure and data provided by config
     _this.newCard = function(config) {
+      config.startTime = new Date(config.startTime);
       var card = document.createElement('div');
       var headerImg = "<img src='"+config.img+"' alt=''>";
       var titleText = "<h1 class='titleText'>"+config.title+"</h1>";
@@ -34,7 +35,6 @@ var CardFactory = (function Card() {
     //New activity card returns a new activity card containing
     //data that has been provided through the config object
     _this.newActivityCard = function(config) {
-      config.startTime = new Date(config.startTime);
       _this._attributes = config;
       var card = _this.newCard(config);
 

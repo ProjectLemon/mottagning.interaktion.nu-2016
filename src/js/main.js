@@ -47,6 +47,14 @@ function getActivityContent() {
       for (let obj in json) {
         activities.push(json[obj]);
       }
+      //Because the cards will be painted chronologically
+      activities.sort(function(a,b) {
+        var dateA = new Date(a.startTime);
+        var dateB = new Date(b.startTime);
+        return dateA.getTime() - dateB.getTime();
+      });
+
+      paintHighLightCard();
       paintActiviyCards();
     }
   };
@@ -54,18 +62,50 @@ function getActivityContent() {
   xhttp.send();
 }
 
-function paintActiviyCards() {
-  //Because the cards will be painted chronologically
-  activities.sort(function(a,b) {
-    var dateA = new Date(a.startTime);
-    var dateB = new Date(b.startTime);
-    return dateA.getTime() - dateB.getTime();
-  });
+function paintHighLightCard() {
+  activities[0].color = getRandomColor();
+  var container = document.getElementById("next-activity");
+  var card = cardFactory.newStaticCard(activities[0]); //The cards are sorted and therefore, the first activity will be "next" activity
+  container.appendChild(card);
+  CountDownTimer(activities[0].startTime, "clock");
+}
 
+function paintActiviyCards() {
   for (let index in activities) {
     activities[index].color = getRandomColor();
     document.body.appendChild(cardFactory.newActivityCard(activities[index]));
   }
+}
+
+function CountDownTimer(dt, id) {
+  var end = dt;
+
+  var _second = 1000;
+  var _minute = _second * 60;
+  var _hour = _minute * 60;
+  var _day = _hour * 24;
+  var timer;
+
+  function showRemaining() {
+    var now = new Date();
+    var distance = end - now;
+
+    if (distance < 0) {
+      clearInterval(timer);
+      document.getElementById(id).innerHTML = 'EXPIRED!';
+      return;
+    }
+
+    var days = Math.floor(distance / _day);
+    var hours = Math.floor((distance % _day) / _hour);
+    var minutes = Math.floor((distance % _hour) / _minute);
+    var seconds = Math.floor((distance % _minute) / _second);
+    document.getElementById(id).innerHTML = days + 'days ';
+    document.getElementById(id).innerHTML += hours + 'hrs ';
+    document.getElementById(id).innerHTML += minutes + 'mins ';
+    document.getElementById(id).innerHTML += seconds + 'secs';
+  }
+  timer = setInterval(showRemaining, 1000);
 }
 
 function getRandomColor() {
