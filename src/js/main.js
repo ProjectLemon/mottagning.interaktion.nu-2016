@@ -35,6 +35,7 @@ var exampleCard = new CardFactory();
 document.body.appendChild(exampleCard.newActivityCard(config1));
 document.body.appendChild(exampleCard.newActivityCard(config2));
 document.body.appendChild(exampleCard.newStaticCard(config3));*/
+let colors = ["#7A1EA1", "#EE6B00", "#1E5E2F", "#A85BA4", "#3374BA", "#455A64"];
 var cardFactory = new CardFactory();
 var activities = [];
 
@@ -62,8 +63,16 @@ function paintActiviyCards() {
   });
 
   for (let index in activities) {
+    activities[index].color = getRandomColor();
     document.body.appendChild(cardFactory.newActivityCard(activities[index]));
   }
+}
+
+function getRandomColor() {
+  var min = 0;
+  var max = colors.length;
+  var index = Math.round(Math.random() * (max - min) + min);
+  return colors[index];
 }
 
 getActivityContent();

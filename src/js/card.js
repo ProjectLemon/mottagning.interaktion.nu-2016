@@ -7,7 +7,8 @@ var CardFactory = (function Card() {
     place: "",
     lat: "",
     long: "",
-    img: ""
+    img: "",
+    color: ""
   };
 
   return function cardConstructor() {
@@ -24,6 +25,7 @@ var CardFactory = (function Card() {
       var description = "<div class='description animate'>"+config.description+"</div>";
       var directions = "<a onclick='cardFactory.openDirections(event)'><img src='/resources/img/icons/directions.svg' class='directions'></a>"
 
+      card.style.backgroundColor = config.color;
       card.innerHTML += headerImg + titleText + startTime + startDate + location + description + directions;
 
       return card;
