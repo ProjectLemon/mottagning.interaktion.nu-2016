@@ -1,15 +1,35 @@
 @import "mixins";
+@import "variables";
 
 html {
   color: white;
   font-family: 'Quicksand', sans-serif;
-  touch-action: none;
 }
 
 .no-select {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
+// ======= Timer =======
+#next-activity {
+  #clock {
+    .clock-item {
+      display: inline-block;
+      margin: 1em;
+      text-align: center;
+      .clock-time {
+        font-size: 4em;
+      }
+      .clock-item-label {
+        font-size: 1.5em;
+      }
+    }
+  }
+
+  @media screen and (max-width: $tablet-portrait-width) {
+    display: none;
+  }
+}
 // ======= Cards =======
 .mo-card {
   width: 100%;
@@ -49,9 +69,9 @@ html {
       position: absolute;
       cursor: pointer;
       z-index: 10;
-      bottom: 10px;
+      bottom: 0;
       right: 10px;
-      max-width: 30px;
+      max-width: 40px;
     }
   }
 
@@ -62,8 +82,8 @@ html {
       display: none;
     }
   }
-  .fa-icon {
-    max-width: 24px;
+  img.fa-icon {
+    max-width: 18px;
     margin-right: 5px;
   }
   h1, h2, h3, h4, h5 {
@@ -73,6 +93,14 @@ html {
   h2 {
     display: inline-block;
     margin: 0 10px;
+  }
+  .location {
+    > img {
+      margin-right: 2px;
+      max-width: 20px;
+      position: relative;
+      top: 2px;
+    }
   }
   div.description {
     display: none;
