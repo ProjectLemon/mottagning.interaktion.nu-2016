@@ -16,14 +16,14 @@ function getActivityContent() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var json = JSON.parse(this.response);
       for (var obj in json) {
-        if (new Date(json[obj].startTime).getTime() >= new Date().getTime()) {
+        if (new Date(json[obj].startDateTime).getTime() >= new Date().getTime()) {
             activities.push(json[obj]);
         }
       }
       //Because the cards will be painted chronologically
       activities.sort(function(a,b) {
-        var dateA = new Date(a.startTime);
-        var dateB = new Date(b.startTime);
+        var dateA = new Date(a.startDateTime);
+        var dateB = new Date(b.startDateTime);
         return dateA.getTime() - dateB.getTime();
       });
 
@@ -46,17 +46,17 @@ function paintHighLightCard() {
   var container = document.getElementById("next-activity");
   var card = cardFactory.newStaticCard(activities[0]); //The cards are sorted and therefore, the first activity will be "next" activity
   container.appendChild(card);
-  CountDownTimer(activities[0].startTime, "clock");
+  CountDownTimer(activities[0].startDateTime, "clock");
 }
 
 //will take all activity data and paint them as activity cards
 function paintActiviyCards() {
   for (var index = 1; index < activities.length; index++) {
-    var container = document.getElementById(activities[index].startTime);
+    var container = document.getElementById(activities[index].startDateTime);
     if (!container) {
       container = document.createElement('div');
       container.classList.add('mo-card-date-container');
-      container.id = activities[index].startTime;
+      container.id = activities[index].startDateTime;
       document.body.appendChild(container);
     }
     activities[index].color = getRandomColor();
@@ -105,4 +105,15 @@ function getRandomColor() {
   var max = colors.length;
   var index = Math.round(Math.random() * (max - min) + min);
   return colors[index];
+}
+
+function showOverlay(message) {
+  var overlayBackground = document.createElement('div');
+  var messageContainer = document.createElement('div');
+  overlayBackground.style.cssText = "height:100%; width: 100%; position:fixed; top:0;right:0; z-index:100000000000000;background-color: rgba(0,0,0,.4);";
+  messageContainer.style.cssText = "position: absolute; margin:auto; top:50%; left:50%; transform: translate(-50%, -50%); width:300px; padding: 20px; background-color: #EDE4DA; text-align: center; color: black;";
+  messageContainer.innerHTML = message;
+  overlayBackground.id = "Site overlay";
+  overlayBackground.appendChild(messageContainer);
+  document.body.appendChild(overlayBackground);
 }
