@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<title>Title</title>
-		<link rel="stylesheet" href="/resources/css/layout.css">
+		<link rel="stylesheet" href="/resources/css/layout.min.css">
     <link rel="stylesheet" href="/resources/css/style.min.css">
 
 	</head>
@@ -13,21 +13,22 @@
 	<body>
 		<nav id="navigation-bar">
 			<ul>
-				<li id="info" class="menu-item">
-					<img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta">
-					Bra att vata
-				</li>
-
-				<li id="contact" class="menu-item">
-					<img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt">
-					Kontakt
-				</li>
-
-				<li id="schedule" class="menu-item">
-					<img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema">
-					Schema
-				</li>
-
+        <li id="schedule" class="menu-item">
+          <a href="/">
+		       <img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema">
+			     Schema
+          </a>
+				</li><li id="contact" class="menu-item" >
+          <a href="/contact/index.html">
+		        <img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt">
+            Kontakt
+          </a>
+				</li><li id="info" class="menu-item">
+          <a href="/info/index.html">
+            <img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta">
+            Bra att veta
+          </a>
+        </li>
 			</ul>
 		</nav>
 		<div id="next-activity">
@@ -55,6 +56,7 @@
 
     <script src="/src/js/fonts.js"></script>
     <script src="/src/js/card.js"></script>
+    <script src="/src/js/cardHandler.js"></script>
     <script src="/src/js/main.js"></script>
 	</body>
 </html>

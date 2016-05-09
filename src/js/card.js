@@ -22,7 +22,7 @@ var CardFactory = (function Card() {
       var titleText = "<h1 class='titleText'>"+config.title+"</h1>";
       var startTime = "<h2 class='startTime'><img src='/resources/img/icons/clock.svg' class='fa-icon'>"+_this.formatTime(config.startDateTime)+"</h2>";
       var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startDateTime)+"</h2>";
-      var location = "<h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h5>";
+      var location = "<a onclick='cardFactory.openDirections(event)'><h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3></a>";
       var description = "<div class='description animate'>"+config.description+"</div>";
       var directions = "<a onclick='cardFactory.openDirections(event)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>"
 

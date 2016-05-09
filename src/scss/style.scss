@@ -11,24 +11,50 @@ html {
   background-size: cover;
   height: 100%;
   width: 100%;
-}
 
-.no-select {
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    vertical-align: top;
+    &:visited {
+      color: white;
+    }
+  }
+  .no-select {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  }
 }
 
 // ======= Navbar ======
 nav#navigation-bar {
-  display: inline-block;
+  display: block;
   position: absolute;
+  font-weight: 100;
   right: 0;
   top: 0;
   background-color: rgba(0,0,0,.6);
   ul {
     list-style-type: none;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     li {
       display: inline-block;
-      margin-right: 2em;
+      padding: .5em 2em;
+      cursor: pointer;
+      -moz-transition: all .2s ease-in;
+      -o-transition: all .2s ease-in;
+      -webkit-transition: all .2s ease-in;
+      transition: all .2s ease-in;
+      &:hover {
+        background-color: #b876d4;
+      }
+      &.active {
+        background-color: #7A1EA1;
+      }
     }
     img.fa-icon {
       max-width: 18px;
