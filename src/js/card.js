@@ -83,7 +83,7 @@ var CardFactory = (function Card() {
       return time+date.getMinutes();
     }
     _this.formatDate = function(date) {
-      return ""+date.getDate()+"/"+date.getMonth();
+      return ""+date.getDate()+"/"+(date.getMonth() + 1);
     }
   }
 }());

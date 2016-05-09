@@ -1,50 +1,21 @@
-/*var config1 = {
-  title: "Vinbrännboll",
-  startTime: "19:00",
-  date: "27/5",
-  description: "This is an example card",
-  place: "Campusängarna",
-  lat: "63.821171",
-  long: "20.310395",
-  img: "/resources/img/DSC0477_small.jpg"
-}
-
-var config2 = {
-  title: "Test2",
-  startTime: "13:00",
-  date: "31/5",
-  description: "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! <p>Utgång: Origo</p>",
-  place: "Campusängarna",
-  lat: "63.821171",
-  long: "20.310395",
-  img: "/resources/img/DSC0477_small.jpg"
-}
-
-var config3 = {
-  title: "Test large",
-  startTime: "13:00",
-  date: "31/5",
-  description: "This is a super masive card!",
-  place: "Campusängarna",
-  lat: "63.821171",
-  long: "20.310395",
-  img: "/resources/img/DSC0477_small.jpg"
-}
-
-var exampleCard = new CardFactory();
-document.body.appendChild(exampleCard.newActivityCard(config1));
-document.body.appendChild(exampleCard.newActivityCard(config2));
-document.body.appendChild(exampleCard.newStaticCard(config3));*/
-let colors = ["#7A1EA1", "#EE6B00", "#1E5E2F", "#A85BA4", "#3374BA", "#455A64"];
+//Global variables
+var colors = ["#7A1EA1", "#EE6B00", "#1E5E2F", "#A85BA4", "#3374BA", "#455A64", "#C62828"];
 var cardFactory = new CardFactory();
 var activities = [];
 
+//Call "main" function
+getActivityContent();
+
+//Functions
+
+//getActivityContent performs a query for the activities file in the server
+//and upon success, it will call the neccessary paint-functions
 function getActivityContent() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var json = JSON.parse(this.response);
-      for (let obj in json) {
+      for (var obj in json) {
         activities.push(json[obj]);
       }
       //Because the cards will be painted chronologically
@@ -62,7 +33,13 @@ function getActivityContent() {
   xhttp.send();
 }
 
+//Gets the first entry of the activities array and paint's it as a
+//highlighted card. It is also responsible for initalizing the timer
 function paintHighLightCard() {
+  var currentHighLight = document.getElementById('spotlight-card');
+  if (currentHighLight) {
+    currentHighLight.parentNode.removeChild(currentHighLight);
+  }
   activities[0].color = getRandomColor();
   var container = document.getElementById("next-activity");
   var card = cardFactory.newStaticCard(activities[0]); //The cards are sorted and therefore, the first activity will be "next" activity
@@ -70,13 +47,23 @@ function paintHighLightCard() {
   CountDownTimer(activities[0].startTime, "clock");
 }
 
+//will take all activity data and paint them as activity cards
 function paintActiviyCards() {
-  for (let index in activities) {
+  for (var index = 1; index < activities.length; index++) {
+    var container = document.getElementById(activities[index].startTime);
+    if (!container) {
+      container = document.createElement('div');
+      container.classList.add('mo-card-date-container');
+      container.id = activities[index].startTime;
+      document.body.appendChild(container);
+    }
     activities[index].color = getRandomColor();
-    document.body.appendChild(cardFactory.newActivityCard(activities[index]));
+    container.appendChild(cardFactory.newActivityCard(activities[index]));
   }
 }
 
+//Creates and implements the timer. It will also re-initialize itself whenever
+//the countdown reaches its goal.
 function CountDownTimer(dt, id) {
   var end = dt;
 
@@ -92,7 +79,8 @@ function CountDownTimer(dt, id) {
 
     if (distance < 0) {
       clearInterval(timer);
-      document.getElementById(id).innerHTML = 'EXPIRED!';
+      activities.shift();
+      paintHighLightCard();
       return;
     }
 
@@ -100,19 +88,19 @@ function CountDownTimer(dt, id) {
     var hours = Math.floor((distance % _day) / _hour);
     var minutes = Math.floor((distance % _hour) / _minute);
     var seconds = Math.floor((distance % _minute) / _second);
-    document.getElementById(id).innerHTML = days + 'days ';
-    document.getElementById(id).innerHTML += hours + 'hrs ';
-    document.getElementById(id).innerHTML += minutes + 'mins ';
-    document.getElementById(id).innerHTML += seconds + 'secs';
+    document.querySelector("#clock .clock-days div").innerHTML = days;
+    document.querySelector("#clock .clock-hours div").innerHTML = hours;
+    document.querySelector("#clock .clock-minutes div").innerHTML = minutes;
+    document.querySelector("#clock .clock-seconds div").innerHTML = seconds;
   }
   timer = setInterval(showRemaining, 1000);
 }
 
+
+//Helpers
 function getRandomColor() {
   var min = 0;
   var max = colors.length;
   var index = Math.round(Math.random() * (max - min) + min);
   return colors[index];
 }
-
-getActivityContent();

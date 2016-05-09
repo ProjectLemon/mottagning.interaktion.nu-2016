@@ -10,6 +10,21 @@ html {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
+// ======= Timer =======
+#clock {
+  .clock-item {
+    display: inline-block;
+    margin: 1em;
+    text-align: center;
+    .clock-time {
+      font-size: 4em;
+    }
+    .clock-item-label {
+      font-size: 1.5em;
+    }
+  }
+}
+
 // ======= Cards =======
 .mo-card {
   width: 100%;

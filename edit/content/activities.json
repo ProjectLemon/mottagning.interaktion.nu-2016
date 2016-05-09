@@ -1,7 +1,7 @@
 {
     "config2": {
       "title": "Test2",
-      "startTime": "2016-05-31T13:00:00",
+      "startTime": "2016-05-09T21:00:00+02:00",
       "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! <p>Utgång: Origo</p>",
       "place": "Campusängarna",
       "lat": "63.821171",
@@ -10,8 +10,17 @@
     },
     "config1": {
       "title": "Vinbrännboll",
-      "startTime": "2016-05-27T19:10:00",
+      "startTime": "2016-05-27T19:10:00+02:00",
       "description": "This is an example card",
+      "place": "Campusängarna",
+      "lat": "63.821171",
+      "long": "20.310395",
+      "img": "/resources/img/DSC0477_small.jpg"
+    },
+    "config3": {
+      "title": "Hurtidrutten",
+      "startTime": "2016-05-25T19:10:00+02:00",
+      "description": "This card also has a super long description text. It actually is slightly longer than the allowed two hundred chars max limit. But hey, what can they do? I get to write what's on the cards and no one can stop me because I have the power",
       "place": "Campusängarna",
       "lat": "63.821171",
       "long": "20.310395",
