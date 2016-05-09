@@ -24,7 +24,7 @@ var CardFactory = (function Card() {
       var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startTime)+"</h2>";
       var location = "<h5 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h5>";
       var description = "<div class='description animate'>"+config.description+"</div>";
-      var directions = "<a onclick='cardFactory.openDirections(event)'><img src='/resources/img/icons/directions.svg' class='directions'></a>"
+      var directions = "<a onclick='cardFactory.openDirections(event)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>"
 
       card.style.backgroundColor = config.color;
       card.innerHTML += headerImg + titleText + startTime + startDate + location + description + directions;

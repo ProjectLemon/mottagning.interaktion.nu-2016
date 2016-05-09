@@ -16,7 +16,9 @@ function getActivityContent() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var json = JSON.parse(this.response);
       for (var obj in json) {
-        activities.push(json[obj]);
+        if (new Date(json[obj].startTime).getTime() >= new Date().getTime()) {
+            activities.push(json[obj]);
+        }
       }
       //Because the cards will be painted chronologically
       activities.sort(function(a,b) {
@@ -80,7 +82,7 @@ function CountDownTimer(dt, id) {
     if (distance < 0) {
       clearInterval(timer);
       activities.shift();
-      paintHighLightCard();
+      location.reload();
       return;
     }
 
