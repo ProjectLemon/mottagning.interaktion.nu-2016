@@ -4,33 +4,75 @@
 html {
   color: white;
   font-family: 'Quicksand', sans-serif;
+  background: url('/resources/img/bg-large-process-comp.jpg') no-repeat center center fixed;
+  -webkit-backround-size:cover;
+  -moz-background-size:cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
 }
 
 .no-select {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
+// ======= Navbar ======
+nav#navigation-bar {
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: rgba(0,0,0,.6);
+  ul {
+    list-style-type: none;
+    li {
+      display: inline-block;
+      margin-right: 2em;
+    }
+    img.fa-icon {
+      max-width: 18px;
+      margin-right: 0;
+    }
+  }
+}
+
 // ======= Timer =======
 #next-activity {
+  > p {
+    margin: 0 16px;
+  }
   #clock {
     .clock-item {
       display: inline-block;
-      margin: 1em;
+      margin: 0 1em 1em 1em;
       text-align: center;
       .clock-time {
         font-size: 4em;
+        font-weight: 100;
       }
       .clock-item-label {
         font-size: 1.5em;
+        font-weight: 100;
       }
     }
   }
 
   @media screen and (max-width: $tablet-portrait-width) {
-    display: none;
+    > p {
+      display: none;
+    }
+    #clock {
+      display: none
+    }
   }
 }
 // ======= Cards =======
+#spotlight-card-headline {
+  margin: 0 16px;
+  font-weight: 100;
+}
+
 .mo-card {
   width: 100%;
   max-width: 300px;
