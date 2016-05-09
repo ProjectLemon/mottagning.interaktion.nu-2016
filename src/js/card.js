@@ -50,10 +50,16 @@ var CardFactory = (function Card() {
     _this.newStaticCard = function(config) {
       _this._attributes = config;
       var card = _this.newCard(config);
+      var wrapper = document.createElement('div');
+      var headline = document.createElement('h2');
       card.id = "spotlight-card";
-      card.classList.add('mo-card', 'mo-card-spotlight');
+      headline.id = "spotlight-card-headline"
+      headline.innerHTML = "Next activity:";
+      card.classList.add('mo-card', 'mo-card-spotlight');;
+      wrapper.appendChild(headline);
+      wrapper.appendChild(card);
 
-      return card;
+      return wrapper;
     }
 
     //This is called whenever the directions icon is pressed. It redirects the
