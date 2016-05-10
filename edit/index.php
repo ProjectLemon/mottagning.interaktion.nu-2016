@@ -63,8 +63,12 @@ $selected = false;
               ?>>
           </label>
           <br>
+          
+          <label>Tid och Datum:<input name="datetime" type="text" id="datepicker" readonly></label>
+          <br>
         
-          <label>Tid:<input type="text" name="time" required
+          <!--
+          <label>Tid:<input id="form-time" type="time" name="time" required
               <?php 
                 if ($selected && property_exists($selected, 'time')) echo 'value="'.$selected->time.'"'   
               ?>>
@@ -76,20 +80,43 @@ $selected = false;
               ?>>
           </label>
           <br>
+          -->
           
           <label class="form-description">Beskrivning:<textarea name="description" rows="5" cols="30" required
           ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
               ?></textarea>
           </label>
           <br>
+          
+          
+          <label>Beskrivande plats:
+          <label>Lat:<input name="lat" type="text"></label>
+          <label>Longitude:<input name="long" type="text"></label>
+          
           <input type="submit" name="save" value="Spara" class="button">
           <span id="form-error">Var snäll och fyll i hela formuläret</span>
+          
         </div>
       </form>
       <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
     </div>
     
+    <script src="../src/js/lib/pikaday.min.js"></script>
     <script>
+      var picker = new Pikaday({
+          field: document.getElementById('datepicker'),
+          showTime: true,
+          use24hour: true,
+          minDate: new Date(),
+        i18n: {
+            previousMonth : 'Föregående månad',
+            nextMonth     : 'Nästa månad',
+            months        : ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+            weekdays      : ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+            weekdaysShort : ['Sön','Mån','Tis','Ons','Tors','Fre','Lör']
+        }
+      });
+      
       /* Reaload page with filled content when changing activity */
       var select = document.getElementById('activity-select');
       select.addEventListener('change', function() {

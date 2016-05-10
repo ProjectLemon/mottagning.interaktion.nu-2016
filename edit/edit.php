@@ -92,11 +92,8 @@ function verifyForm() {
     if (!isset($_POST['description']) || $_POST['description'] == '') {
         throw new RuntimeException('No description was set');
     }
-    if (!isset($_POST['time']) || $_POST['time'] == '') {
-        throw new RuntimeException('No time was set');
-    }
-    if (!isset($_POST['date']) || $_POST['date'] == '') {
-        throw new RuntimeException('No date was set');
+    if (!isset($_POST['datetime']) || $_POST['datetime'] == '') {
+        throw new RuntimeException('No datetime was set');
     }
 }
 
@@ -111,8 +108,7 @@ function save($activites_file_name) {
     $formdata = array(
 	    'title' => $_POST['title'],
 	    'description' => $_POST['description'],
-	    'time' => $_POST['time'],
-	    'date' => $_POST['date']
+	    'datetime' => $_POST['datetime'],
     );
 
     // Open json data file
