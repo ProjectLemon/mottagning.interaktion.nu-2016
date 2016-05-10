@@ -1,7 +1,7 @@
 {
     "Test2": {
       "title": "Test2",
-      "startDateTime": "Mon May 09 2016 19:39:28 GMT+0200 (CEST)",
+      "startDateTime": "Mon May 11 2016 19:39:28 GMT+0200 (CEST)",
       "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! <p>Utgång: Origo</p>",
       "place": "Campusängarna",
       "lat": "63.821171",
@@ -10,8 +10,17 @@
     },
     "Vinbr\u00e4nnboll": {
       "title": "Vinbr\u00e4nnboll",
-      "startDateTime": "Mon May 10 2016 15:39:28 GMT+0200 (CEST)",
+      "startDateTime": "Mon May 20 2016 15:39:28 GMT+0200 (CEST)",
       "description": "This is an example card",
+      "place": "Campusängarna",
+      "lat": "63.821171",
+      "long": "20.310395",
+      "image": "/resources/img/DSC0477_small.jpg"
+    },
+    "Hurtidrutten": {
+      "title": "Hurtidrutten",
+      "startDateTime": "Mon May 22 2016 15:39:28 GMT+0200 (CEST)",
+      "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do whatever I want because it's my code.",
       "place": "Campusängarna",
       "lat": "63.821171",
       "long": "20.310395",
