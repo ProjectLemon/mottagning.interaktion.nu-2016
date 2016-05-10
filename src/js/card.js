@@ -18,11 +18,11 @@ var CardFactory = (function Card() {
     _this.newCard = function(config) {
       config.startDateTime = new Date(config.startDateTime);
       var card = document.createElement('div');
-      var headerImg = "<img src='"+config.image+"' alt=''>";
+      var headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
       var titleText = "<h1 class='titleText'>"+config.title+"</h1>";
       var startTime = "<h2 class='startTime'><img src='/resources/img/icons/clock.svg' class='fa-icon'>"+_this.formatTime(config.startDateTime)+"</h2>";
       var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startDateTime)+"</h2>";
-      var location = "<a onclick='cardFactory.openDirections(event)'><h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3></a>";
+      var location = "<h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3>";
       var description = "<div class='description animate'>"+config.description+"</div>";
       var directions = "<a onclick='cardFactory.openDirections(event)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>"
 
@@ -53,9 +53,10 @@ var CardFactory = (function Card() {
       var wrapper = document.createElement('div');
       var headline = document.createElement('h2');
       card.id = "spotlight-card";
+      wrapper.id = "next-activity-card-wrapper"
       headline.id = "spotlight-card-headline"
       headline.innerHTML = "Next activity:";
-      card.classList.add('mo-card', 'mo-card-spotlight');;
+      card.classList.add('mo-card', 'mo-card-spotlight');
       wrapper.appendChild(headline);
       wrapper.appendChild(card);
 

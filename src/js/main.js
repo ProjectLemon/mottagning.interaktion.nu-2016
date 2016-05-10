@@ -1,6 +1,7 @@
 
 //Call "main" function
 initializeMenu();
+getActivityContent();
 
 //Functions
 function initializeMenu() {

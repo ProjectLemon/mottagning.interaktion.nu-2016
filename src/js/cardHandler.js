@@ -3,8 +3,6 @@ var colors = ["#7A1EA1", "#EE6B00", "#1E5E2F", "#A85BA4", "#3374BA", "#455A64", 
 var cardFactory = new CardFactory();
 var activities = [];
 
-getActivityContent();
-
 //getActivityContent performs a query for the activities file in the server
 //and upon success, it will call the neccessary paint-functions
 function getActivityContent() {
@@ -49,11 +47,11 @@ function paintHighLightCard() {
 //will take all activity data and paint them as activity cards
 function paintActiviyCards() {
   for (var index = 1; index < activities.length; index++) {
-    var container = document.getElementById(activities[index].startDateTime);
+    var container = document.getElementById(activities[index].startDateTime.split(" ").join(""));
     if (!container) {
       container = document.createElement('div');
       container.classList.add('mo-card-date-container');
-      container.id = activities[index].startDateTime;
+      container.id = activities[index].startDateTime.split(" ").join("");
       document.body.appendChild(container);
     }
     activities[index].color = getRandomColor();
