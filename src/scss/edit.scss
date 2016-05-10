@@ -1,3 +1,7 @@
+@charset 'utf-8';
+
+@import 'lib/pikaday';
+
 /**
  * Setup
  */
@@ -14,7 +18,7 @@ html, body, input, label {
 body {
   font-family: $font;
   font-size: 16px;
-  background: url('../resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
+  background: url('/resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
   background-size: cover;
 }
 #image-upload-show {
@@ -72,6 +76,10 @@ body {
     padding: 4px 8px;
     margin-left: 12px; 
   }
+  input:not([type="file"]), select {
+    box-sizing: border-box;
+    height: 32px;
+  }
   
   input[name="image"] {
     text-align: center;
@@ -81,7 +89,7 @@ body {
   }
   
   input[name="time"] {
-    width: 60px;
+    width: 85px;
   }
   
   .form-date {
@@ -119,11 +127,6 @@ body {
     padding: 4px 8px;
     margin-top: .3px;
     margin-left: 5px;
-    
-    &:after {
-      content: "as s d d s d a ";
-      background-image: url('../resources/img/icons/clock.svg');
-    }
   }
   
   input[name="delete"] {

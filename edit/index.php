@@ -18,7 +18,7 @@ $selected = false;
   <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/edit.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   </head>
   <body>
@@ -63,8 +63,14 @@ $selected = false;
               ?>>
           </label>
           <br>
+          
+          <label>Tid och Datum:<input name="datetime" type="text" id="datepicker" readonly required <?php 
+            if ($selected && property_exists($selected, 'startDateTime')) echo 'value="'.$selected->startDateTime.'"';
+          ?>></label>
+          <br>
         
-          <label>Tid:<input type="text" name="time" required
+          <!--
+          <label>Tid:<input id="form-time" type="time" name="time" required
               <?php 
                 if ($selected && property_exists($selected, 'time')) echo 'value="'.$selected->time.'"'   
               ?>>
@@ -76,20 +82,54 @@ $selected = false;
               ?>>
           </label>
           <br>
+          -->
           
           <label class="form-description">Beskrivning:<textarea name="description" rows="5" cols="30" required
           ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
               ?></textarea>
           </label>
           <br>
+          
+          
+          <label>Plats:<input name="place" type="text" required <?php 
+            if ($selected && property_exists($selected, 'place')) echo 'value="'.$selected->place.'"';
+          ?>></label>
+          <br>
+          
+          <label>Latitude:<input name="lat" type="text" required <?php 
+            if ($selected && property_exists($selected, 'lat')) echo 'value="'.$selected->lat.'"';
+          ?>></label>
+          <label>Longitude:<input name="long" type="text" required <?php 
+            if ($selected && property_exists($selected, 'long')) echo 'value="'.$selected->long.'"';
+          ?>></label>
+          <br>
+          <span>Tips: <a href="http://www.latlong.net/">www.latlong.net</a></span>
+          <br>
+          
           <input type="submit" name="save" value="Spara" class="button">
           <span id="form-error">Var snäll och fyll i hela formuläret</span>
+          
         </div>
       </form>
       <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
     </div>
     
+    <script src="../src/js/lib/pikaday.min.js"></script>
     <script>
+      var picker = new Pikaday({
+          field: document.getElementById('datepicker'),
+          showTime: true,
+          use24hour: true,
+          minDate: new Date(),
+        i18n: {
+            previousMonth : 'Föregående månad',
+            nextMonth     : 'Nästa månad',
+            months        : ['Januari', 'Februari', 'Mars', 'April', 'Maj', 'Juni', 'Juli', 'Augusti', 'September', 'Oktober', 'November', 'December'],
+            weekdays      : ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+            weekdaysShort : ['Sön','Mån','Tis','Ons','Tors','Fre','Lör']
+        }
+      });
+      
       /* Reaload page with filled content when changing activity */
       var select = document.getElementById('activity-select');
       select.addEventListener('change', function() {
