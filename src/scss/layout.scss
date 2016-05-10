@@ -9,7 +9,9 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   line-height: 0;
   font-size: 0;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 
 html, body {
   width: 100%;
@@ -49,6 +51,34 @@ html, body {
               display: block;
             }
           }
+        }
+      }
+    }
+  }
+  #activity-cards {
+    margin: -7em auto 200px auto;
+    display: table;
+    @media screen and (max-width: $tablet-portrait-width) {
+      width: 100%;
+      margin: 2em auto 0 auto;
+      display: inline-block;
+    }
+    .mo-card-date-container {
+      display:table-row;
+      margin-top: 1em;
+      position: relative;
+      @media screen and (max-width: $phone-landscape-width) {
+        display: block;
+      }
+      div.offset-day {
+        position: absolute;
+        font-size: 24pt;
+        margin-left: -3em;
+        margin-top: 171px;
+        @media screen and (max-width: $tablet-portrait-width) {
+          position: static;
+          font-size: 1em;
+          margin: 0;
         }
       }
     }

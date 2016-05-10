@@ -1,16 +1,25 @@
 @mixin animateCardExpand {
   display: block;
   opacity: 0;
-  animation-duration: .5s;
+  animation-duration: .1s;
   animation-name: fadeInFromNone;
   animation-fill-mode: forwards;
   animation-delay: .3s;
-  -webkit-animation-duration: .5s;
+  -webkit-animation-duration: .1s;
   -webkit-animation-name: fadeInFromNone;
   -webkit-animation-fill-mode: forwards;
   animation-delay: .3s;
-  -ms-animation-duration: .5s;
+  -ms-animation-duration: .1s;
   -ms-animation-name: fadeInFromNoneIE;
   -ms-animation-fill-mode: forwards;
   animation-delay: .3s;
+}
+
+@mixin fadeOutBackground {
+  background: -moz-linear-gradient(bottom,  rgba(0,0,0,0) 0%, rgba(0,0,0,.6) 30%);
+  background: -webkit-gradient(linear, left bottom, left bottom, color-stop(0%,rgba(0,0,0,0.5)), color-stop(30%,rgba(0,0,0,.6)));
+  background: -webkit-linear-gradient(bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,.6) 30%);
+  background: -o-linear-gradient(bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,.6) 30%);
+  background: -ms-linear-gradient(bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,.6) 30%);
+  background: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0, 0, 0, .6) 30%);
 }

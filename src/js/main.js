@@ -1,7 +1,9 @@
 
 //Call "main" function
-initializeMenu();
-getActivityContent();
+(function main() {
+  initializeMenu();
+  setPageTitle();
+}());
 
 //Functions
 function initializeMenu() {
@@ -22,12 +24,18 @@ function initializeMenu() {
   activeCollapsed.classList.add("active");
 }
 
+function setPageTitle() {
+  document.title += " "+new Date().getFullYear();
+}
+
 function showOverlay(message) {
   var overlayBackground = document.createElement('div');
   var messageContainer = document.createElement('div');
+
   overlayBackground.style.cssText = "height:100%; width: 100%; position:fixed; top:0;right:0; z-index:100000000000000;background-color: rgba(0,0,0,.4);";
   messageContainer.style.cssText = "position: absolute; margin:auto; top:50%; left:50%; transform: translate(-50%, -50%); width:300px; padding: 20px; background-color: #EDE4DA; text-align: center; color: black;";
   messageContainer.innerHTML = message;
+
   overlayBackground.id = "Site overlay";
   overlayBackground.appendChild(messageContainer);
   document.body.appendChild(overlayBackground);

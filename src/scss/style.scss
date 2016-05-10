@@ -13,6 +13,11 @@ html {
   height: 100%;
   width: 100%;
 
+  body.front-page {
+    @include fadeOutBackground();
+    overflow-x: hidden;
+  }
+
   a {
     cursor: pointer;
     text-decoration: none;
@@ -31,6 +36,9 @@ html {
       position: fixed;
       bottom: 1em;
       right: 2em;
+      @media screen and (max-width: $phone-landscape-width) {
+        display: none;
+      }
     }
   }
 }
@@ -38,8 +46,7 @@ html {
 // ======= Navbar ======
 nav#navigation-bar {
   display: block;
-  position: absolute;
-  font-weight: 100;
+  position: fixed;
   right: 0;
   top: 0;
   background-color: rgba(0,0,0,.6);
@@ -113,17 +120,14 @@ nav#navigation-bar {
     text-align: center;
     .clock-time {
       font-size: 4em;
-      font-weight: 100;
     }
     .clock-item-label {
       font-size: 1.5em;
-      font-weight: 100;
     }
   }
 }
 #spotlight-card-headline {
   margin: 0;
-  font-weight: 100;
 }
 #spotlight-card {
   margin-top: 1em;
@@ -163,24 +167,31 @@ nav#navigation-bar {
 
   &.mo-card-activity {
     cursor: pointer;
+    z-index: 2;
+    margin: 1em;
     /*Material box shadows*/
     -webkit-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
     -moz-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
     box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
 
     /*Animate height*/
-    -webkit-transition: height 0.8s;
-    -moz-transition: height 0.8s;
-    transition: height 0.8s;
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    transition: height 0.5s;
+    @media screen and (max-width: $tablet-landscape-width) {
+      &:first-child {
+        margin: 2em 1em;
+      }
+      margin: auto;
+    }
   }
 
   &.mo-card-spotlight {
-    max-width: 400px;
-    height: 550px;
+    width: 350px;
+    height: 500px;
 
     div.description {
       display: block;
-      font-weight: 100;
       margin-left: 10px;
     }
     img.directions {
@@ -206,7 +217,6 @@ nav#navigation-bar {
     margin-right: 5px;
   }
   h1, h2, h3, h4, h5 {
-    font-weight: 100;
     margin: 10px 5px;
   }
   h1 {
@@ -239,7 +249,6 @@ nav#navigation-bar {
   }
 
   div.description {
-    font-weight: 100;
     padding: 10px;
     font-size: 10pt;
     @include animateCardExpand();
