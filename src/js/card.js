@@ -2,7 +2,7 @@
 var CardFactory = (function Card() {
   var _attributes = {
     title: "",
-    startTime: "",
+    startDateTime: "",
     description: "",
     place: "",
     lat: "",
@@ -16,15 +16,15 @@ var CardFactory = (function Card() {
 
     //Returns a base card containing a html strucure and data provided by config
     _this.newCard = function(config) {
-      config.startTime = new Date(config.startTime);
+      config.startDateTime = new Date(config.startDateTime);
       var card = document.createElement('div');
-      var headerImg = "<img src='"+config.img+"' alt=''>";
+      var headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
       var titleText = "<h1 class='titleText'>"+config.title+"</h1>";
-      var startTime = "<h2 class='startTime'><img src='/resources/img/icons/clock.svg' class='fa-icon'>"+_this.formatTime(config.startTime)+"</h2>";
-      var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startTime)+"</h2>";
-      var location = "<h5 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h5>";
+      var startTime = "<h2 class='startTime'><img src='/resources/img/icons/clock.svg' class='fa-icon'>"+_this.formatTime(config.startDateTime)+"</h2>";
+      var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startDateTime)+"</h2>";
+      var location = "<h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3>";
       var description = "<div class='description animate'>"+config.description+"</div>";
-      var directions = "<a onclick='cardFactory.openDirections(event)'><img src='/resources/img/icons/directions.svg' class='directions'></a>"
+      var directions = "<a onclick='cardFactory.openDirections(event)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>"
 
       card.style.backgroundColor = config.color;
       card.innerHTML += headerImg + titleText + startTime + startDate + location + description + directions;
@@ -50,16 +50,24 @@ var CardFactory = (function Card() {
     _this.newStaticCard = function(config) {
       _this._attributes = config;
       var card = _this.newCard(config);
+      var wrapper = document.createElement('div');
+      var headline = document.createElement('h2');
       card.id = "spotlight-card";
+      wrapper.id = "next-activity-card-wrapper"
+      headline.id = "spotlight-card-headline"
+      headline.innerHTML = "Next activity:";
       card.classList.add('mo-card', 'mo-card-spotlight');
+      wrapper.appendChild(headline);
+      wrapper.appendChild(card);
 
-      return card;
+      return wrapper;
     }
 
     //This is called whenever the directions icon is pressed. It redirects the
     //user to google maps with directions from their localtion to the activity
     _this.openDirections = function(e) {
       e.stopPropagation();
+      showOverlay("Awaiting google maps");
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function successCallback(pos) {
           var lat = pos.coords.latitude;
@@ -67,7 +75,7 @@ var CardFactory = (function Card() {
           window.location.href = "https://www.google.com/maps/dir/'"+lat+","+long+"'/'"+_this._attributes.lat+","+_this._attributes.long+"'";
         }, function failureCallback(error) {
           window.location.href = "https://www.google.com/maps/place/"+_this._attributes.lat+","+_this._attributes.long+"/@"+_this._attributes.lat+","+_this._attributes.long+",15z"
-        }, {timeout:2000});
+        }, {timeout:3000});
       } else {
         window.location.href = "https://www.google.com/maps/place/"+_this._attributes.lat+","+_this._attributes.long+"/@"+_this._attributes.lat+","+_this._attributes.long+",15z"
       }
@@ -83,7 +91,7 @@ var CardFactory = (function Card() {
       return time+date.getMinutes();
     }
     _this.formatDate = function(date) {
-      return ""+date.getDate()+"/"+date.getMonth();
+      return ""+date.getDate()+"/"+(date.getMonth() + 1);
     }
   }
 }());

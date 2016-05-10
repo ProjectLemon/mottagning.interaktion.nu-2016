@@ -1,6 +1,6 @@
 @charset 'utf-8';
 
-@import 'pikaday';
+@import 'lib/pikaday';
 
 /**
  * Setup
@@ -18,7 +18,7 @@ html, body, input, label {
 body {
   font-family: $font;
   font-size: 16px;
-  background: url('../resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
+  background: url('/resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
   background-size: cover;
 }
 #image-upload-show {

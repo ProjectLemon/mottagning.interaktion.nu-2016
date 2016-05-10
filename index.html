@@ -5,44 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<title>Title</title>
-		<link rel="stylesheet" href="/resources/css/layout.css">
+		<link rel="stylesheet" href="/resources/css/layout.min.css">
     <link rel="stylesheet" href="/resources/css/style.min.css">
 
 	</head>
 
 	<body>
-		<!--<nav id="navigation-bar">
-			<ul>
-				<li id="info" class="menu-item">
-					<img src="/resources/img/icons/info.svg" alt="Bra att veta">
-					<p>Bra att vata</p>
-				</li>
-
-				<li id="contact" class="menu-item">
-					<img src="/resources/img/icons/phone.svg" alt="Kontakt">
-					<p>Kontakt</p>
-				</li>
-
-				<li id="schedule" class="menu-item">
-					<img src="/resources/img/icons/calendar.svg" alt="Schema">
-					<p>Schema</p>
-				</li>
-
+		<nav id="navigation-bar">
+      <!--Menu to show in expanded mode-->
+			<ul class="navbar-expanded">
+        <li id="schedule" class="menu-item">
+          <a href="/">
+		       <img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema">Schema</a>
+				</li><li id="contact" class="menu-item" >
+          <a href="/contact/index.html"><img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt">Kontakt</a>
+				</li><li id="info" class="menu-item">
+          <a href="/info/index.html"><img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta">Bra att veta</a>
+        </li>
 			</ul>
-		</nav>-->
+
+      <!--Menu to show in collapsed mode-->
+      <ul class="navbar-collapsed">
+        <li id="schedule" class="menu-item">
+          <a href="/"><img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema"></a>
+				</li><li id="contact" class="menu-item" >
+          <a href="/contact/index.html"><img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt"></a>
+				</li><li id="info" class="menu-item">
+          <a href="/info/index.html"><img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta"></a>
+        </li>
+      </ul>
+		</nav>
 		<div id="next-activity">
 			<p>Next Activity starts in:</p>
 			<div id="clock">
-
+        <div class="clock-item clock-days"><div class="clock-time"></div><div class="clock-item-label">Dagar</div></div>
+        <div class="clock-item clock-hours"><div class="clock-time"></div><div class="clock-item-label">Timmar</div></div>
+        <div class="clock-item clock-minutes"><div class="clock-time"></div><div class="clock-item-label">Minuter</div></div>
+        <div class="clock-item clock-seconds"><div class="clock-time"></div><div class="clock-item-label">Sekunder</div></div>
 			</div>
-<!--			<p>Dagar</p>
-			<p>Timmar</p>
-			<p>Minuter</p>
-			<p>Secunder</p>
-		</div>
-
-
-		<div class="logo">
+    </div>
+<!--<div class="logo">
 			<img src="/resources/img/logo.png" alt="Startsida">
 		</div>
 
@@ -59,6 +61,7 @@
 
     <script src="/src/js/fonts.js"></script>
     <script src="/src/js/card.js"></script>
+    <script src="/src/js/cardHandler.js"></script>
     <script src="/src/js/main.js"></script>
 	</body>
 </html>

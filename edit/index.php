@@ -18,7 +18,7 @@ $selected = false;
   <head>
     <title>Title</title>
     <meta charset="UTF-8">
-    <link href="style.css" rel="stylesheet" type="text/css">
+    <link href="/resources/css/edit.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
   </head>
   <body>
@@ -64,7 +64,9 @@ $selected = false;
           </label>
           <br>
           
-          <label>Tid och Datum:<input name="datetime" type="text" id="datepicker" readonly></label>
+          <label>Tid och Datum:<input name="datetime" type="text" id="datepicker" readonly required <?php 
+            if ($selected && property_exists($selected, 'startDateTime')) echo 'value="'.$selected->startDateTime.'"';
+          ?>></label>
           <br>
         
           <!--
@@ -89,9 +91,20 @@ $selected = false;
           <br>
           
           
-          <label>Beskrivande plats:
-          <label>Lat:<input name="lat" type="text"></label>
-          <label>Longitude:<input name="long" type="text"></label>
+          <label>Plats:<input name="place" type="text" required <?php 
+            if ($selected && property_exists($selected, 'place')) echo 'value="'.$selected->place.'"';
+          ?>></label>
+          <br>
+          
+          <label>Latitude:<input name="lat" type="text" required <?php 
+            if ($selected && property_exists($selected, 'lat')) echo 'value="'.$selected->lat.'"';
+          ?>></label>
+          <label>Longitude:<input name="long" type="text" required <?php 
+            if ($selected && property_exists($selected, 'long')) echo 'value="'.$selected->long.'"';
+          ?>></label>
+          <br>
+          <span>Tips: <a href="http://www.latlong.net/">www.latlong.net</a></span>
+          <br>
           
           <input type="submit" name="save" value="Spara" class="button">
           <span id="form-error">Var snäll och fyll i hela formuläret</span>
