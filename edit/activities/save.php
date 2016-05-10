@@ -6,112 +6,14 @@
   </head>
   <body>
 <?php
-
-function verifyUploadImage($image_name, $target_dir) {
     
-    if (!isset($_FILES[$image_name]['tmp_name'])) {
-        throw new RuntimeException('No image provided');
-    }
-    $tmp_file_name = $_FILES[$image_name]['tmp_name'];
-    if (!file_exists($tmp_file_name) || $tmp_file_name == '') {
-        throw new RuntimeException('No image provided');
-    }
-    
-    // Check possible errors
-    switch ($_FILES[$image_name]['error']) {
-        case UPLOAD_ERR_OK:
-            break;
-        case UPLOAD_ERR_NO_FILE:
-            throw new RuntimeException('No file sent.');
-        case UPLOAD_ERR_INI_SIZE:
-        case UPLOAD_ERR_FORM_SIZE:
-            throw new RuntimeException('Exceeded filesize limit.');
-        default:
-            throw new RuntimeException('Unknown errors.');
-    }
-    
-    // Check if image file is a actual image or fake image
-    if (isset($_POST['submit'])) {
-        $check = getimagesize($tmp_file_name); // accepted hack to determine it's an image
-        
-        if ($check !== false) {
-            echo 'File is an image - ' . $check['mime'] . '.';
-            
-        } else {
-            throw new RuntimeException('File is not an image');
-        }
-    }
+require '../saving_resources.php';
 
-    // Check MIME Type manually
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $mime = $finfo->file($tmp_file_name, FILEINFO_MIME_TYPE);
-    if (!in_array(
-            $mime,
-            array(
-                'image/jpeg',
-                'image/jpg',
-                'image/png'
-            ), true)) { // strict
-
-        throw new RuntimeException('Sorry, only JPG, JPEG & PNG files are allowed.');
-    }
-    $extension = ($mime == 'image/png') ? '.png' : '.jpg';
-    
-    
-    // Check if target file name already exists
-    $exists = false;
-    for ($i = 0; $i < 7; $i++) {
-        $target_file = $target_dir . time() . $extension;
-        
-        if (!file_exists($target_file)) {
-            $exists = false;
-            break;
-        }
-        $exists = true;
-        sleep(1); // wait 1 second, max 7
-    }
-    if ($exists) {
-        throw new RuntimeException('Target file name already exist');
-    }
-
-    // You should also check filesize here. 
-    if ($_FILES[$image_name]['size'] > 5*1024*1024) { // 5mb
-        throw new RuntimeException('Exceeded filesize limit (5mb).');
-    }
-    
-    return $target_file;
-}
-
-function verifyForm() {
-    if (!isset($_POST['activity']) || $_POST['activity'] == '') {
-        throw new RuntimeException('No activity was set');
-    }
-    if (!isset($_POST['title']) || $_POST['title'] == '') {
-        throw new RuntimeException('No title was set');
-    }
-    if (!isset($_POST['description']) || $_POST['description'] == '') {
-        throw new RuntimeException('No description was set');
-    }
-    if (!isset($_POST['datetime']) || $_POST['datetime'] == '') {
-        throw new RuntimeException('No datetime was set');
-    }
-    if (!isset($_POST['place']) || $_POST['place'] == '') {
-        throw new RuntimeException('No place was set');
-    }
-    if (!isset($_POST['lat']) || $_POST['lat'] == '') {
-        throw new RuntimeException('No latitude was set');
-    }
-    if (!isset($_POST['long']) || $_POST['long'] == '') {
-        throw new RuntimeException('No longitude was set');
-    }
-}
-
-function save($activites_file_name) {
-    $target_dir = 'content/images/';
+function save($activites_file_name, $target_dir, $parent_path) {
     $image_file_key = 'image';
 
     // Validate Form Data
-    verifyForm();
+    verifyForm('activity', 'title', 'description', 'datetime', 'place', 'lat', 'long');
     
     // All form data should be in order (not image)
     $formdata = array(
@@ -134,7 +36,7 @@ function save($activites_file_name) {
             || isset($_FILES[$image_file_key]) 
                && $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new file is uploaded
         
-        $target_file = verifyUploadImage($image_file_key, $target_dir);
+        $target_file = verifyUploadImage($image_file_key, $target_dir, $parent_path);
         
         // Try to upload file
         if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) {
@@ -142,7 +44,8 @@ function save($activites_file_name) {
         } else {
             throw new RuntimeException('Failed to move uploaded file.');
         }
-        $formdata['image'] = $target_file;
+        $dir_name = basename((dirname(__FILE__))); // get current directory
+        $formdata['image'] = str_replace('..', $parent_path, $target_file);
         
     } else {
         // Use existing image
@@ -204,12 +107,19 @@ function delete($activites_file_name) {
 
 // define ('SITE_ROOT', realpath(dirname(__FILE__))); // may need on server
 
-$activites_file_name = 'content/activities.json';
+$image_dir = '../content/images/';
+$parent_path = '/edit';
+$activites_file_name = '../content/activities.json';
+if (!file_exists($activites_file_name)) {
+  $file = fopen($activites_file_name, 'w');
+  fwrite($file, '{}');
+  fclose($file); // create file if not exist
+}
 
 try {
     if (isset($_POST['save'])) {
         
-        save($activites_file_name);
+        save($activites_file_name, $image_dir, $parent_path);
         
     } elseif (isset($_POST['delete'])) {
         

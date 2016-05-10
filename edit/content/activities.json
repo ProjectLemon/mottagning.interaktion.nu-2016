@@ -10,12 +10,12 @@
     },
     "Vinbr\u00e4nnboll": {
         "title": "Vinbr\u00e4nnboll",
-        "startDateTime": "Mon May 20 2016 15:39:28 GMT+0200 (CEST)",
-        "description": "This is an example card",
+        "description": "This is an example card...",
+        "startDateTime": "Fri May 20 2016 15:39:00 GMT+0200 (CEST)",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
+        "image": "\/edit\/content\/images\/1462904999.jpg"
     },
     "Hurtidrutten": {
         "title": "Hurtidrutten",

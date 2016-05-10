@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 
 <?php
-$activites = json_decode(file_get_contents("content/activities.json"));
+$activites_file_name = '../content/activities.json';
+if (file_exists($activites_file_name)) {
+    $content = file_get_contents($activites_file_name); 
+} else {
+    $content = null;
+}
+if (!$content) {
+    $activites = '{}';
+} else {
+    $activites = json_decode($content);
+}
+
 if ($activites == null) {
     $activites = array();
 }
@@ -23,7 +34,7 @@ $selected = false;
   </head>
   <body>
     <div class="wrapper">
-      <form id="edit-activity-form" action="edit.php" method="POST" enctype="multipart/form-data">          
+      <form id="edit-activity-form" action="save.php" method="POST" enctype="multipart/form-data">          
         <select id="activity-select" name="activity" class="button">
           <option value="Ny aktivitet" required>Ny aktivitet</option>
           <?php
@@ -114,7 +125,7 @@ $selected = false;
       <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
     </div>
     
-    <script src="../src/js/lib/pikaday.min.js"></script>
+    <script src="/src/js/lib/pikaday.min.js"></script>
     <script>
       var picker = new Pikaday({
           field: document.getElementById('datepicker'),
