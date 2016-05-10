@@ -10,12 +10,16 @@ function initializeMenu() {
   for (var i = 0; i < subpages.length; i++) {
     if (address.search(subpages[i]) !== -1) {
       var active = document.getElementById(subpages[i]);
+      var activeCollapsed = document.getElementById(subpages[i]+"-collapsed");
+      activeCollapsed.classList.add("active");
       active.classList.add("active");
       return;
     }
   }
   var active = document.getElementById("schedule");
+  var activeCollapsed = document.getElementById("schedule-collapsed");
   active.classList.add("active");
+  activeCollapsed.classList.add("active");
 }
 
 function showOverlay(message) {

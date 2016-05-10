@@ -38,7 +38,7 @@ function paintHighLightCard() {
     currentHighLight.parentNode.removeChild(currentHighLight);
   }
   activities[0].color = getRandomColor();
-  var container = document.getElementById("next-activity");
+  var container = document.getElementById("highlighted-card");
   var card = cardFactory.newStaticCard(activities[0]); //The cards are sorted and therefore, the first activity will be "next" activity
   container.appendChild(card);
   CountDownTimer(activities[0].startDateTime, "clock");

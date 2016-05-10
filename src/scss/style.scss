@@ -1,5 +1,6 @@
 @import "mixins";
 @import "variables";
+@import "layout";
 
 html {
   color: white;
@@ -23,6 +24,14 @@ html {
   }
   .no-select {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  }
+  #logo {
+    img {
+      max-width: 150px;
+      position: fixed;
+      bottom: 1em;
+      right: 2em;
+    }
   }
 }
 
@@ -62,6 +71,9 @@ nav#navigation-bar {
         img.fa-icon {
           max-width: 30px;
         }
+        &.active {
+          background-color: #7A1EA1;
+        }
       }
       @media screen and (max-width: $phone-landscape-width) {
         display:inline-block;
@@ -90,38 +102,31 @@ nav#navigation-bar {
 }
 
 // ======= Next activity =======
-#next-activity {
-  > p {
-    margin: 0 16px;
+
+#clock {
+  p {
+    margin-left: 1em;
   }
-  #clock {
-    .clock-item {
-      display: inline-block;
-      margin: 0 1em 1em 1em;
-      text-align: center;
-      .clock-time {
-        font-size: 4em;
-        font-weight: 100;
-      }
-      .clock-item-label {
-        font-size: 1.5em;
-        font-weight: 100;
-      }
+  .clock-item {
+    display: inline-block;
+    margin: 0 1em 1em 1em;
+    text-align: center;
+    .clock-time {
+      font-size: 4em;
+      font-weight: 100;
+    }
+    .clock-item-label {
+      font-size: 1.5em;
+      font-weight: 100;
     }
   }
-  #spotlight-card-headline {
-    margin: 0 16px;
-    font-weight: 100;
-  }
-  #spotlight-card {
-    margin-top: 1em;
-    @media screen and (max-width: $tablet-portrait-width) {
-      display: none;
-    }
-  }
-  @media screen and (max-width: $tablet-portrait-width) {
-    display: none;
-  }
+}
+#spotlight-card-headline {
+  margin: 0;
+  font-weight: 100;
+}
+#spotlight-card {
+  margin-top: 1em;
 }
 // ======= Cards =======
 .mo-card-date-container {
@@ -139,15 +144,18 @@ nav#navigation-bar {
   position: relative;
   background-color: #7A1EA1; /*Falback color if javascript fails*/
   display: block;
-  float: none;
-  margin: auto;
+  float: left;
+  margin: 16px auto 0 auto;
 
   @media screen and (max-width: $phone-landscape-width) {
     height: 130px;
     width: 100%;
     display: block;
-    float: left;
-    margin: 16px auto 0 auto;
+    float: none;
+    margin: auto;
+    h1 {
+      padding: 10px 5px 0 5px;
+    }
     img.featured-image {
       display: none;
     }
@@ -201,6 +209,9 @@ nav#navigation-bar {
     font-weight: 100;
     margin: 10px 5px;
   }
+  h1 {
+    font-size: 1.5em;
+  }
   h2 {
     display: inline-block;
     margin: 0 10px;
@@ -221,6 +232,9 @@ nav#navigation-bar {
 .mo-card-expanded {
   height: 500px;
   @media screen and (max-width: $phone-landscape-width) {
+    height: 230px;
+  }
+  @media screen and (max-width: $phone-portrait-width) {
     height: 280px;
   }
 
