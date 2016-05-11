@@ -3,6 +3,8 @@ var colors = ["#7A1EA1", "#EE6B00", "#1E5E2F", "#A85BA4", "#3374BA", "#455A64", 
 var cardFactory = new CardFactory();
 var activities = [];
 
+getActivityContent(); //Start everything
+
 //getActivityContent performs a query for the activities file in the server
 //and upon success, it will call the neccessary paint-functions
 function getActivityContent() {
@@ -22,8 +24,12 @@ function getActivityContent() {
         return dateA.getTime() - dateB.getTime();
       });
 
-      paintHighLightCard();
+      console.log(document.body.clientWidth);
+      if (document.body.clientWidth >= 800) { //since we're not using a highlight card on screens < 800px
+        paintHighLightCard();
+      }
       paintActiviyCards();
+      addOffsetFields();
     }
   };
   xhttp.open("GET", "/edit/content/activities.json", true);
@@ -38,21 +44,25 @@ function paintHighLightCard() {
     currentHighLight.parentNode.removeChild(currentHighLight);
   }
   activities[0].color = getRandomColor();
-  var container = document.getElementById("next-activity");
+  var container = document.getElementById("highlighted-card");
   var card = cardFactory.newStaticCard(activities[0]); //The cards are sorted and therefore, the first activity will be "next" activity
   container.appendChild(card);
   CountDownTimer(activities[0].startDateTime, "clock");
+  activities.shift();
 }
 
 //will take all activity data and paint them as activity cards
 function paintActiviyCards() {
-  for (var index = 1; index < activities.length; index++) {
-    var container = document.getElementById(activities[index].startDateTime.split(" ").join(""));
+  for (var index = 0; index < activities.length; index++) {
+    var startDateTime = new Date(activities[index].startDateTime);
+    var container = document.getElementById(startDateTime.toDateString().replace(/ /g,"")); //.replace() will remove all blanks in string
     if (!container) {
       container = document.createElement('div');
+      container.setAttribute("data", startDateTime);
       container.classList.add('mo-card-date-container');
-      container.id = activities[index].startDateTime.split(" ").join("");
-      document.body.appendChild(container);
+      container.id = startDateTime.toDateString().replace(/ /g,"");
+      var cardContainer = document.getElementById('activity-cards');
+      cardContainer.appendChild(container);
     }
     activities[index].color = getRandomColor();
     container.appendChild(cardFactory.newActivityCard(activities[index]));
@@ -93,6 +103,25 @@ function CountDownTimer(dt, id) {
   timer = setInterval(showRemaining, 1000);
 }
 
+function addOffsetFields() {
+  var rows = document.getElementsByClassName('mo-card-date-container');
+  for (var i = 0; i < rows.length; i++) {
+    var date = new Date(rows[i].getAttribute("data"));
+    var div = document.createElement('div');
+    var span = document.createElement('span');
+
+
+    div.classList.add('offset-day');
+    div.style.width = rows[i].clientWidth+"px";
+    div.style.borderBottom = "1px solid white";
+
+    span.innerHTML = calculateDateOffset(date);
+
+    div.appendChild(span);
+    rows[i].insertBefore(div, rows[i].childNodes[0]);
+    div.style.paddingTop = Math.round((div.parentElement.clientHeight - div.clientHeight)/2);
+  }
+}
 
 //Helpers
 function getRandomColor() {
@@ -100,4 +129,20 @@ function getRandomColor() {
   var max = colors.length;
   var index = Math.round(Math.random() * (max - min) + min);
   return colors[index];
+}
+
+function calculateDateOffset(toDate) {
+  var now = new Date();
+  var offsett = (toDate-now)/(1000*60*60*24);
+  if (offsett < 1) {
+    return "Senare idag"
+  }
+  offsett = Math.floor(offsett);
+  if (offsett === 1) {
+    return "Imorgon";
+  } else if (offsett < 7) {
+    var days = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
+    return days[toDate.getDay() - 1];
+  }
+  return ""+toDate.getDate()+"/"+(toDate.getMonth() + 1);
 }

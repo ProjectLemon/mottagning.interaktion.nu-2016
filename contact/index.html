@@ -2,46 +2,54 @@
 <html lang="sv">
 	<head>
 		<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Title</title>
-		<link rel="stylesheet" href="/resources/css/layout.css">
+		<title>ID Mottagning </title>
+    <link rel="stylesheet" href="/resources/css/style.min.css">
 
 	</head>
 
 
-	<body>
+	<body class="contact-info">
 		<nav id="navigation-bar">
-			<ul>
-				<li id="info" class="menu-item">
-					<img src="/resources/img/info.svg" alt="Bra att veta">
-					<p>Bra att vata</p>
-				</li>
-
-				<li id="contact" class="menu-item">
-					<img src="/resources/img/phone.svg" alt="Kontakt">
-					<p>Kontakt</p>
-				</li>
-
-				<li id="schedule" class="menu-item">
-					<img src="/resources/img/calendar.svg" alt="Schema">
-					<p>Schema</p>
-				</li>
-
+      <!--Menu to show in expanded mode-->
+			<ul class="navbar-expanded">
+        <li id="schedule" class="menu-item">
+          <a href="/">
+		       <img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema">Schema</a>
+				</li><li id="contact" class="menu-item" >
+          <a href="/contact/index.html"><img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt">Kontakt</a>
+				</li><li id="info" class="menu-item">
+          <a href="/info/index.html"><img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta">Bra att veta</a>
+        </li>
 			</ul>
+
+      <!--Menu to show in collapsed mode-->
+      <ul class="navbar-collapsed">
+        <li id="schedule-collapsed" class="menu-item">
+          <a href="/"><img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema"></a>
+				</li><li id="contact-collapsed" class="menu-item" >
+          <a href="/contact/index.html"><img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt"></a>
+				</li><li id="info-collapsed" class="menu-item">
+          <a href="/info/index.html"><img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta"></a>
+        </li>
+      </ul>
 		</nav>
 
 
-		<div id="filip-bark" class="contact-info">
+		<div id="general-1" class="contact-info">
+			<div class="profile-picture-wrapper">
+			<div class="profile-pic"></div>
 			<h1 class="name">Filip Bark</h1>
-			<img class="profile-pic" src="/resources/img/filip-bark.png">
 			<h2 class="general-or-leader">General</h2>
 			<img src="/resources/img/phone.svg" alt="Ring">
 			<p>[insert filips nummer här]</p>
 			<img src="/resources/img/mail.svg" alt="Maila">
 			<p>[insert filips mail här]</p>
 		</div>
+		</div>
 
-		<div id="aron-nisbel" class="contact-info">
+		<div id="red-groupleader" class="contact-info">
 			<h1 class="name">Aron Nisbel</h1>
 			<img class="profile-pic" src="/resources/img/aron-nisbel.png">
 			<h2 class="general-or-leader">Röd Gruppledare</h2>
@@ -51,7 +59,7 @@
 			<p>[insert Arons mail här]</p>
 		</div>
 
-		<div id="linnea-berggren" class="contact-info">
+		<div id="blue-groupleader" class="contact-info">
 			<h1 class="name">Linnea Berggren</h1>
 			<img class="profile-pic" src="/resources/img/linnea-berggren.png">
 			<h2 class="general-or-leader">Blå Gruppledare</h2>
@@ -61,7 +69,7 @@
 			<p>[insert Linnea mail här]</p>
 		</div>
 
-		<div id="oscar-thorwid" class="contact-info">
+		<div id="general-2" class="contact-info">
 			<h1 class="name">Oscar Thorwid</h1>
 			<img class="profile-pic" src="/resources/img/oscar-thorwid.png">
 			<h2 class="general-or-leader">General</h2>
@@ -71,7 +79,7 @@
 			<p>[insert Oscar mail här]</p>
 		</div>
 
-		<div id="filip-bark" class="contact-info">
+		<div id="yellow-groupleader" class="contact-info">
 			<h1 class="name">Fredrik Östlund</h1>
 			<img class="profile-pic" src="/resources/img/filip-bark.png">
 			<h2 class="general-or-leader">Gul Gruppledare</h2>
@@ -83,8 +91,8 @@
 
 
 
-		<div class="logo">
-			<img src="/resources/img/logo.png" alt="Startsida">
+		<div id="logo" class="logo">
+			<a href="http://interaktion.nu"><img src="/resources/img/logo.png" alt="Startsida"></a>
 		</div>
 
 

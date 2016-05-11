@@ -1,3 +1,5 @@
+@import "variables";
+
 //Reset
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
@@ -7,10 +9,94 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   line-height: 0;
   font-size: 0;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 
 html, body {
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  .fp-highlight-content-wrapper {
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+    @media screen and (max-width: $tablet-portrait-width) {
+      display: none;
+    }
+    .col-1-2 {
+      display: table;
+      float: left;
+      width: 50%;
+      height: 100%;
+      #highlighted-card {
+        height: 100%;
+        margin: auto;
+        display: table;
+        #next-activity-card-wrapper {
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+      .clock-wrapper {
+        display: table;
+        height: 100%;
+        #clock {
+          display: table-cell;
+          vertical-align: middle;
+          @media screen and (max-width: $tablet-landscape-width) {
+            .clock-seconds {
+              margin-left: 0;
+            }
+            span.break {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+  #activity-cards {
+    margin: -5em auto 200px auto;
+    display: table;
+    @media screen and (max-width: $tablet-portrait-width) {
+      width: 100%;
+      margin: 2em auto 0 auto;
+      display: inline-block;
+    }
+    .mo-card-date-container {
+      display:table-row;
+      margin-top: 1em;
+      position: relative;
+      @media screen and (max-width: $phone-landscape-width) {
+        display: block;
+      }
+      div.offset-day {
+        position: absolute;
+        font-size: 24pt;
+        margin-left: -7em;
+        margin-top: 171px;
+        @media screen and (max-width: 1180px) {
+          margin-left: -5;
+          font-size: 18pt;
+        }
+        @media screen and (max-width: $tablet-landscape-width) {
+          position: static;
+          margin-left: 0;
+        }
+        @media screen and (max-width: $tablet-portrait-width) {
+          position: static;
+          font-size: 1em;
+          margin: 0;
+        }
+      }
+    }
+  }
+  .contact-info{
+    height: 200px;
+    width: 400px;
+    position: static;
+    margin-top: auto; 
+
+  }
 }
 //Menu

@@ -4,13 +4,12 @@
 		<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<title>Title</title>
-		<link rel="stylesheet" href="/resources/css/layout.min.css">
+		<title>ID Mottagning </title>
     <link rel="stylesheet" href="/resources/css/style.min.css">
 
 	</head>
 
-	<body>
+	<body class="front-page">
 		<nav id="navigation-bar">
       <!--Menu to show in expanded mode-->
 			<ul class="navbar-expanded">
@@ -26,38 +25,40 @@
 
       <!--Menu to show in collapsed mode-->
       <ul class="navbar-collapsed">
-        <li id="schedule" class="menu-item">
+        <li id="schedule-collapsed" class="menu-item">
           <a href="/"><img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema"></a>
-				</li><li id="contact" class="menu-item" >
+				</li><li id="contact-collapsed" class="menu-item" >
           <a href="/contact/index.html"><img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt"></a>
-				</li><li id="info" class="menu-item">
+				</li><li id="info-collapsed" class="menu-item">
           <a href="/info/index.html"><img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta"></a>
         </li>
       </ul>
 		</nav>
-		<div id="next-activity">
-			<p>Next Activity starts in:</p>
-			<div id="clock">
-        <div class="clock-item clock-days"><div class="clock-time"></div><div class="clock-item-label">Dagar</div></div>
-        <div class="clock-item clock-hours"><div class="clock-time"></div><div class="clock-item-label">Timmar</div></div>
-        <div class="clock-item clock-minutes"><div class="clock-time"></div><div class="clock-item-label">Minuter</div></div>
-        <div class="clock-item clock-seconds"><div class="clock-time"></div><div class="clock-item-label">Sekunder</div></div>
-			</div>
+
+    <div class="fp-highlight-content-wrapper">
+      <div class="col-1-2">
+        <div id="highlighted-card">
+
+        </div>
+      </div>
+      <div class="col-1-2">
+        <div class="clock-wrapper">
+          <div id="clock">
+              <p>Nästa aktivitet startar om:</p>
+              <div class="clock-item clock-days"><div class="clock-time"></div><div class="clock-item-label">Dagar</div></div>
+              <div class="clock-item clock-hours"><div class="clock-time"></div><div class="clock-item-label">Timmar</div></div><span class="break"></span>
+              <div class="clock-item clock-minutes"><div class="clock-time"></div><div class="clock-item-label">Minuter</div></div>
+              <div class="clock-item clock-seconds"><div class="clock-time"></div><div class="clock-item-label">Sekunder</div></div>
+          </div>
+        </div>
+      </div>
     </div>
-<!--<div class="logo">
-			<img src="/resources/img/logo.png" alt="Startsida">
+
+    <div id="logo" class="logo">
+			<a href="http://interaktion.nu"><img src="/resources/img/logo.png" alt="Startsida"></a>
 		</div>
 
-
-		<h1>Idag</h1>
-		<h1>Imorgon</h1>
-		<h1>Måndag</h1>
-		<h1>Tisdag</h1>
-		<h1>Onsdag</h1>
-		<h1>Torsdag</h1>
-		<h1>Fredag</h1>
-		<h1>Lördag</h1>
-		<h1>Söndag</h1>-->
+    <div id="activity-cards"></div> <!--Server rendered content-->
 
     <script src="/src/js/fonts.js"></script>
     <script src="/src/js/card.js"></script>

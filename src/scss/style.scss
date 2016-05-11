@@ -13,6 +13,11 @@ html {
   height: 100%;
   width: 100%;
 
+  body.front-page {
+    @include fadeOutBackground();
+    overflow-x: hidden;
+  }
+
   a {
     cursor: pointer;
     text-decoration: none;
@@ -25,13 +30,24 @@ html {
   .no-select {
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   }
+  #logo {
+    img {
+      max-width: 150px;
+      position: fixed;
+      bottom: 1em;
+      right: 2em;
+      @media screen and (max-width: $phone-landscape-width) {
+        display: none;
+      }
+    }
+  }
 }
 
 // ======= Navbar ======
 nav#navigation-bar {
   display: block;
-  position: absolute;
-  font-weight: 100;
+  position: fixed;
+  z-index: 100;
   right: 0;
   top: 0;
   background-color: rgba(0,0,0,.6);
@@ -63,6 +79,9 @@ nav#navigation-bar {
         img.fa-icon {
           max-width: 30px;
         }
+        &.active {
+          background-color: #7A1EA1;
+        }
       }
       @media screen and (max-width: $phone-landscape-width) {
         display:inline-block;
@@ -91,38 +110,28 @@ nav#navigation-bar {
 }
 
 // ======= Next activity =======
-#next-activity {
-  > p {
-    margin: 0 16px;
+
+#clock {
+  p {
+    margin-left: 1em;
   }
-  #clock {
-    .clock-item {
-      display: inline-block;
-      margin: 0 1em 1em 1em;
-      text-align: center;
-      .clock-time {
-        font-size: 4em;
-        font-weight: 100;
-      }
-      .clock-item-label {
-        font-size: 1.5em;
-        font-weight: 100;
-      }
+  .clock-item {
+    display: inline-block;
+    margin: 0 1em 1em 1em;
+    text-align: center;
+    .clock-time {
+      font-size: 4em;
+    }
+    .clock-item-label {
+      font-size: 1.5em;
     }
   }
-  #spotlight-card-headline {
-    margin: 0 16px;
-    font-weight: 100;
-  }
-  #spotlight-card {
-    margin-top: 1em;
-    @media screen and (max-width: $tablet-portrait-width) {
-      display: none;
-    }
-  }
-  @media screen and (max-width: $tablet-portrait-width) {
-    display: none;
-  }
+}
+#spotlight-card-headline {
+  margin: 0;
+}
+#spotlight-card {
+  margin-top: 1em;
 }
 // ======= Cards =======
 .mo-card-date-container {
@@ -140,15 +149,18 @@ nav#navigation-bar {
   position: relative;
   background-color: #7A1EA1; /*Falback color if javascript fails*/
   display: block;
-  float: none;
-  margin: auto;
+  float: left;
+  margin: 16px auto 0 auto;
 
   @media screen and (max-width: $phone-landscape-width) {
     height: 130px;
     width: 100%;
     display: block;
-    float: left;
-    margin: 16px auto 0 auto;
+    float: none;
+    margin: auto;
+    h1 {
+      padding: 10px 5px 0 5px;
+    }
     img.featured-image {
       display: none;
     }
@@ -156,24 +168,34 @@ nav#navigation-bar {
 
   &.mo-card-activity {
     cursor: pointer;
+    z-index: 2;
+    margin: 1em;
     /*Material box shadows*/
     -webkit-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
     -moz-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
     box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
 
     /*Animate height*/
-    -webkit-transition: height 0.8s;
-    -moz-transition: height 0.8s;
-    transition: height 0.8s;
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    transition: height 0.5s;
+    @media screen and (max-width: $tablet-landscape-width) {
+      margin: 10px;
+      &:first-child {
+        margin: 2em 1em;
+      }
+    }
+    @media screen and (max-width: $phone-landscape-width) {
+      margin: auto;
+    }
   }
 
   &.mo-card-spotlight {
-    max-width: 400px;
-    height: 550px;
+    width: 350px;
+    height: 500px;
 
     div.description {
       display: block;
-      font-weight: 100;
       margin-left: 10px;
     }
     img.directions {
@@ -195,12 +217,14 @@ nav#navigation-bar {
     }
   }
   img.fa-icon {
-    max-width: 18px;
+    max-width: 14px;
     margin-right: 5px;
   }
   h1, h2, h3, h4, h5 {
-    font-weight: 100;
     margin: 10px 5px;
+  }
+  h1 {
+    font-size: 1.5em;
   }
   h2 {
     display: inline-block;
@@ -222,11 +246,13 @@ nav#navigation-bar {
 .mo-card-expanded {
   height: 500px;
   @media screen and (max-width: $phone-landscape-width) {
+    height: 230px;
+  }
+  @media screen and (max-width: $phone-portrait-width) {
     height: 280px;
   }
 
   div.description {
-    font-weight: 100;
     padding: 10px;
     font-size: 10pt;
     @include animateCardExpand();
@@ -266,5 +292,48 @@ img.test{
   //width: 20%;
   height: auto;
   opacity: 100%
+
+}
+
+// ========== Contact ===========
+body.contact-info{
+  h1{
+    font-size: 1.5em;
+    padding: 10px
+  }
+
+  #general-1{
+    background-color: green;
+    .profile-pic {
+      background: url('/resources/img/DSC0477_small.jpg') no-repeat center center;
+    	width: 150px;
+    	height: 150px;
+      -webkit-backround-size:cover;
+      -moz-background-size:cover;
+      -o-background-size: cover;
+      background-size: cover;
+    	border-radius: 150px;
+    	-webkit-border-radius: 150px;
+    	-moz-border-radius: 150px;
+      background-size: 150px 150px;
+      float: right;
+	   }
+     .profile-picture-wrapper{
+       padding: 16px;
+     }
+  }
+  #red-groupleader{
+    background-color: red;
+  }
+  #blue-groupleader{
+    background-color: blue;
+  }
+  #general-2{
+    background-color: green;
+  }
+  #yellow-groupleader{
+    background-color: #FFC707;
+  }
+
 
 }
