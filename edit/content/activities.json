@@ -1,12 +1,12 @@
 {
     "Test2": {
         "title": "Test2",
-        "startDateTime": "Mon May 11 2016 19:39:28 GMT+0200 (CEST)",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! <p>Utg\u00e5ng: Origo<\/p>",
+        "startDateTime": "Thu May 12 2016 19:39:00 GMT+0200 (CEST)",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
+        "image": "\/edit\/content\/images\/1462907360.jpg"
     },
     "Vinbr\u00e4nnboll": {
         "title": "Vinbr\u00e4nnboll",

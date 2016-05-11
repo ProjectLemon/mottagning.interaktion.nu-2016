@@ -16,8 +16,8 @@ if (!$content) {
 if ($activites == null) {
     $activites = array();
 }
-if (isset($_GET['title'])) {
-    $param = $_GET['title'];
+if (isset($_GET['select'])) {
+    $param = $_GET['select'];
 } else {
     $param = 'Ny aktivitet';
 }
@@ -34,9 +34,11 @@ $selected = false;
   </head>
   <body>
     <div class="wrapper">
-      <form id="edit-activity-form" action="save.php" method="POST" enctype="multipart/form-data">          
-        <select id="activity-select" name="activity" class="button">
-          <option value="Ny aktivitet" required>Ny aktivitet</option>
+      <?php include '../menu.php'; ?>
+      
+      <form id="edit-form" class="form-activity" action="save.php" method="POST" enctype="multipart/form-data">          
+        <select id="edit-select" name="activity" class="button">
+          <option id="select-new" value="Ny aktivitet" required>Ny aktivitet</option>
           <?php
             foreach ($activites as $title => $activity) {
                 if ($title == $param) {
@@ -102,7 +104,7 @@ $selected = false;
           <br>
           
           
-          <label>Plats:<input name="place" type="text" required <?php 
+          <label class="form-place">Plats:<input name="place" type="text" required <?php 
             if ($selected && property_exists($selected, 'place')) echo 'value="'.$selected->place.'"';
           ?>></label>
           <br>
@@ -110,11 +112,11 @@ $selected = false;
           <label>Latitude:<input name="lat" type="text" required <?php 
             if ($selected && property_exists($selected, 'lat')) echo 'value="'.$selected->lat.'"';
           ?>></label>
-          <label>Longitude:<input name="long" type="text" required <?php 
+          <label class="form-long">Longitude:<input name="long" type="text" required <?php 
             if ($selected && property_exists($selected, 'long')) echo 'value="'.$selected->long.'"';
           ?>></label>
           <br>
-          <span>Tips: <a href="http://www.latlong.net/">www.latlong.net</a></span>
+          <span class="latlong-tip">Tips: <a href="http://www.latlong.net/" target="_blank">www.latlong.net</a></span>
           <br>
           
           <input type="submit" name="save" value="Spara" class="button">
@@ -140,55 +142,7 @@ $selected = false;
             weekdaysShort : ['Sön','Mån','Tis','Ons','Tors','Fre','Lör']
         }
       });
-      
-      /* Reaload page with filled content when changing activity */
-      var select = document.getElementById('activity-select');
-      select.addEventListener('change', function() {
-          var value = select.options[select.selectedIndex].value;
-          if (value == 'Ny aktivitet') {
-              window.location.href = window.location.href.split('?')[0]
-          } else {
-              window.location.href = window.location.href.split('?')[0] + '?title=' + encodeURIComponent(value);
-          }
-      });
-      
-      /* Preview image before uploading */
-      var imageUpload = document.getElementById('image-upload');
-      imageUpload.addEventListener('change', function changeActivity(event) {
-          var imageUploadShow = document.getElementById('image-upload-show');
-          var image = URL.createObjectURL(event.target.files[0])
-          if (imageUploadShow) {
-              imageUploadShow.src = image;
-          } else {
-              imageUpload.parentNode.insertAdjacentHTML('beforebegin', '<img id="image-upload-show" src="'+image+'">Ersätt ');
-          }
-      });
-      
-      /* Add cross-browser support for required */
-      var form = document.getElementById('edit-activity-form');
-      form.noValidate = true;
-      errorTime = 4000 // 4 seconds
-      form.addEventListener('submit', function(event) {
-          if (!event.target.checkValidity()) {
-              event.preventDefault();
-              formError = document.getElementById('form-error');
-              formError.style.display = 'inline';
-              window.setTimeout(function(){ formError.style.display = 'none'; }, errorTime);
-              // Mark all invalid inputs labels
-              for (i=0; i<event.target.length; i++) {
-                  var input = event.target[i];
-                  if (!input.validity.valid) {
-                      input.parentNode.classList.add('input-error');
-                      // Use closure to capture correct input
-                      window.setTimeout((function(inputParent) {
-                          return function() {
-                              inputParent.classList.remove('input-error');
-                          };
-                      })(input.parentNode), errorTime);
-                  }
-              }
-          }
-      }, false);
     </script>
+    <?php include '../js.php'; ?>
   </body>
 </html>

@@ -82,10 +82,11 @@ function verifyUploadImage($image_name, $target_dir) {
     return $target_file;
 }
 
-function updateImage($form_name, $image_file_key, $target_dir, $parent_path) {
-    if (!array_key_exists($_POST[$form_name], $activites)       // activity does not exist
-            || !isset($activites[$_POST[$form_name]][$image_file_key])  // activity exist but with no image
-            || $activites[$_POST[$form_name]][$image_file_key] == null  // activity exist with image but is set to null
+function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $saving_object, &$formdata) {
+    
+    if (!array_key_exists($_POST[$form_name], $saving_object)       // activity does not exist
+            || !isset($saving_object[$_POST[$form_name]][$image_file_key])  // activity exist but with no image
+            || $saving_object[$_POST[$form_name]][$image_file_key] == null  // activity exist with image but is set to null
             || isset($_FILES[$image_file_key]) 
                && $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new file is uploaded
         
@@ -102,7 +103,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path) {
         
     } else {
         // Use existing image
-        $formdata[$image_file_key] = $activites[$_POST[$form_name]][$image_file_key];
+        $formdata[$image_file_key] = $saving_object[$_POST[$form_name]][$image_file_key];
     }
 }
 

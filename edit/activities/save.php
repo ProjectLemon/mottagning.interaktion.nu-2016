@@ -30,27 +30,7 @@ function save($activites_file_name, $target_dir, $parent_path) {
 
 
     // Verify image if new
-    if (!array_key_exists($_POST['activity'], $activites)       // activity does not exist
-            || !isset($activites[$_POST['activity']]['image'])  // activity exist but with no image
-            || $activites[$_POST['activity']]['image'] == null  // activity exist with image but is set to null
-            || isset($_FILES[$image_file_key]) 
-               && $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new file is uploaded
-        
-        $target_file = verifyUploadImage($image_file_key, $target_dir, $parent_path);
-        
-        // Try to upload file
-        if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) {
-            echo '<p>The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded.</p>';
-        } else {
-            throw new RuntimeException('Failed to move uploaded file.');
-        }
-        $dir_name = basename((dirname(__FILE__))); // get current directory
-        $formdata['image'] = str_replace('..', $parent_path, $target_file);
-        
-    } else {
-        // Use existing image
-        $formdata['image'] = $activites[$_POST['activity']]['image'];
-    }
+    updateImage('activity', 'image', $target_dir, $parent_path, $activites, $formdata);
 
     // Add new data
     if ($_POST['activity'] != $_POST['title']) { // Title has been changed
