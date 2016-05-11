@@ -47,6 +47,7 @@ html {
 nav#navigation-bar {
   display: block;
   position: fixed;
+  z-index: 100;
   right: 0;
   top: 0;
   background-color: rgba(0,0,0,.6);
@@ -179,9 +180,12 @@ nav#navigation-bar {
     -moz-transition: height 0.5s;
     transition: height 0.5s;
     @media screen and (max-width: $tablet-landscape-width) {
+      margin: 10px;
       &:first-child {
         margin: 2em 1em;
       }
+    }
+    @media screen and (max-width: $phone-landscape-width) {
       margin: auto;
     }
   }
@@ -213,7 +217,7 @@ nav#navigation-bar {
     }
   }
   img.fa-icon {
-    max-width: 18px;
+    max-width: 14px;
     margin-right: 5px;
   }
   h1, h2, h3, h4, h5 {

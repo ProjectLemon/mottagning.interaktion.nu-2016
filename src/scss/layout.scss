@@ -56,7 +56,7 @@ html, body {
     }
   }
   #activity-cards {
-    margin: -7em auto 200px auto;
+    margin: -5em auto 200px auto;
     display: table;
     @media screen and (max-width: $tablet-portrait-width) {
       width: 100%;
@@ -73,8 +73,16 @@ html, body {
       div.offset-day {
         position: absolute;
         font-size: 24pt;
-        margin-left: -3em;
+        margin-left: -7em;
         margin-top: 171px;
+        @media screen and (max-width: 1180px) {
+          margin-left: -5;
+          font-size: 18pt;
+        }
+        @media screen and (max-width: $tablet-landscape-width) {
+          position: static;
+          margin-left: 0;
+        }
         @media screen and (max-width: $tablet-portrait-width) {
           position: static;
           font-size: 1em;

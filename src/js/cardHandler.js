@@ -120,7 +120,6 @@ function addOffsetFields() {
     div.appendChild(span);
     rows[i].insertBefore(div, rows[i].childNodes[0]);
     div.style.paddingTop = Math.round((div.parentElement.clientHeight - div.clientHeight)/2);
-    console.log(div);
   }
 }
 
@@ -138,7 +137,7 @@ function calculateDateOffset(toDate) {
   if (offsett < 1) {
     return "Senare idag"
   }
-  offset = Math.round(offsett);
+  offsett = Math.floor(offsett);
   if (offsett === 1) {
     return "Imorgon";
   } else if (offsett < 7) {
