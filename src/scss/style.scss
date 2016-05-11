@@ -294,3 +294,46 @@ img.test{
   opacity: 100%
 
 }
+
+// ========== Contact ===========
+body.contact-info{
+  h1{
+    font-size: 1.5em;
+    padding: 10px
+  }
+
+  #general-1{
+    background-color: green;
+    .profile-pic {
+      background: url('/resources/img/DSC0477_small.jpg') no-repeat center center;
+    	width: 150px;
+    	height: 150px;
+      -webkit-backround-size:cover;
+      -moz-background-size:cover;
+      -o-background-size: cover;
+      background-size: cover;
+    	border-radius: 150px;
+    	-webkit-border-radius: 150px;
+    	-moz-border-radius: 150px;
+      background-size: 150px 150px;
+      float: right;
+	   }
+     .profile-picture-wrapper{
+       padding: 16px;
+     }
+  }
+  #red-groupleader{
+    background-color: red;
+  }
+  #blue-groupleader{
+    background-color: blue;
+  }
+  #general-2{
+    background-color: green;
+  }
+  #yellow-groupleader{
+    background-color: #FFC707;
+  }
+
+
+}
