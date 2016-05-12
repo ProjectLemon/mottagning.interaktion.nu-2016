@@ -32,7 +32,7 @@ function paintContactCards() {
     "</h1><img class=\"profile-pic\" src=\""+leaders[i].image+"\"><h2 class=\"general-or-leader\">"+leaders[i].group+
     "</h2><p><img class='fa-icon' src=\"/resources/img/icons/phone.svg\" alt=\"Ring\">"+leaders[i].phone+
     "</p><p><img class='fa-icon' src=\"/resources/img/icons/mail.svg\" alt=\"Maila\">"+leaders[i].mail+"</p></div>";
-    document.body.appendChild(div);
+    document.getElementById('contact-info-content').appendChild(div);
   }
 }
 

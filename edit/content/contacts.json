@@ -1,11 +1,5 @@
 {
-    "Fredrik": {
-        "name": "Fredrik Östlund",
-        "mail": "example@gmail.com",
-        "phone": "070-231 32 32",
-        "group": "Yellow",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
-    },
+
     "Filip": {
         "name": "Filip Bark",
         "mail": "example@gmail.com",
@@ -25,6 +19,13 @@
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "Blue",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Fredrik": {
+        "name": "Fredrik Östlund",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "Yellow",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Aron": {
