@@ -30,7 +30,7 @@ $selected = false;
     <title>Title</title>
     <meta charset="UTF-8">
     <link href="/resources/css/edit.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="wrapper">
@@ -68,7 +68,7 @@ $selected = false;
               echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
             }
           ?>
-          <label>Bild:<input id="image-upload" type="file" name="image" 
+          <label>Bild:<input id="image-upload" type="file" name="image" accept="image/png,image/jpeg, .jpg,.jpeg,.png"
               <?php
                 if (!$selected || ($selected && !property_exists($selected, 'image'))) {
                   echo 'required';
@@ -77,25 +77,17 @@ $selected = false;
           </label>
           <br>
           
-          <label>Tid och Datum:<input name="datetime" type="text" id="datepicker" readonly required <?php 
-            if ($selected && property_exists($selected, 'startDateTime')) echo 'value="'.$selected->startDateTime.'"';
+          <label>Datum:<input name="date" type="text" id="datepicker" readonly required <?php 
+            if ($selected && property_exists($selected, 'startDate')) echo 'value="'.$selected->startDate.'"';
           ?>></label>
           <br>
         
-          <!--
-          <label>Tid:<input id="form-time" type="time" name="time" required
+          <label>Tid:<input id="form-time" type="text" name="time" required
               <?php 
-                if ($selected && property_exists($selected, 'time')) echo 'value="'.$selected->time.'"'   
+                if ($selected && property_exists($selected, 'startTime')) echo 'value="'.$selected->startTime.'"'   
               ?>>
           </label>
-          
-          <label class="form-date">Datum:<input type="text" name="date" required
-              <?php 
-                if ($selected && property_exists($selected, 'date')) echo 'value="'.$selected->date.'"'   
-              ?>>
-          </label>
-          <br>
-          -->
+          <div id="form-time-error">Normalt skriver man tid så här: 12:34</div>
           
           <label class="form-description">Beskrivning:<textarea name="description" rows="5" cols="30" required
           ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
@@ -130,10 +122,10 @@ $selected = false;
     <script src="/src/js/lib/pikaday.min.js"></script>
     <script>
       var picker = new Pikaday({
-          field: document.getElementById('datepicker'),
-          showTime: true,
-          use24hour: true,
-          minDate: new Date(),
+        field: document.getElementById('datepicker'),
+        minDate: new Date(),
+        firstDay: 1,
+        theme: 'purple-theme',
         i18n: {
             previousMonth : 'Föregående månad',
             nextMonth     : 'Nästa månad',
@@ -141,6 +133,19 @@ $selected = false;
             weekdays      : ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
             weekdaysShort : ['Sön','Mån','Tis','Ons','Tors','Fre','Lör']
         }
+      });
+      var time = document.getElementById('form-time');
+      var timeError = document.getElementById('form-time-error');
+      var regexpTime = new RegExp('^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$');
+      time.addEventListener('change', function(event) {
+          var timeLabel = event.target.parentNode;
+          if (regexpTime.test(event.target.value) == false) {
+              timeLabel.classList.add('input-error');
+              timeError.style.display = 'block';
+          } else {
+              timeLabel.style.color = '';
+              timeError.classList.remove('input-error');
+          }
       });
     </script>
     <?php include '../js.php'; ?>

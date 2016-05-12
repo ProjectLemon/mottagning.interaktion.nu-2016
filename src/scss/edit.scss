@@ -1,11 +1,19 @@
 @charset 'utf-8';
 
 @import 'lib/pikaday';
+@import 'pikaday-theme';
 
 /**
  * Setup
  */
+@mixin transition($transition...) {
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+ 
 $font: "Quicksand", Helvetica, Arial, sans-serif;
+$warning-background-color: #c17527; // orange
+$warning-color: #F99835; // orange
   
 /**
  * Common
@@ -17,6 +25,10 @@ html, body, input, label {
 body {
   font-family: $font;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+  
   background: url('/resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
   background-size: cover;
 }
@@ -44,7 +56,10 @@ body {
   display: none;
 }
 .input-error {
-  color: red;
+  color: $warning-color;
+}
+#edit-form label:not(.input-error) {
+  @include transition(color 1s);
 }
 .button {
   box-shadow: 0px 3px 4px 0 rgba(#000, .5);
@@ -53,6 +68,33 @@ body {
 /**
  * Layout
  */
+
+.index-title {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+.menu {
+  text-align: center;
+  
+  li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 15px;
+    
+    a {
+      text-decoration: none;
+      color: black;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+ 
+
+// Form layout
 #edit-form {
   box-shadow: 0px 3px 8px 0 rgba(#000, .5);
   width: 540px;
@@ -88,22 +130,35 @@ body {
     height: 32px;
   }
   
+  input[name="title"], input[name="name"] {
+    width: 180px;
+  }
   input[name="image"] {
     text-align: center;
     margin: 10px;
     margin-bottom: 25px;
     font-family: $font;
-  }
-  
-  input[name="time"] {
-    width: 85px;
+    font-weight: 700;
   }
   
   .form-date {
     float: right;
   }
   input[name="date"] {
-    width: 140px;
+    width: 170px;
+    margin-bottom: 10px;
+    background: rgba(#fff, .62) url("/resources/img/icons/dropdown-arrow.svg") no-repeat 95% 50%;
+  }
+  
+  input[name="time"] {
+    width: 85px;
+  }
+  #form-time-error {
+    display: none;
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+    background-color: $warning-background-color;
   }
   
   .form-description {
@@ -119,7 +174,7 @@ body {
   }
   
   input[name="place"] {
-    width: 250px;
+    width: 280px;
   }
   
   .form-place {
@@ -137,7 +192,7 @@ body {
   }
   
   input[name="group"] {
-    margin-right: 25px;
+    margin-right: 18px;
     position: relative;
     top: 8px;
     -webkit-appearance: none;
@@ -161,7 +216,6 @@ body {
     }
     
     &:checked {
-      //background-color: rgba(#fff, .8);
       box-shadow: 0 0 4px 3px rgba(#fff, .6);
     }
   }
@@ -173,17 +227,24 @@ body {
   
   select {
     -webkit-appearance: none;
-    -moz-appearance:none;
+    -moz-appearance: none;
+    appearance: none;
     border-radius: 0;
     float: right;
 
-    background-color: rgba(#fff, .62);
     border: none;
     font-family: $font;
     font-size: 16px;
     padding: 4px 8px;
     margin-top: .3px;
     margin-left: 5px;
+    
+    background: rgba(#fff, .62) url("/resources/img/icons/selector-arrow.svg") no-repeat 95% 50%;
+    padding-right: 30px;
+    
+    &:focus {
+      outline: none;
+    }
   }
   
   input[name="delete"] {
@@ -217,24 +278,5 @@ body {
   
   &:hover {
     text-decoration: underline;
-  }
-}
-
-.menu {
-  text-align: center;
-  
-  li {
-    list-style: none;
-    display: inline-block;
-    margin: 0 15px;
-    
-    a {
-      text-decoration: none;
-      color: black;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }
