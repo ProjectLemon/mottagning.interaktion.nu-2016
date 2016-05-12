@@ -1,9 +1,37 @@
 {
     "Fredrik": {
-        "name": "Fredrik",
+        "name": "Fredrik Östlund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
-        "group": "red",
-        "image": "\/edit\/content\/images\/1462907274.jpg"
+        "group": "Yellow",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Filip": {
+        "name": "Filip Bark",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "General",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Oscar": {
+        "name": "Oscar Thorwid",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "General",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Linnea": {
+        "name": "Linnea Berglund",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "Blue",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Aron": {
+        "name": "Aron Nisbel",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "Red",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     }
 }

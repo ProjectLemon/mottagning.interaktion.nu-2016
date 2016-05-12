@@ -2,15 +2,15 @@
     "Test2": {
         "title": "Test2",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
-        "startDateTime": "Thu May 12 2016 19:39:00 GMT+0200 (CEST)",
+        "startDateTime": "Thu May 13 2016 19:39:00 GMT+0200 (CEST)",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
-        "image": "\/edit\/content\/images\/1462907360.jpg"
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Vinbr\u00e4nnboll": {
         "title": "Vinbr\u00e4nnboll",
-        "startDateTime": "Mon May 11 2016 21:39:28 GMT+0200 (CEST)",
+        "startDateTime": "Mon May 14 2016 21:39:28 GMT+0200 (CEST)",
         "description": "This is an example card",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
@@ -19,12 +19,12 @@
     },
     "Festival": {
         "title": "Festival",
-        "startDateTime": "Mon May 11 2016 16:39:28 GMT+0200 (CEST)",
+        "startDateTime": "Mon May 15 2016 16:39:28 GMT+0200 (CEST)",
         "description": "This is an example card",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
-        "image": "\/edit\/content\/images\/1462904999.jpg"
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Hurtidrutten": {
         "title": "Hurtidrutten",

@@ -140,8 +140,8 @@ function calculateDateOffset(toDate) {
   if (offsett === 1) {
     return "Imorgon";
   } else if (offsett < 7) {
-    var days = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
-    return days[toDate.getDay() - 1];
+    var days = ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"];
+    return days[toDate.getDay()];
   }
   return ""+toDate.getDate()+"/"+(toDate.getMonth() + 1);
 }
