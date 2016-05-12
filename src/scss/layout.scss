@@ -91,12 +91,29 @@ html, body {
       }
     }
   }
-  .contact-info{
-    height: 200px;
-    width: 400px;
-    position: static;
-    margin-top: auto; 
-
+  .contact-vertical-center {
+    height: 100%;
+    width: 100%;
+    display: table;
+    .vertcal-center-content {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      @media screen and (max-width: 460px) {
+        display: block;
+      }
+      .contact-info{
+        height: 200px;
+        width: 400px;
+        position: static;
+        margin-top: auto;
+        @media screen and (max-width: 460px) {
+          height: 125px;
+          width: 100%;
+          margin: 5px auto;
+        }
+      }
+    }
   }
 }
 //Menu

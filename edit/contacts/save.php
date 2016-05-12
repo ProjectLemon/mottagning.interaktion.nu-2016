@@ -17,7 +17,7 @@ function save($contacts_file_name, $target_dir, $parent_path) {
     validateLength('name', 100);
     validateLength('mail', 100);
     validateLength('phone', 20);
-    validateRadio('group', 'red', 'yellow', 'green', 'blue');
+    validateRadio('group', 'red', 'yellow', 'blue', 'general');
     
     // All form data should be in order (not image)
     $formdata = array(

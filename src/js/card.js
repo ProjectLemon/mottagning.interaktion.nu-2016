@@ -61,7 +61,7 @@ var CardFactory = (function Card() {
       wrapper.appendChild(card);
 
       return wrapper;
-    }
+    };
 
     //This is called whenever the directions icon is pressed. It redirects the
     //user to google maps with directions from their localtion to the activity

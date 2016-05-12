@@ -93,7 +93,7 @@ $selected = false;
                   if ($selected && property_exists($selected, 'group')) {
                       $selected->group;
                   }
-                  $group_colors = array('blue' => 'Blå', 'red' => 'Röd', 'yellow' => 'Gul', 'green' => 'General');
+                  $group_colors = array('blue' => 'Blå', 'red' => 'Röd', 'yellow' => 'Gul', 'general' => 'General');
                   foreach ($group_colors as $color => $color_name) {
                       $checked = '';
                       if (   ($selected
@@ -122,7 +122,7 @@ $selected = false;
       var form = document.getElementById('edit-form');
         
       /* Change background based on group */
-      groupColors = {red: '#C62828', blue: '#3374BA', yellow: '#d8bd2f', green: '#1E5E2F'}
+      groupColors = {red: '#C62828', blue: '#3374BA', yellow: '#d8bd2f', general: '#1E5E2F'}
       
       // Change background color immediately
       form.style.backgroundColor = groupColors[document.querySelector('input[name="group"]:checked').value];

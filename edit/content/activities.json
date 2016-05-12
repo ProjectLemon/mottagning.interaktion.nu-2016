@@ -2,12 +2,22 @@
     "Test2": {
         "title": "Test2",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
+        "place": "Campus\u00e4ngarna",
         "startDate": "Thu May 12 2016",
-        "startTime": "15:34",
+        "startTime": "16:00",
+        "lat": "63.821171",
+        "long": "20.310395",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Vinbr\u00e4nnboll": {
+        "title": "Vinbr\u00e4nnboll",
+        "description": "This is an example card",
+        "startDate": "Thu May 13 2016",
+        "startTime": "15:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
-        "image": "\/edit\/content\/images\/1462907360.jpg"
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Festival": {
         "title": "Festival",
@@ -17,12 +27,12 @@
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
-        "image": "\/edit\/content\/images\/1462904999.jpg"
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Hurtidrutten": {
         "title": "Hurtidrutten",
         "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do whatever I want because it's my code.",
-        "startDate": "Sun May 15 2016",
+        "startDate": "Sun May 17 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
