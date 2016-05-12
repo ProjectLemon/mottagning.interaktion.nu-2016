@@ -14,9 +14,10 @@ function save($contacts_file_name, $target_dir, $parent_path) {
     // Validate Form Data
     verifyForm('name', 'mail', 'phone', 'group');
     
-    if (!in_array($_POST['group'], array('red', 'yellow', 'green', 'blue'))) {
-        throw new RuntimeException('Bad group select, should be either red yellow, green or blue');
-    }
+    validateLength('name', 100);
+    validateLength('mail', 100);
+    validateLength('phone', 20);
+    validateRadio('group', 'red', 'yellow', 'green', 'blue');
     
     // All form data should be in order (not image)
     $formdata = array(

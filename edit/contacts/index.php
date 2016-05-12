@@ -56,7 +56,7 @@ $selected = false;
               if (!$selected) { echo 'disabled'; } else { echo 'class="button"'; }
             ?>>
         
-        <div><label>Namn:<input type="text" name="name" required 
+        <div><label>Namn:<input type="text" name="name" maxlength="100" required 
             <?php
               if ($selected && property_exists($selected, 'name')) echo 'value="'.$selected->name.'"'
             ?>>
@@ -78,12 +78,12 @@ $selected = false;
           </label>
           <br>
           
-          <label>Mail:<input name="mail" type="text" required <?php 
+          <label>Mail:<input name="mail" type="text" maxlength="100" required <?php 
             if ($selected && property_exists($selected, 'mail')) echo 'value="'.$selected->mail.'"';
           ?>></label>
           <br>
           
-          <label class="form-phone">Telefon:<input name="phone" type="text" required <?php 
+          <label class="form-phone">Telefon:<input name="phone" type="text" maxlength="20" required <?php 
             if ($selected && property_exists($selected, 'phone')) echo 'value="'.$selected->phone.'"';
           ?>></label>
           <br>
@@ -131,6 +131,15 @@ $selected = false;
       for (i = groupButtons.length-1; i >= 0; i--) {
           groupButtons[i].addEventListener('change', function(event) {
               form.style.backgroundColor = groupColors[event.target.defaultValue];
+          });
+      }
+      
+      /* Link clicking on image to upload image */
+      var imageShow = document.getElementById('image-upload-show');
+      var image = document.getElementById('image-upload');
+      if (imageShow) {
+          imageShow.addEventListener('click', function() {
+              image.click();
           });
       }
     </script>

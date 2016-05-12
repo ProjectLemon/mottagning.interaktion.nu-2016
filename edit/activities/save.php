@@ -14,6 +14,17 @@ function save($activites_file_name, $target_dir, $parent_path) {
 
     // Validate Form Data
     verifyForm('activity', 'title', 'description', 'date', 'time', 'place', 'lat', 'long');
+    validateLength('activity', 100);
+    validateLength('title', 100);
+    validateLength('description', 200); // requirement
+    validateLength('date', 25);
+    validateLength('time', 5);
+    validateLength('place', 100);
+    validateLength('lat', 20);
+    validateLength('long', 20);
+    validateTime('time');
+    validateNumber('lat');
+    validateNumber('long');
     
     // All form data should be in order (not image)
     $formdata = array(

@@ -107,5 +107,36 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
     }
 }
 
+/* Following validation functions requires $input_name to be name inside $_POST */
+function validateLength($input_name, $lenght) {
+    $input = $_POST[$input_name];
+    if (strlen($input) > $lenght) {
+        throw new RuntimeException("String '$input' must be less than $lenght characters");
+    }
+}
+
+function validateNumber($input_name) {
+    $input = $_POST[$input_name];
+    if (!is_numeric($input)) {
+        throw new RuntimeException("Number '$input' is not a valid number");
+    }
+}
+
+function validateTime($input_name) {
+    $input = $_POST[$input_name];
+    $regex_pattern = '/^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$/'; // format (H)H:MM
+    $match = preg_match($regex_pattern, $input);
+    if ($match == 0) {
+        throw new RuntimeException("Input '$input' is not a valid time");
+    }
+}
+
+function validateRadio($input_name, $variable_arguments) {
+    $inputs = func_get_args(); // variable arguments
+    $options = array_splice($inputs, 1); // remove first argument = $input_name
+    if (!in_array($_POST[$input_name], $options)) {
+        throw new RuntimeException("Bad $input_name select, should be one of: ".implode(', ', $options));
+    }
+}
 
 ?>

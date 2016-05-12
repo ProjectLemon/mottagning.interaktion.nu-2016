@@ -55,7 +55,7 @@ $selected = false;
               if (!$selected) { echo 'disabled'; } else { echo 'class="button"'; }
             ?>>
         
-        <label>Titel:<input type="text" name="title" required 
+        <label>Titel:<input type="text" name="title" maxlength="100" required 
             <?php
               if ($selected && property_exists($selected, 'title')) echo 'value="'.$selected->title.'"'
             ?>>
@@ -77,34 +77,34 @@ $selected = false;
           </label>
           <br>
           
-          <label>Datum:<input name="date" type="text" id="datepicker" readonly required <?php 
+          <label>Datum:<input name="date" type="text" id="form-date" class="readonly" maxlength="25" required <?php 
             if ($selected && property_exists($selected, 'startDate')) echo 'value="'.$selected->startDate.'"';
           ?>></label>
           <br>
         
-          <label>Tid:<input id="form-time" type="text" name="time" required
+          <label>Tid:<input id="form-time" type="time" name="time" maxlength="5" required
               <?php 
                 if ($selected && property_exists($selected, 'startTime')) echo 'value="'.$selected->startTime.'"'   
               ?>>
           </label>
-          <div id="form-time-error">Normalt skriver man tid så här: 12:34</div>
+          <div id="form-time-error" class="input-error-message">Normalt skriver man tid så här: 12:34</div>
           
-          <label class="form-description">Beskrivning:<textarea name="description" rows="5" cols="30" required
+          <label class="form-description">Beskrivning:<textarea id="form-description" name="description" rows="5" cols="30" maxlength="200" required
           ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
               ?></textarea>
           </label>
-          <br>
+          <div id="form-description-error" class="input-error-message">170/200 tecken</div>
+          <br>          
           
-          
-          <label class="form-place">Plats:<input name="place" type="text" required <?php 
+          <label class="form-place">Plats:<input name="place" type="text" maxlength="100" required <?php 
             if ($selected && property_exists($selected, 'place')) echo 'value="'.$selected->place.'"';
           ?>></label>
           <br>
           
-          <label>Latitude:<input name="lat" type="text" required <?php 
+          <label>Latitude:<input name="lat" type="text" maxlength="20" required <?php 
             if ($selected && property_exists($selected, 'lat')) echo 'value="'.$selected->lat.'"';
           ?>></label>
-          <label class="form-long">Longitude:<input name="long" type="text" required <?php 
+          <label class="form-long">Longitude:<input name="long" type="text" maxlength="20" required <?php 
             if ($selected && property_exists($selected, 'long')) echo 'value="'.$selected->long.'"';
           ?>></label>
           <br>
@@ -121,11 +121,12 @@ $selected = false;
     
     <script src="/src/js/lib/pikaday.min.js"></script>
     <script>
+      /* Add datepicker */
       var picker = new Pikaday({
-        field: document.getElementById('datepicker'),
+        field: document.getElementById('form-date'),
         minDate: new Date(),
         firstDay: 1,
-        theme: 'purple-theme',
+        theme: 'purple-theme', // defined in css
         i18n: {
             previousMonth : 'Föregående månad',
             nextMonth     : 'Nästa månad',
@@ -134,6 +135,8 @@ $selected = false;
             weekdaysShort : ['Sön','Mån','Tis','Ons','Tors','Fre','Lör']
         }
       });
+      
+      /* Validate time */
       var time = document.getElementById('form-time');
       var timeError = document.getElementById('form-time-error');
       var regexpTime = new RegExp('^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$');
@@ -143,8 +146,21 @@ $selected = false;
               timeLabel.classList.add('input-error');
               timeError.style.display = 'block';
           } else {
-              timeLabel.style.color = '';
-              timeError.classList.remove('input-error');
+              timeLabel.classList.remove('input-error');
+              timeError.style.display = 'none';
+          }
+      });
+      
+      /* Validate description lenght */
+      var description = document.getElementById('form-description');
+      var descriptionError = document.getElementById('form-description-error');
+      description.addEventListener('keyup', function(event) {
+          var len = event.target.value.length;
+          if (len >= 170) {
+              descriptionError.innerHTML = len+'/200 tecken';
+              descriptionError.style.display = 'block';
+          } else {
+              descriptionError.style.display = '';
           }
       });
     </script>

@@ -48,4 +48,12 @@ form.addEventListener('submit', function(event) {
         }
     }
 }, false);
+
+/* Make input readonly through code to not collide with require attribute  */
+var readonly = document.getElementsByClassName('readonly');
+var preventDefault = function(event) { event.preventDefault(); };
+for (var i = readonly.length-1; i >= 0; i--) {
+    readonly[i].addEventListener('mousedown', preventDefault);
+    readonly[i].addEventListener('keydown', preventDefault);
+}
 </script>

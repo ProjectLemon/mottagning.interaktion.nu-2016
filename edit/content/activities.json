@@ -3,7 +3,7 @@
         "title": "Test2",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
         "startDate": "Thu May 12 2016",
-        "startTime": "12:34",
+        "startTime": "15:34",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
@@ -28,5 +28,25 @@
         "lat": "63.821171",
         "long": "20.310395",
         "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Test3": {
+        "title": "Test3",
+        "description": "Lorem Ipsum",
+        "startDate": "Fri May 13 2016",
+        "startTime": "16:43",
+        "place": "Nord Korea",
+        "lat": "0",
+        "long": "0",
+        "image": "\/edit\/content\/images\/1463057023.jpg"
+    },
+    "This is a really really really really really really really really really really really long title...": {
+        "title": "This is a really really really really really really really really really really really long title...",
+        "description": "Why is this description so loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
+        "startDate": "Thu May 19 2016",
+        "startTime": "23:59",
+        "place": "What's up with all these long stringssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
+        "lat": "99.99999999999999999",
+        "long": "99.99999999999999999",
+        "image": "\/edit\/content\/images\/1463062891.jpg"
     }
 }

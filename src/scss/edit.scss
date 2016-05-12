@@ -55,6 +55,13 @@ body {
 #form-error {
   display: none;
 }
+.input-error-message {
+  display: none;
+  text-align: center;
+  padding: 5px;
+  margin-top: 10px;
+  background-color: $warning-background-color;
+}
 .input-error {
   color: $warning-color;
 }
@@ -152,13 +159,6 @@ body {
   
   input[name="time"] {
     width: 85px;
-  }
-  #form-time-error {
-    display: none;
-    text-align: center;
-    padding: 5px;
-    margin-top: 10px;
-    background-color: $warning-background-color;
   }
   
   .form-description {

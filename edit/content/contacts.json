@@ -5,5 +5,12 @@
         "phone": "070-231 32 32",
         "group": "red",
         "image": "\/edit\/content\/images\/1462907274.jpg"
+    },
+    "asdf": {
+        "name": "asdf",
+        "mail": "asdf",
+        "phone": "asdf",
+        "group": "yellow",
+        "image": "\/edit\/content\/images\/1463063860.jpg"
     }
 }
