@@ -14,7 +14,7 @@ function getActivityContent() {
       var json = JSON.parse(this.response);
       for (var obj in json) {
         var currentTime = new Date().getTime();
-        
+
         //read date property and add the time
         var activityDate = new Date(json[obj].startDate);
         var startTime = json[obj].startTime.split(':'); // assumes proper format of time
@@ -22,12 +22,12 @@ function getActivityContent() {
         var minutes = parseInt(startTime[1]);
         activityDate.setHours(hours);
         activityDate.setMinutes(minutes);
-        
+
         //combine date and time to one attribute
         delete json[obj].startDate;
         delete json[obj].startTime;
         json[obj].startDateTime = activityDate.toString();
-        
+
         if (activityDate.getTime() >= currentTime) {
             activities.push(json[obj]);
         }
@@ -147,8 +147,8 @@ function getRandomColor() {
 
 function calculateDateOffset(toDate) {
   var now = new Date();
-  var offsett = (toDate-now)/(1000*60*60*24);
-  if (offsett < 1) {
+  var offsett = Math.abs(toDate.getDay()-now.getDay());
+  if (offsett === 0) {
     return "Senare idag"
   }
   offsett = Math.floor(offsett);
