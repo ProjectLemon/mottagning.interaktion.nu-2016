@@ -77,25 +77,17 @@ $selected = false;
           </label>
           <br>
           
-          <label>Tid och Datum:<input name="datetime" type="text" id="datepicker" readonly required <?php 
-            if ($selected && property_exists($selected, 'startDateTime')) echo 'value="'.$selected->startDateTime.'"';
+          <label>Datum:<input name="date" type="text" id="datepicker" readonly required <?php 
+            if ($selected && property_exists($selected, 'startDate')) echo 'value="'.$selected->startDate.'"';
           ?>></label>
           <br>
         
-          <!--
-          <label>Tid:<input id="form-time" type="time" name="time" required
+          <label>Tid:<input id="form-time" type="text" name="time" required
               <?php 
-                if ($selected && property_exists($selected, 'time')) echo 'value="'.$selected->time.'"'   
+                if ($selected && property_exists($selected, 'startTime')) echo 'value="'.$selected->startTime.'"'   
               ?>>
           </label>
-          
-          <label class="form-date">Datum:<input type="text" name="date" required
-              <?php 
-                if ($selected && property_exists($selected, 'date')) echo 'value="'.$selected->date.'"'   
-              ?>>
-          </label>
-          <br>
-          -->
+          <div id="form-time-error">Normalt skriver man tid så här: 12:34</div>
           
           <label class="form-description">Beskrivning:<textarea name="description" rows="5" cols="30" required
           ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
@@ -130,10 +122,9 @@ $selected = false;
     <script src="/src/js/lib/pikaday.min.js"></script>
     <script>
       var picker = new Pikaday({
-          field: document.getElementById('datepicker'),
-          showTime: true,
-          use24hour: true,
-          minDate: new Date(),
+        field: document.getElementById('datepicker'),
+        minDate: new Date(),
+        firstDay: 1,
         i18n: {
             previousMonth : 'Föregående månad',
             nextMonth     : 'Nästa månad',
@@ -141,6 +132,19 @@ $selected = false;
             weekdays      : ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
             weekdaysShort : ['Sön','Mån','Tis','Ons','Tors','Fre','Lör']
         }
+      });
+      var time = document.getElementById('form-time');
+      var timeError = document.getElementById('form-time-error');
+      var regexpTime = new RegExp('^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$');
+      time.addEventListener('change', function(event) {
+          var timeLabel = event.target.parentNode;
+          if (regexpTime.test(event.target.value) == false) {
+              timeLabel.style.color = 'red';
+              timeError.style.display = 'block';
+          } else {
+              timeLabel.style.color = '';
+              timeError.style.display = 'none';
+          }
       });
     </script>
     <?php include '../js.php'; ?>

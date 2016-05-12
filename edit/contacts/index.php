@@ -93,7 +93,7 @@ $selected = false;
                   if ($selected && property_exists($selected, 'group')) {
                       $selected->group;
                   }
-                  $group_colors = array('blue' => 'Blå', 'red' => 'Röd', 'yellow' => 'Gul', 'green' => 'Grön');
+                  $group_colors = array('blue' => 'Blå', 'red' => 'Röd', 'yellow' => 'Gul', 'green' => 'General');
                   foreach ($group_colors as $color => $color_name) {
                       $checked = '';
                       if (   ($selected

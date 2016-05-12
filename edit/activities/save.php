@@ -13,13 +13,14 @@ function save($activites_file_name, $target_dir, $parent_path) {
     $image_file_key = 'image';
 
     // Validate Form Data
-    verifyForm('activity', 'title', 'description', 'datetime', 'place', 'lat', 'long');
+    verifyForm('activity', 'title', 'description', 'date', 'time', 'place', 'lat', 'long');
     
     // All form data should be in order (not image)
     $formdata = array(
 	    'title' => $_POST['title'],
 	    'description' => $_POST['description'],
-	    'startDateTime' => $_POST['datetime'],
+	    'startDate' => $_POST['date'],
+	    'startTime' => $_POST['time'],
 	    'place' => $_POST['place'],
 	    'lat' => $_POST['lat'],
 	    'long' => $_POST['long']
@@ -117,6 +118,6 @@ try {
 
 ?>
 
-    <a href="./?title=<?php echo rawurlencode($_POST['title']) ?>">Back</a>
+    <a href="./?select=<?php echo rawurlencode($_POST['title']) ?>">Back</a>
   </body>
 </html>

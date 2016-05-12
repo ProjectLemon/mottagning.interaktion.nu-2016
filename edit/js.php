@@ -30,7 +30,7 @@ errorTime = 4000 // 4 seconds
 form.addEventListener('submit', function(event) {
     if (!event.target.checkValidity()) {
         event.preventDefault();
-        formError = document.getElementById('form-error');
+        var formError = document.getElementById('form-error');
         formError.style.display = 'inline';
         window.setTimeout(function(){ formError.style.display = 'none'; }, errorTime);
         // Mark all invalid inputs labels

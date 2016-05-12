@@ -95,15 +95,24 @@ body {
     font-family: $font;
   }
   
-  input[name="time"] {
-    width: 85px;
-  }
-  
   .form-date {
     float: right;
   }
   input[name="date"] {
-    width: 140px;
+    width: 170px;
+    margin-bottom: 10px;
+    background: rgba(#fff, .62) url("/resources/img/icons/dropdown-arrow.svg") no-repeat 95% 50%;
+  }
+  
+  input[name="time"] {
+    width: 85px;
+  }
+  #form-time-error {
+    display: none;
+    text-align: center;
+    padding: 5px;
+    margin-top: 10px;
+    background-color: #c17527;
   }
   
   .form-description {
@@ -119,7 +128,7 @@ body {
   }
   
   input[name="place"] {
-    width: 250px;
+    width: 280px;
   }
   
   .form-place {
@@ -137,7 +146,7 @@ body {
   }
   
   input[name="group"] {
-    margin-right: 25px;
+    margin-right: 18px;
     position: relative;
     top: 8px;
     -webkit-appearance: none;
@@ -161,7 +170,6 @@ body {
     }
     
     &:checked {
-      //background-color: rgba(#fff, .8);
       box-shadow: 0 0 4px 3px rgba(#fff, .6);
     }
   }
@@ -173,17 +181,24 @@ body {
   
   select {
     -webkit-appearance: none;
-    -moz-appearance:none;
+    -moz-appearance: none;
+    appearance: none;
     border-radius: 0;
     float: right;
 
-    background-color: rgba(#fff, .62);
     border: none;
     font-family: $font;
     font-size: 16px;
     padding: 4px 8px;
     margin-top: .3px;
     margin-left: 5px;
+    
+    background: rgba(#fff, .62) url("/resources/img/icons/selector-arrow.svg") no-repeat 95% 50%;
+    padding-right: 30px;
+    
+    &:focus {
+      outline: none;
+    }
   }
   
   input[name="delete"] {

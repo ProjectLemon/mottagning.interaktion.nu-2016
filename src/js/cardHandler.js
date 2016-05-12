@@ -13,7 +13,22 @@ function getActivityContent() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       var json = JSON.parse(this.response);
       for (var obj in json) {
-        if (new Date(json[obj].startDateTime).getTime() >= new Date().getTime()) {
+        var currentTime = new Date().getTime();
+        
+        //read date property and add the time
+        var activityDate = new Date(json[obj].startDate);
+        var startTime = json[obj].startTime.split(':'); // assumes proper format of time
+        var hours = parseInt(startTime[0]);
+        var minutes = parseInt(startTime[1]);
+        activityDate.setHours(hours);
+        activityDate.setMinutes(minutes);
+        
+        //combine date and time to one attribute
+        delete json[obj].startDate;
+        delete json[obj].startTime;
+        json[obj].startDateTime = activityDate.toString();
+        
+        if (activityDate.getTime() >= currentTime) {
             activities.push(json[obj]);
         }
       }

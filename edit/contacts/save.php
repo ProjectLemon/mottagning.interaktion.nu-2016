@@ -119,6 +119,6 @@ try {
 
 ?>
 
-    <a href="./?name=<?php echo rawurlencode($_POST['name']) ?>">Back</a>
+    <a href="./?select=<?php echo rawurlencode($_POST['name']) ?>">Back</a>
   </body>
 </html>
