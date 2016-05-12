@@ -30,7 +30,7 @@ function save($activites_file_name, $target_dir, $parent_path) {
     $activites = json_decode(file_get_contents($activites_file_name), true);
 
 
-    // Verify image if new
+    // Update or set new image
     updateImage('activity', 'image', $target_dir, $parent_path, $activites, $formdata);
 
     // Add new data

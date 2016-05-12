@@ -1,11 +1,19 @@
 @charset 'utf-8';
 
 @import 'lib/pikaday';
+@import 'pikaday-theme';
 
 /**
  * Setup
  */
+@mixin transition($transition...) {
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+ 
 $font: "Quicksand", Helvetica, Arial, sans-serif;
+$warning-background-color: #c17527; // orange
+$warning-color: #F99835; // orange
   
 /**
  * Common
@@ -17,6 +25,10 @@ html, body, input, label {
 body {
   font-family: $font;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 700;
+  
   background: url('/resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
   background-size: cover;
 }
@@ -44,7 +56,10 @@ body {
   display: none;
 }
 .input-error {
-  color: red;
+  color: $warning-color;
+}
+#edit-form label:not(.input-error) {
+  @include transition(color 1s);
 }
 .button {
   box-shadow: 0px 3px 4px 0 rgba(#000, .5);
@@ -53,6 +68,33 @@ body {
 /**
  * Layout
  */
+
+.index-title {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+}
+.menu {
+  text-align: center;
+  
+  li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 15px;
+    
+    a {
+      text-decoration: none;
+      color: black;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+ 
+
+// Form layout
 #edit-form {
   box-shadow: 0px 3px 8px 0 rgba(#000, .5);
   width: 540px;
@@ -88,11 +130,15 @@ body {
     height: 32px;
   }
   
+  input[name="title"], input[name="name"] {
+    width: 180px;
+  }
   input[name="image"] {
     text-align: center;
     margin: 10px;
     margin-bottom: 25px;
     font-family: $font;
+    font-weight: 700;
   }
   
   .form-date {
@@ -112,7 +158,7 @@ body {
     text-align: center;
     padding: 5px;
     margin-top: 10px;
-    background-color: #c17527;
+    background-color: $warning-background-color;
   }
   
   .form-description {
@@ -232,24 +278,5 @@ body {
   
   &:hover {
     text-decoration: underline;
-  }
-}
-
-.menu {
-  text-align: center;
-  
-  li {
-    list-style: none;
-    display: inline-block;
-    margin: 0 15px;
-    
-    a {
-      text-decoration: none;
-      color: black;
-      
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 }

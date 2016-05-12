@@ -69,7 +69,7 @@ $selected = false;
               echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
             }
           ?>
-          <label>Bild:<input id="image-upload" type="file" name="image" 
+          <label>Bild:<input id="image-upload" type="file" name="image" accept="image/png,image/jpeg, .jpg,.jpeg,.png"
               <?php
                 if (!$selected || ($selected && !property_exists($selected, 'image'))) {
                   echo 'required';

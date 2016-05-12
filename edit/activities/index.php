@@ -30,7 +30,7 @@ $selected = false;
     <title>Title</title>
     <meta charset="UTF-8">
     <link href="/resources/css/edit.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <div class="wrapper">
@@ -68,7 +68,7 @@ $selected = false;
               echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
             }
           ?>
-          <label>Bild:<input id="image-upload" type="file" name="image" 
+          <label>Bild:<input id="image-upload" type="file" name="image" accept="image/png,image/jpeg, .jpg,.jpeg,.png"
               <?php
                 if (!$selected || ($selected && !property_exists($selected, 'image'))) {
                   echo 'required';
@@ -125,6 +125,7 @@ $selected = false;
         field: document.getElementById('datepicker'),
         minDate: new Date(),
         firstDay: 1,
+        theme: 'purple-theme',
         i18n: {
             previousMonth : 'Föregående månad',
             nextMonth     : 'Nästa månad',
@@ -139,11 +140,11 @@ $selected = false;
       time.addEventListener('change', function(event) {
           var timeLabel = event.target.parentNode;
           if (regexpTime.test(event.target.value) == false) {
-              timeLabel.style.color = 'red';
+              timeLabel.classList.add('input-error');
               timeError.style.display = 'block';
           } else {
               timeLabel.style.color = '';
-              timeError.style.display = 'none';
+              timeError.classList.remove('input-error');
           }
       });
     </script>

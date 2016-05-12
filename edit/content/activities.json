@@ -9,20 +9,10 @@
         "long": "20.310395",
         "image": "\/edit\/content\/images\/1462907360.jpg"
     },
-    "Vinbr\u00e4nnboll": {
-        "title": "Vinbr\u00e4nnboll",
-        "description": "This is an example card",
-        "startDate": "Fri May 13 2016",
-        "startTime": "16:54",
-        "place": "Campus\u00e4ngarna",
-        "lat": "63.821171",
-        "long": "20.310395",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
-    },
     "Festival": {
         "title": "Festival",
         "description": "This is an example card",
-        "startDate": "Sat May 14 2016",
+        "startDate": "Fri May 13 2016",
         "startTime": "6:12",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
@@ -32,7 +22,7 @@
     "Hurtidrutten": {
         "title": "Hurtidrutten",
         "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do whatever I want because it's my code.",
-        "startDate": "Mon May 16 2016",
+        "startDate": "Sun May 15 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
