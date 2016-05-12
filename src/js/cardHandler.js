@@ -24,7 +24,6 @@ function getActivityContent() {
         return dateA.getTime() - dateB.getTime();
       });
 
-      console.log(document.body.clientWidth);
       if (document.body.clientWidth >= 800) { //since we're not using a highlight card on screens < 800px
         paintHighLightCard();
       }
