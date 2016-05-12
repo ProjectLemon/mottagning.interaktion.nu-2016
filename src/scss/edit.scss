@@ -5,7 +5,6 @@
 /**
  * Setup
  */
-$background-color: #7A1EA1;
 $font: "Quicksand", Helvetica, Arial, sans-serif;
   
 /**
@@ -54,19 +53,27 @@ body {
 /**
  * Layout
  */
-#edit-activity-form {
-  background-color: $background-color;
+#edit-form {
   box-shadow: 0px 3px 8px 0 rgba(#000, .5);
   width: 540px;
   padding: 18px;
   color: rgba(#fff, .8);
   margin: 26px auto;
+  transition: background-color .3s;
+  -webkit-transition: background-color .3s;
+
+  &.form-activity {
+    background-color: #7A1EA1; // purple
+  }
+
+  &.form-contact {
+    background-color: #3374BA; // blue
+  }
   
   .form-content {
     width: 370px;
     margin: 10px auto;
   }
-  
 
   input:not([type="file"]), textarea {
     background-color: rgba(#fff, .62);
@@ -111,14 +118,64 @@ body {
     box-sizing: border-box;
   }
   
+  input[name="place"] {
+    width: 250px;
+  }
+  
+  .form-place {
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+  
   input[name="save"] {
     margin: 0;
   }
   
-  select[name="activity"] {
+  .form-phone {
+    margin-top: 10px;
+    display: inline-block;
+  }
+  
+  input[name="group"] {
+    margin-right: 25px;
+    position: relative;
+    top: 8px;
+    -webkit-appearance: none;
+    outline: none;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    box-shadow: 0 2px 5px 0 rgba(#000, .3);
+
+    &[value="red"] {
+      background-color: #C62828;
+    }
+    &[value="blue"] {
+      background-color: #3374BA;
+    }
+    &[value="yellow"] {
+      background-color: #d8bd2f;
+    }
+    &[value="green"] {
+      background-color: #1E5E2F;
+    }
+    
+    &:checked {
+      //background-color: rgba(#fff, .8);
+      box-shadow: 0 0 4px 3px rgba(#fff, .6);
+    }
+  }
+  .group-title {
+    position: relative;
+    margin: 15px 0 0 0;
+    font-weight: 700;
+  }
+  
+  select {
     -webkit-appearance: none;
     -moz-appearance:none;
     border-radius: 0;
+    float: right;
 
     background-color: rgba(#fff, .62);
     border: none;
@@ -132,18 +189,52 @@ body {
   input[name="delete"] {
     float: right;
   }
-}
-#activity-select {
-  float: right;
+  
+  input[name="lat"], input[name="long"] {
+    width: 90px;
+  }
+  .form-long {
+    float: right;
+  }
+  .latlong-tip {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  a {
+    color: #93adff;
+  }
 }
 .back-to-main-page {
   display: block;
   width: 540px;
   margin: auto;
+  margin-bottom: 30px;
   color: black;
   text-decoration: none;
   
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.menu {
+  text-align: center;
+  
+  li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 15px;
+    
+    a {
+      text-decoration: none;
+      color: black;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }
