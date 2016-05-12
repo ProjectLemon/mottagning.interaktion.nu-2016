@@ -2,18 +2,12 @@
     "Test2": {
         "title": "Test2",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
-<<<<<<< HEAD
         "startDateTime": "Thu May 13 2016 19:39:00 GMT+0200 (CEST)",
-=======
-        "startDate": "Thu May 12 2016",
-        "startTime": "12:34",
->>>>>>> 9545d12f508f3a302e1d348bc1518332d79ecace
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-<<<<<<< HEAD
     "Vinbr\u00e4nnboll": {
         "title": "Vinbr\u00e4nnboll",
         "startDateTime": "Mon May 14 2016 21:39:28 GMT+0200 (CEST)",
@@ -26,10 +20,6 @@
     "Festival": {
         "title": "Festival",
         "startDateTime": "Mon May 15 2016 16:39:28 GMT+0200 (CEST)",
-=======
-    "Festival": {
-        "title": "Festival",
->>>>>>> 9545d12f508f3a302e1d348bc1518332d79ecace
         "description": "This is an example card",
         "startDate": "Fri May 13 2016",
         "startTime": "6:12",
@@ -41,6 +31,7 @@
     "Hurtidrutten": {
         "title": "Hurtidrutten",
         "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do whatever I want because it's my code.",
+        "startDateTime": "Mon May 15 2016 16:39:28 GMT+0200 (CEST)",
         "startDate": "Sun May 15 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
