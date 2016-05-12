@@ -30,19 +30,8 @@ function paintContactCards() {
     div.style.backgroundColor = cardColors[leaders[i].group];
     div.innerHTML = "<div class=\"profile-picture-wrapper\"><h1 class=\"name\">"+leaders[i].name+
     "</h1><img class=\"profile-pic\" src=\""+leaders[i].image+"\"><h2 class=\"general-or-leader\">"+leaders[i].group+
-    "</h2><p><img class='fa-icon' src=\"/resources/img/icons/phone.svg\" alt=\"Ring\">"+leaders[i].phone+
-    "</p><p><img class='fa-icon' src=\"/resources/img/icons/mail.svg\" alt=\"Maila\">"+leaders[i].mail+"</p></div>";
+    "</h2><p><a href='tel:"+leaders[i].phone+"'><img class='fa-icon' src=\"/resources/img/icons/phone.svg\" alt=\"Ring\">"+leaders[i].phone+
+    "</p></a><p><a href='mailto:"+leaders[i].mail+"'><img class='fa-icon' src=\"/resources/img/icons/mail.svg\" alt=\"Maila\">"+leaders[i].mail+"</a></p></div>";
     document.getElementById('contact-info-content').appendChild(div);
   }
 }
-
-/*<div id="general-1" class="contact-info">
-  <div class="profile-picture-wrapper">
-  <div class="profile-pic"></div>
-  <h1 class="name">Filip Bark</h1>
-  <h2 class="general-or-leader">General</h2>
-  <img src="/resources/img/phone.svg" alt="Ring">
-  <p>[insert filips nummer här]</p>
-  <img src="/resources/img/mail.svg" alt="Maila">
-  <p>[insert filips mail här]</p>
-</div>*/
