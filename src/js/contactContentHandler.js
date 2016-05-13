@@ -3,7 +3,10 @@ var cardColors = {
   "general": "#1e5e2f",
   "röd": "#c62828",
   "blå": "#3374ba",
-  "gul": "#ee8600"
+  "gul": "#ee8600",
+  "red": "#c62828",
+  "blue": "#3374ba",
+  "yellow": "#ee8600"
 }
 
 getContactInfo();
