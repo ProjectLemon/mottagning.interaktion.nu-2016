@@ -195,9 +195,9 @@ nav#navigation-bar {
     @media screen and (max-width: $phone-landscape-width) {
       //Because the animations appear somewhat smoother on phone if
       //We're animating over longer time
-      -webkit-transition: height .8s;
+      /*-webkit-transition: height .8s;
       -moz-transition: height .8s;
-      transition: height 0.8s;
+      transition: height 0.8s;*/
       margin: auto;
     }
   }

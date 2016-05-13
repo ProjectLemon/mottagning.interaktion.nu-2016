@@ -18,7 +18,12 @@ var CardFactory = (function Card() {
     _this.newCard = function(config) {
       config.startDateTime = new Date(config.startDateTime);
       var card = document.createElement('div');
-      var headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
+      var headerImg
+      if(!_this.isDevice()) {
+        headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
+      } else {
+        headerImg = "<img class='featured-image' src='' alt=''>";
+      }
       var titleText = "<h1 class='titleText'>"+config.title+"</h1>";
       var startTime = "<h2 class='startTime'><img src='/resources/img/icons/clock.svg' class='fa-icon'>"+_this.formatTime(config.startDateTime)+"</h2>";
       var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startDateTime)+"</h2>";
@@ -28,7 +33,6 @@ var CardFactory = (function Card() {
 
       card.setAttribute('data-lat', config.lat);
       card.setAttribute('data-long', config.long);
-      card.setAttribute('data-expanded', false);
       card.style.backgroundColor = config.color;
       card.innerHTML += headerImg + titleText + startTime + startDate + location + description + directions;
 
