@@ -2,6 +2,7 @@
 @import "variables";
 @import "layout";
 
+
 html {
   color: white;
   font-family: 'Quicksand', sans-serif;
@@ -52,7 +53,7 @@ nav#navigation-bar {
   top: 0;
   background-color: rgba(0,0,0,.6);
   box-shadow: 0 3px 8px 0 rgba(0,0,0,.2);
-  
+
   @media screen and (max-width: $phone-landscape-width) {
     width: 100%;
     position: static;
@@ -146,6 +147,8 @@ nav#navigation-bar {
   }
 }
 .mo-card {
+  @include forceHardwareAcceleration();
+
   width: 300px;
   height: 350px;
   color: white;
@@ -154,6 +157,7 @@ nav#navigation-bar {
   display: block;
   float: left;
   margin: 16px auto 0 auto;
+  word-wrap: break-word;
 
   @media screen and (max-width: $phone-landscape-width) {
     height: 130px;
@@ -179,8 +183,8 @@ nav#navigation-bar {
     box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
 
     /*Animate height*/
-    -webkit-transition: height 0.5s;
-    -moz-transition: height 0.5s;
+    -webkit-transition: height .5s;
+    -moz-transition: height .5s;
     transition: height 0.5s;
     @media screen and (max-width: $tablet-landscape-width) {
       margin: 10px;
@@ -189,6 +193,11 @@ nav#navigation-bar {
       }
     }
     @media screen and (max-width: $phone-landscape-width) {
+      //Because the animations appear somewhat smoother on phone if
+      //We're animating over longer time
+      -webkit-transition: height .8s;
+      -moz-transition: height .8s;
+      transition: height 0.8s;
       margin: auto;
     }
   }

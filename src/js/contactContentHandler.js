@@ -1,9 +1,9 @@
 var leaders = [];
 var cardColors = {
-  "General": "#1e5e2f",
-  "Red": "#c62828",
-  "Blue": "#3374ba",
-  "Yellow": "#ee8600"
+  "general": "#1e5e2f",
+  "röd": "#c62828",
+  "blå": "#3374ba",
+  "gul": "#ee8600"
 }
 
 getContactInfo();
@@ -25,13 +25,23 @@ function getContactInfo() {
 
 function paintContactCards() {
   for (var i = 0; i < leaders.length; i++) {
+    leaders[i].group.toLowerCase();
     var div = document.createElement('div');
     div.classList.add('contact-info');
     div.style.backgroundColor = cardColors[leaders[i].group];
     div.innerHTML = "<div class=\"profile-picture-wrapper\"><h1 class=\"name\">"+leaders[i].name+
-    "</h1><img class=\"profile-pic\" src=\""+leaders[i].image+"\"><h2 class=\"general-or-leader\">"+leaders[i].group+
+    "</h1><img class=\"profile-pic\" src=\""+leaders[i].image+"\"><h2 class=\"general-or-leader\">"+handleRoleParsing(leaders[i].group)+ //
     "</h2><p><a href='tel:"+leaders[i].phone+"'><img class='fa-icon' src=\"/resources/img/icons/phone.svg\" alt=\"Ring\">"+leaders[i].phone+
     "</p></a><p><a href='mailto:"+leaders[i].mail+"'><img class='fa-icon' src=\"/resources/img/icons/mail.svg\" alt=\"Maila\">"+leaders[i].mail+"</a></p></div>";
     document.getElementById('contact-info-content').appendChild(div);
   }
+}
+
+function handleRoleParsing(role) {
+  var returnString = role.charAt(0).toUpperCase();
+  returnString += role.substring(1);
+  if (returnString === "General") {
+    return returnString;
+  }
+  return returnString+" gruppledare";
 }

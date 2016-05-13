@@ -128,6 +128,7 @@ function addOffsetFields() {
     div.classList.add('offset-day');
     div.style.width = rows[i].clientWidth+"px";
     div.style.borderBottom = "1px solid white";
+    div.style.maxWidth = "100%";
 
     span.innerHTML = calculateDateOffset(date);
 
@@ -147,7 +148,7 @@ function getRandomColor() {
 
 function calculateDateOffset(toDate) {
   var now = new Date();
-  var offsett = Math.abs(toDate.getDay()-now.getDay());
+  var offsett = Math.abs(toDate.getDate()-now.getDate());
   if (offsett === 0) {
     return "Senare idag"
   }

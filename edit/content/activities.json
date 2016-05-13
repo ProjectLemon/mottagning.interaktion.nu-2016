@@ -26,7 +26,7 @@
         "startTime": "6:12",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
-        "long": "20.310395",
+        "long": "19.310395",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Hurtidrutten": {
@@ -36,7 +36,7 @@
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
-        "long": "20.310395",
+        "long": "21.310395",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Test3": {
@@ -48,15 +48,6 @@
         "lat": "0",
         "long": "0",
         "image": "\/edit\/content\/images\/1463057023.jpg"
-    },
-    "This is a really really really really really really really really really really really long title...": {
-        "title": "This is a really really really really really really really really really really really long title...",
-        "description": "Why is this description so loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
-        "startDate": "Thu May 19 2016",
-        "startTime": "23:59",
-        "place": "What's up with all these long stringssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
-        "lat": "99.99999999999999999",
-        "long": "99.99999999999999999",
-        "image": "\/edit\/content\/images\/1463062891.jpg"
     }
+
 }

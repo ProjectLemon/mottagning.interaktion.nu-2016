@@ -18,21 +18,21 @@
         "name": "Linnea Berglund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
-        "group": "blue",
+        "group": "blå",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Fredrik": {
         "name": "Fredrik Östlund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
-        "group": "yellow",
+        "group": "gul",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Aron": {
         "name": "Aron Nisbel",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
-        "group": "red",
+        "group": "röd",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     }
 }
