@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Edit: Response</title>
-    <meta charset="UTF-8">
-  </head>
-  <body>
 <?php
+header('Content-Type: text/html; charset=utf-8');
     
 require '../saving_resources.php';
 
@@ -58,7 +52,7 @@ function save($activites_file_name, $target_dir, $parent_path) {
 	   
     // Save to json data file
     if (file_put_contents($activites_file_name, $jsondata)) {
-        echo '<p>Activity successfully saved</p>';
+        echo 'Activity successfully saved';
 	   
     } else {
         throw new RuntimeException('Could not save to file');
@@ -67,13 +61,9 @@ function save($activites_file_name, $target_dir, $parent_path) {
 
 function delete($activites_file_name) {
     
-    if (!isset($_POST['activity']) || $_POST['activity'] == '') {
-        throw new RuntimeException('No activity was selected');
-    }
-    // All form data should be in order (not image)
-    $formdata = array(
-        'activity' => $_POST['activity'],
-    );
+    verifyForm('activity');
+    validateLength('activity', 100);
+
     
     // Open json data file
     $activites = json_decode(file_get_contents($activites_file_name), true);
@@ -89,7 +79,7 @@ function delete($activites_file_name) {
        
     // Save to json data file
     if (file_put_contents($activites_file_name, $jsondata)) {
-        echo '<p>Activity successfully deleted</p>';
+        echo 'Activity successfully deleted';
        
     } else {
         throw new RuntimeException('Could not save to file');
@@ -103,9 +93,9 @@ $image_dir = '../content/images/';
 $parent_path = '/edit';
 $activites_file_name = '../content/activities.json';
 if (!file_exists($activites_file_name)) {
-  $file = fopen($activites_file_name, 'w');
-  fwrite($file, '{}');
-  fclose($file); // create file if not exist
+    $file = fopen($activites_file_name, 'w');
+    fwrite($file, '{}');
+    fclose($file); // create file if not exist
 }
 
 try {
@@ -118,17 +108,15 @@ try {
         delete($activites_file_name);
         
     } else {
+        
         throw new RuntimeException('No action provided');
     }
     
 } catch (RuntimeException $e) {
-    echo '<h1>Error: ' . $e->getMessage() . '</h1>';
+    http_response_code(400);
+    echo 'Error: ' . $e->getMessage();
 }
 
 
 
 ?>
-
-    <a href="./?select=<?php echo rawurlencode($_POST['title']) ?>">Back</a>
-  </body>
-</html>
