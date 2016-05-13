@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <?php
+
 $activites_file_name = '../content/activities.json';
 if (file_exists($activites_file_name)) {
     $content = file_get_contents($activites_file_name); 
@@ -41,23 +42,24 @@ $selected = false;
           <option id="select-new" value="Ny aktivitet" required>Ny aktivitet</option>
           <?php
             foreach ($activites as $title => $activity) {
+                $selected_attr = '';
                 if ($title == $param) {
                     $selected = $activity;
-                    echo "<option selected value=\"$title\" required>$title</option>\n";
-                } else {
-                    echo "<option value=\"$title\" required>$title</option>\n";
+                    $selected_attr = 'selected';
                 }
+                
+                echo "<option $selected_attr value=".htmlspecialchars($title)." required>".htmlspecialchars($title)."</option>\n";
             }
           ?>
         </select>
-        <input type="submit" name="delete" value="Radera" 
+        <button id="form-delete" type="button" name="delete"
             <?php 
-              if (!$selected) { echo 'disabled'; } else { echo 'class="button"'; }
-            ?>>
+              if (!$selected) { echo 'disabled'; }
+            ?>>Radera</button>
         
-        <label>Titel:<input type="text" name="title" maxlength="100" required 
+        <label>Titel:<input id="selector-input" type="text" name="title" maxlength="100" required 
             <?php
-              if ($selected && property_exists($selected, 'title')) echo 'value="'.$selected->title.'"'
+              if ($selected && property_exists($selected, 'title')) echo 'value="'.htmlspecialchars($selected->title).'"'
             ?>>
         </label>
         
@@ -65,7 +67,7 @@ $selected = false;
         
           <?php
             if ($selected && property_exists($selected, 'image')) {
-              echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
+              echo '<img id="image-upload-show" src="'.htmlspecialchars($selected->image).'">Ersätt';
             }
           ?>
           <label>Bild:<input id="image-upload" type="file" name="image" accept="image/png,image/jpeg, .jpg,.jpeg,.png"
@@ -75,37 +77,38 @@ $selected = false;
                 }
               ?>>
           </label>
+          <div id="form-image-error" class="input-error-message">Bilden får inte vara mer än 5mb</div>
           <br>
           
           <label>Datum:<input name="date" type="text" id="form-date" class="readonly" maxlength="25" required <?php 
-            if ($selected && property_exists($selected, 'startDate')) echo 'value="'.$selected->startDate.'"';
+            if ($selected && property_exists($selected, 'startDate')) echo 'value="'.htmlspecialchars($selected->startDate).'"';
           ?>></label>
           <br>
         
           <label>Tid:<input id="form-time" type="time" name="time" maxlength="5" required
               <?php 
-                if ($selected && property_exists($selected, 'startTime')) echo 'value="'.$selected->startTime.'"'   
+                if ($selected && property_exists($selected, 'startTime')) echo 'value="'.htmlspecialchars($selected->startTime).'"'   
               ?>>
           </label>
           <div id="form-time-error" class="input-error-message">Normalt skriver man tid så här: 12:34</div>
           
           <label class="form-description">Beskrivning:<textarea id="form-description" name="description" rows="5" cols="30" maxlength="200" required
-          ><?php if ($selected && property_exists($selected, 'description')) echo $selected->description
+          ><?php if ($selected && property_exists($selected, 'description')) echo htmlspecialchars($selected->description)
               ?></textarea>
           </label>
           <div id="form-description-error" class="input-error-message">170/200 tecken</div>
           <br>          
           
           <label class="form-place">Plats:<input name="place" type="text" maxlength="100" required <?php 
-            if ($selected && property_exists($selected, 'place')) echo 'value="'.$selected->place.'"';
+            if ($selected && property_exists($selected, 'place')) echo 'value="'.htmlspecialchars($selected->place).'"';
           ?>></label>
           <br>
           
           <label>Latitude:<input name="lat" type="text" maxlength="20" required <?php 
-            if ($selected && property_exists($selected, 'lat')) echo 'value="'.$selected->lat.'"';
+            if ($selected && property_exists($selected, 'lat')) echo 'value="'.htmlspecialchars($selected->lat).'"';
           ?>></label>
           <label class="form-long">Longitude:<input name="long" type="text" maxlength="20" required <?php 
-            if ($selected && property_exists($selected, 'long')) echo 'value="'.$selected->long.'"';
+            if ($selected && property_exists($selected, 'long')) echo 'value="'.htmlspecialchars($selected->long).'"';
           ?>></label>
           <br>
           <span class="latlong-tip">Tips: <a href="http://www.latlong.net/" target="_blank">www.latlong.net</a></span>
@@ -115,6 +118,7 @@ $selected = false;
           <span id="form-error">Var snäll och fyll i hela formuläret</span>
           
         </div>
+        <div id="response"></div>
       </form>
       <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
     </div>
