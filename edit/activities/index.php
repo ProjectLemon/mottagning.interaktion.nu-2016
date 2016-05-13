@@ -48,7 +48,7 @@ $selected = false;
                     $selected_attr = 'selected';
                 }
                 
-                echo "<option $selected_attr value=".htmlspecialchars($title)." required>".htmlspecialchars($title)."</option>\n";
+                echo '<option '.$selected_attr.' value="'.htmlspecialchars($title).'" required>'.htmlspecialchars($title).'</option>\n';
             }
           ?>
         </select>
