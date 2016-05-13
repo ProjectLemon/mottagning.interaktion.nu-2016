@@ -1,38 +1,51 @@
 {
-
-    "Filip": {
+    "Oscar Thorwid": {
+        "name": "Oscar Thorwid",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "general",
+        "image": "\/edit\/content\/images\/1463081691.jpg"
+    },
+    "Linnea Berglund": {
+        "name": "Linnea Berglund",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "blue",
+        "image": "\/edit\/content\/images\/1463081764.jpg"
+    },
+    "Aron Nisbel": {
+        "name": "Aron Nisbel",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "red",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Fredrik \u00d6stlund": {
+        "name": "Fredrik \u00d6stlund",
+        "mail": "example@gmail.com",
+        "phone": "070-231 32 32",
+        "group": "yellow",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    "Filip Bark": {
         "name": "Filip Bark",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "general",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-    "Oscar": {
-        "name": "Oscar Thorwid",
-        "mail": "example@gmail.com",
-        "phone": "070-231 32 32",
-        "group": "general",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
+    "<script>alert('?')<\/script>": {
+        "name": "<script>alert('?')<\/script>",
+        "mail": "asdf",
+        "phone": "asdf",
+        "group": "red",
+        "image": "\/edit\/content\/images\/1463129657.jpg"
     },
-    "Linnea": {
-        "name": "Linnea Berglund",
-        "mail": "example@gmail.com",
-        "phone": "070-231 32 32",
-        "group": "blå",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
-    },
-    "Fredrik": {
-        "name": "Fredrik Östlund",
-        "mail": "example@gmail.com",
-        "phone": "070-231 32 32",
-        "group": "gul",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
-    },
-    "Aron": {
-        "name": "Aron Nisbel",
-        "mail": "example@gmail.com",
-        "phone": "070-231 32 32",
-        "group": "röd",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
+    "asdf": {
+        "name": "asdf",
+        "mail": "gfda",
+        "phone": "asdf",
+        "group": "red",
+        "image": "\/edit\/content\/images\/1463133376.jpg"
     }
 }

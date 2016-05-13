@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Edit: Response</title>
-    <meta charset="UTF-8">
-  </head>
-  <body>
 <?php
+header('Content-Type: text/html; charset=utf-8');
     
 require '../saving_resources.php';
 
@@ -48,7 +42,7 @@ function save($contacts_file_name, $target_dir, $parent_path) {
 	   
     // Save to json data file
     if (file_put_contents($contacts_file_name, $jsondata)) {
-        echo '<p>Contact successfully saved</p>';
+        echo 'Contact successfully saved';
 	   
     } else {
         throw new RuntimeException('Could not save to file');
@@ -79,7 +73,7 @@ function delete($contacts_file_name) {
        
     // Save to json data file
     if (file_put_contents($contacts_file_name, $jsondata)) {
-        echo '<p>Contact successfully deleted</p>';
+        echo 'Contact successfully deleted';
        
     } else {
         throw new RuntimeException('Could not save to file');
@@ -113,13 +107,10 @@ try {
     }
     
 } catch (RuntimeException $e) {
-    echo '<h1>Error: ' . $e->getMessage() . '</h1>';
+    http_response_code(400);
+    echo 'Error: ' . $e->getMessage();
 }
 
 
 
 ?>
-
-    <a href="./?select=<?php echo rawurlencode($_POST['name']) ?>">Back</a>
-  </body>
-</html>

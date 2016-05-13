@@ -1,5 +1,5 @@
 <script>
-/* Reaload page with filled content when changing activity */
+/* Reaload page with filled content when changing select */
 var select = document.getElementById('edit-select');
 select.addEventListener('change', function() {
     var value = select.options[select.selectedIndex].value;
@@ -13,23 +13,41 @@ select.addEventListener('change', function() {
 
 /* Preview image before uploading */
 var imageUpload = document.getElementById('image-upload');
+var imageError = document.getElementById('form-image-error');
 imageUpload.addEventListener('change', function changeActivity(event) {
     var imageUploadShow = document.getElementById('image-upload-show');
     var image = URL.createObjectURL(event.target.files[0])
     if (imageUploadShow) {
         imageUploadShow.src = image;
     } else {
-        imageUpload.parentNode.insertAdjacentHTML('beforebegin', '<img id="image-upload-show" src="'+image+'">Ersätt ');
+        imageUpload.parentNode.insertAdjacentHTML('beforebegin', '<img id="image-upload-show" src="'+image+'">');
+        var imageUploadShow = document.getElementById('image-upload-show');
+    }
+    
+    if (imageUpload.files && imageUpload.files[0]) {
+        if (imageUpload.files[0].size > 5*1024*1024) { // 5mb
+            imageError.style.display = 'block';
+            imageUpload.value = '';
+            imageUploadShow.style.opacity = '.3';
+        } else {
+            imageError.style.display = 'none';
+            imageUploadShow.style.opacity = '1';
+        }
     }
 });
 
-/* Add cross-browser support for required */
+
 var form = document.getElementById('edit-form');
+var response = document.getElementById('response');
+var deleteButton = document.getElementById('form-delete');
+var request = new XMLHttpRequest();
+
 form.noValidate = true;
 errorTime = 4000 // 4 seconds
 form.addEventListener('submit', function(event) {
+    
+    /* Add cross-browser support for required */
     if (!event.target.checkValidity()) {
-        event.preventDefault();
         var formError = document.getElementById('form-error');
         formError.style.display = 'inline';
         window.setTimeout(function(){ formError.style.display = 'none'; }, errorTime);
@@ -46,8 +64,86 @@ form.addEventListener('submit', function(event) {
                 })(input.parentNode), errorTime);
             }
         }
+        
+    /* Ajax form submit */
+    } else {
+        
+        var formData = new FormData(event.target);
+        request.onreadystatechange = function() {
+            if (request.readyState == 1) {
+                startLoading();
+            }
+        }
+        request.onload = function(e) {
+            if (request.status == 200) { // success
+                response.innerHTML = request.responseText;
+                response.classList.remove('error');
+                
+                // new select:
+                if (select.selectedIndex == 0) {
+                    var option = document.createElement('option');
+                    var selector = document.getElementById('selector-input');
+                    option.text = selector.value;
+                    select.add(option);
+                    option.selected = true;
+                    
+                    deleteButton.disabled = false;
+                    
+                    //history.replaceState();
+                }
+                
+            } else { // error
+                response.innerHTML = request.responseText;
+                response.classList.add('error');
+            }
+            
+            stopLoading();
+        };
+        request.open('POST', 'save.php');
+        request.send(formData);
+        
     }
+    
+    event.preventDefault();
 }, false);
+
+/* Ajax delete submit */
+// Delete button has no actual submit attribute, as it should not be triggered with enter key
+deleteButton.addEventListener('click', function() {
+    request.open('POST', 'save.php');
+    request.onload = function(e) {
+        if (request.status == 200) {
+            response.innerHTML = request.responseText;
+        } else {
+            response.innerHTML = request.responseText;
+        }
+    }
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    request.send(deleteButton.name+'='+deleteButton.innerHTML+'&'+select.name+'='+encodeURIComponent(select.value));
+    // reaload and remove paramaters:
+    window.setTimeout(function() { location.href = location.protocol + '//' + location.host + location.pathname; }, 1200);
+});
+
+var loadingBar = document.createElement('DIV');
+loadingBar.classList.add('loading-bar');
+form.appendChild(loadingBar);
+function startLoading() {
+    loadingBar.style.width = '80%';
+}
+function stopLoading() {
+    loadingBar.classList.add('done');
+    loadingBar.style.width = '100%';
+    
+    window.setTimeout(function() {
+        loadingBar.classList.remove('done');
+        loadingBar.classList.add('retract');
+        loadingBar.style.width = '';
+        
+        window.setTimeout(function() {
+            loadingBar.classList.remove('retract');
+        }, 20);
+    }, 1000);
+}
 
 /* Make input readonly through code to not collide with require attribute  */
 var readonly = document.getElementsByClassName('readonly');
@@ -56,4 +152,8 @@ for (var i = readonly.length-1; i >= 0; i--) {
     readonly[i].addEventListener('mousedown', preventDefault);
     readonly[i].addEventListener('keydown', preventDefault);
 }
+
+
+
+
 </script>

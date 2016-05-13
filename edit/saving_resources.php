@@ -1,4 +1,5 @@
 <?php
+
 function verifyForm() {
     $inputs = func_get_args(); // variable arguments
     foreach ($inputs as $input) {
@@ -94,7 +95,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
         
         // Try to upload file
         if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) {
-            echo '<p>The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded.</p>';
+            echo 'The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded.';
         } else {
             throw new RuntimeException('Failed to move uploaded file.');
         }
@@ -110,7 +111,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
 /* Following validation functions requires $input_name to be name inside $_POST */
 function validateLength($input_name, $lenght) {
     $input = $_POST[$input_name];
-    if (strlen($input) > $lenght) {
+    if (mb_strlen($input, 'UTF-8') > $lenght) {
         throw new RuntimeException("String '$input' must be less than $lenght characters");
     }
 }

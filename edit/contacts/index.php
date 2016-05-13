@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <?php
+
 $contacts_file_name = '../content/contacts.json';
 if (file_exists($contacts_file_name)) {
     $content = file_get_contents($contacts_file_name); 
@@ -47,18 +48,18 @@ $selected = false;
                     $selected_attr = 'selected';
                     
                 }
-                echo "<option $selected_attr value=\"$name\" required>$name</option>\n";
+                echo '<option '.$selected_attr.' value="'.htmlspecialchars($name).'" required>'.htmlspecialchars($name).'</option>\n';
             }
           ?>
         </select>
-        <input type="submit" name="delete" value="Radera" 
+        <button id="form-delete" type="button" name="delete" 
             <?php 
               if (!$selected) { echo 'disabled'; } else { echo 'class="button"'; }
-            ?>>
+            ?>>Radera</button>
         
-        <div><label>Namn:<input type="text" name="name" maxlength="100" required 
+        <div><label>Namn:<input id="selector-input" type="text" name="name" maxlength="100" required 
             <?php
-              if ($selected && property_exists($selected, 'name')) echo 'value="'.$selected->name.'"'
+              if ($selected && property_exists($selected, 'name')) echo 'value="'.htmlspecialchars($selected->name).'"'
             ?>>
         </label></div>
         
@@ -66,7 +67,7 @@ $selected = false;
         
           <?php
             if ($selected && property_exists($selected, 'image')) {
-              echo '<img id="image-upload-show" src="'.$selected->image.'">Ersätt';
+              echo '<img id="image-upload-show" src="'.htmlspecialchars($selected->image).'">Ersätt';
             }
           ?>
           <label>Bild:<input id="image-upload" type="file" name="image" accept="image/png,image/jpeg, .jpg,.jpeg,.png"
@@ -76,15 +77,16 @@ $selected = false;
                 }
               ?>>
           </label>
+          <div id="form-image-error" class="input-error-message">Bilden får inte vara mer än 5mb</div>
           <br>
           
           <label>Mail:<input name="mail" type="text" maxlength="100" required <?php 
-            if ($selected && property_exists($selected, 'mail')) echo 'value="'.$selected->mail.'"';
+            if ($selected && property_exists($selected, 'mail')) echo 'value="'.htmlspecialchars($selected->mail).'"';
           ?>></label>
           <br>
           
           <label class="form-phone">Telefon:<input name="phone" type="text" maxlength="20" required <?php 
-            if ($selected && property_exists($selected, 'phone')) echo 'value="'.$selected->phone.'"';
+            if ($selected && property_exists($selected, 'phone')) echo 'value="'.htmlspecialchars($selected->phone).'"';
           ?>></label>
           <br>
           <div id="form-groups">
@@ -114,6 +116,7 @@ $selected = false;
           <span id="form-error">Var snäll och fyll i hela formuläret</span>
           
         </div>
+        <div id="response"></div>
       </form>
       <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
     </div>
