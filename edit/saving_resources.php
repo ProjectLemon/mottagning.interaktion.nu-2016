@@ -81,11 +81,11 @@ function verifyUploadImage($image_name, $target_dir) {
 
 function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $saving_object, &$formdata) {
     
-    if (!array_key_exists($_POST[$form_name], $saving_object)       // activity does not exist
+    // if new:
+    if (!array_key_exists($_POST[$form_name], $saving_object)               // activity does not exist
             || !isset($saving_object[$_POST[$form_name]][$image_file_key])  // activity exist but with no image
-            || $saving_object[$_POST[$form_name]][$image_file_key] == null  // activity exist with image but is set to null
-            || isset($_FILES[$image_file_key]) 
-               && $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new file is uploaded
+            || $saving_object[$_POST[$form_name]][$image_file_key] == null  // activity exist but image is set to null
+            || isset($_FILES[$image_file_key]) && $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new file is uploaded
         
         $target_file = verifyUploadImage($image_file_key, $target_dir, $parent_path);
         
@@ -97,6 +97,22 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
         }
         $dir_name = basename((dirname(__FILE__))); // get current directory
         $formdata[$image_file_key] = str_replace('..', $parent_path, $target_file);
+        
+        
+        // If replacing image
+        if (   array_key_exists($_POST[$form_name], $saving_object)             // object exist
+            && isset($saving_object[$_POST[$form_name]][$image_file_key])       // image is set in object
+            && $saving_object[$_POST[$form_name]][$image_file_key] != null      // image is not set to null
+            ) {
+                
+            $previous_image_file_name = $saving_object[$_POST[$form_name]][$image_file_key];
+            $previous_image_file_name = str_replace($parent_path, '..', $previous_image_file_name);
+            
+            // delete image
+            if (file_exists($previous_image_file_name)) {
+                unlink($previous_image_file_name);
+            }
+        }
         
     } else {
         // Use existing image

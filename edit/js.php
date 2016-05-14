@@ -45,6 +45,14 @@ var deleteButton = document.getElementById('form-delete');
 var request = new XMLHttpRequest();
 var sending = false;
 
+/* When starting a submit */
+request.onreadystatechange = function() {
+    if (request.readyState == 1) {
+        sending = true;
+        startLoading();
+    }
+}
+
 form.noValidate = true;
 errorTime = 4000 // 4 seconds
 form.addEventListener('submit', function(event) {
@@ -72,12 +80,7 @@ form.addEventListener('submit', function(event) {
     } else if (!sending) {
         
         var formData = new FormData(event.target);
-        request.onreadystatechange = function() {
-            if (request.readyState == 1) {
-                sending = true;
-                startLoading();
-            }
-        }
+        
         request.onload = function(e) {
             if (request.status == 200) { // success
                 response.innerHTML = request.responseText;
@@ -94,7 +97,7 @@ form.addEventListener('submit', function(event) {
                     deleteButton.disabled = false;
                     
                     if (window.history && window.history.replaceState) {
-                        window.history.replaceState({}, document.title, location.pathname+'?select='+selector.value);
+                        window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selector.value));
                     }
                     
                 // changed select entry:
@@ -104,7 +107,7 @@ form.addEventListener('submit', function(event) {
                     option.text = selectorInput.value;
                     
                     if (window.history && window.history.replaceState) {
-                        window.history.replaceState({}, document.title, location.pathname+'?select='+selectorInput.value);
+                        window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selectorInput.value));
                     }
                 }
                 
@@ -115,7 +118,7 @@ form.addEventListener('submit', function(event) {
             
             stopLoading();
         };
-        request.open('POST', 'save.php');
+        request.open('POST', 'save.php', true);
         request.send(formData);
         response.innerHTML = '';
         
@@ -138,7 +141,7 @@ deleteButton.addEventListener('click', function() {
         }
         stopLoading();
     }
-    request.open('POST', 'save.php');
+    request.open('POST', 'save.php', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     request.send(deleteButton.name+'='+deleteButton.innerHTML+'&'+select.name+'='+encodeURIComponent(select.value));
 });

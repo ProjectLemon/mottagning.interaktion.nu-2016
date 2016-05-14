@@ -32,7 +32,7 @@ $selected = false;
     <div class="wrapper">
       <?php include '../menu.php' ?>
       
-      <form id="edit-form" class="form-contact" action="save.php" method="POST" enctype="multipart/form-data">          
+      <form id="edit-form" class="form-contact" action="save.php" method="POST" enctype="multipart/form-data">
         <select id="edit-select"  name="contact" class="button">
           <option id="select-new" value="Ny kontakt" required>Ny kontakt</option>
           <?php
