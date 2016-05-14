@@ -32,16 +32,11 @@ function verifyUploadImage($image_name, $target_dir) {
     }
     
     // Check if image file is a actual image or fake image
-    if (isset($_POST['submit'])) {
-        $check = getimagesize($tmp_file_name); // accepted hack to determine it's an image
-        
-        if ($check !== false) {
-            echo 'File is an image - ' . $check['mime'] . '.';
-            
-        } else {
-            throw new RuntimeException('File is not an image');
-        }
+    $check = getimagesize($tmp_file_name); // accepted hack to determine it's an image
+    if ($check == false) {
+        throw new RuntimeException('File is not an image');
     }
+    
 
     // Check MIME Type manually
     $finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -59,6 +54,7 @@ function verifyUploadImage($image_name, $target_dir) {
     $extension = ($mime == 'image/png') ? '.png' : '.jpg';
     
     
+    // Use unix timestamp as filename
     // Check if target file name already exists
     $exists = false;
     for ($i = 0; $i < 7; $i++) {
@@ -72,10 +68,10 @@ function verifyUploadImage($image_name, $target_dir) {
         sleep(1); // wait 1 second, max 7
     }
     if ($exists) {
-        throw new RuntimeException('Target file name already exist');
+        throw new RuntimeException('To many uploads at the same time, try again later');
     }
 
-    // You should also check filesize here. 
+    // Check filesize
     if ($_FILES[$image_name]['size'] > 5*1024*1024) { // 5mb
         throw new RuntimeException('Exceeded filesize limit (5mb).');
     }
@@ -95,7 +91,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
         
         // Try to upload file
         if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) {
-            echo 'The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded.';
+            echo 'The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded. ';
         } else {
             throw new RuntimeException('Failed to move uploaded file.');
         }
