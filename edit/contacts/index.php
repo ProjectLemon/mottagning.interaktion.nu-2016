@@ -120,7 +120,7 @@ $selected = false;
       var form = document.getElementById('edit-form');
         
       /* Change background based on group */
-      groupColors = {red: '#C62828', blue: '#3374BA', yellow: '#d8bd2f', general: '#1E5E2F'}
+      var groupColors = {red: '#C62828', blue: '#3374BA', yellow: '#d8bd2f', general: '#1E5E2F'}
       
       // Change background color immediately
       form.style.backgroundColor = groupColors[document.querySelector('input[name="group"]:checked').value];
@@ -141,6 +141,6 @@ $selected = false;
           });
       }
     </script>
-    <?php include '../js.php' ?>
+    <script src="/src/js/edit.js" async></script>
   </body>
 </html>

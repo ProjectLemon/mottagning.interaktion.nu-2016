@@ -1,4 +1,4 @@
-<script>
+
 /* Reaload page with filled content when changing select */
 var select = document.getElementById('edit-select');
 var selectorInput = document.getElementById('selector-input');
@@ -16,6 +16,7 @@ select.addEventListener('change', function() {
 /* Preview image before uploading */
 var imageUpload = document.getElementById('image-upload');
 var imageError = document.getElementById('form-image-error');
+
 imageUpload.addEventListener('change', function changeActivity(event) {
     var imageUploadShow = document.getElementById('image-upload-show');
     var image = URL.createObjectURL(event.target.files[0])
@@ -28,9 +29,18 @@ imageUpload.addEventListener('change', function changeActivity(event) {
     
     if (imageUpload.files && imageUpload.files[0]) {
         if (imageUpload.files[0].size > 5*1024*1024) { // 5mb
-            imageError.style.display = 'block';
-            imageUpload.value = '';
-            imageUploadShow.style.opacity = '.3';
+            
+            var imageToBigError = function() {
+                imageError.style.display = 'block';
+                imageUpload.value = '';
+                imageUploadShow.style.opacity = '.3'; 
+                
+                // only trigger once
+                imageUploadShow.removeEventListener('load', imageToBigError);
+            };
+            // wait till image is shown
+            imageUploadShow.addEventListener('load', imageToBigError);
+            
         } else {
             imageError.style.display = 'none';
             imageUploadShow.style.opacity = '1';
@@ -146,6 +156,7 @@ deleteButton.addEventListener('click', function() {
     request.send(deleteButton.name+'='+deleteButton.innerHTML+'&'+select.name+'='+encodeURIComponent(select.value));
 });
 
+/* Loading bar for server requests */
 var loadingBar = document.createElement('DIV');
 loadingBar.classList.add('loading-bar');
 form.appendChild(loadingBar);
@@ -176,7 +187,3 @@ for (var i = readonly.length-1; i >= 0; i--) {
     readonly[i].addEventListener('keydown', preventDefault);
 }
 
-
-
-
-</script>

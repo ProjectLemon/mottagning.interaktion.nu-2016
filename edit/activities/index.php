@@ -163,6 +163,6 @@ $selected = false;
           }
       });
     </script>
-    <?php include '../js.php'; ?>
+    <script src="/src/js/edit.js" async></script>
   </body>
 </html>
