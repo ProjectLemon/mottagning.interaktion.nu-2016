@@ -27,17 +27,12 @@ $selected = false;
 ?>
 
 <html lang="sv">
-  <head>
-    <title>Title</title>
-    <meta charset="UTF-8">
-    <link href="/resources/css/edit.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
-  </head>
+  <?php include '../head.php'; ?>
   <body>
     <div class="wrapper">
       <?php include '../menu.php' ?>
       
-      <form id="edit-form" class="form-contact" action="save.php" method="POST" enctype="multipart/form-data">          
+      <form id="edit-form" class="form-contact" action="save.php" method="POST" enctype="multipart/form-data">
         <select id="edit-select"  name="contact" class="button">
           <option id="select-new" value="Ny kontakt" required>Ny kontakt</option>
           <?php
@@ -106,7 +101,7 @@ $selected = false;
                          ) {
                           $checked = 'checked';
                       }
-                      echo "<label>$color_name<input type=\"radio\" name=\"group\" value=\"$color\" $checked></label>";
+                      echo "<label>$color_name<input type=\"radio\" name=\"group\" value=\"$color\" required $checked></label>";
                   }
               ?>
           </div>

@@ -10,22 +10,22 @@
         "name": "Linnea Berglund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
-        "group": "blå",
+        "group": "blue",
         "image": "\/edit\/content\/images\/1463081764.jpg"
     },
     "Aron Nisbel": {
         "name": "Aron Nisbel",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
-        "group": "röd",
+        "group": "red",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Fredrik \u00d6stlund": {
         "name": "Fredrik \u00d6stlund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
-        "group": "gul",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
+        "group": "yellow",
+        "image": "\/edit\/content\/images\/1463239485.jpg"
     },
     "Filip Bark": {
         "name": "Filip Bark",
@@ -36,16 +36,23 @@
     },
     "<script>alert('?')<\/script>": {
         "name": "<script>alert('?')<\/script>",
-        "mail": "asdf",
+        "mail": "asdf2",
         "phone": "asdf",
-        "group": "röd",
+        "group": "red",
         "image": "\/edit\/content\/images\/1463129657.jpg"
     },
-    "asdf": {
-        "name": "asdf",
-        "mail": "gfda",
+    "fdsa": {
+        "name": "fdsa",
+        "mail": "asdf",
         "phone": "asdf",
-        "group": "röd",
-        "image": "\/edit\/content\/images\/1463133376.jpg"
+        "group": "general",
+        "image": "\/edit\/content\/images\/1463160891.png"
+    },
+    "testing 126": {
+        "name": "testing 126",
+        "mail": "asdf",
+        "phone": "asdf",
+        "group": "red",
+        "image": "\/edit\/content\/images\/1463247372.jpg"
     }
 }

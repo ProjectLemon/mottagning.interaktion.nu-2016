@@ -2,7 +2,7 @@
     "Test2": {
         "title": "Test2",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
-        "startDate": "Fri May 13 2016",
+        "startDate": "Sat May 14 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "123",
@@ -12,7 +12,7 @@
     "Vinbr\u00e4nnboll": {
         "title": "Vinbr\u00e4nnboll",
         "description": "This is an example card",
-        "startDate": "Thu May 13 2016",
+        "startDate": "Sun May 15 2016",
         "startTime": "15:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
@@ -22,8 +22,8 @@
     "Festival": {
         "title": "Festival",
         "description": "This is an example card",
-        "startDate": "Fri May 13 2016",
-        "startTime": "6:12",
+        "startDate": "Sat May 14 2016",
+        "startTime": "06:21",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
         "long": "20.310395",
@@ -48,5 +48,15 @@
         "lat": "99.99999999999999999",
         "long": "99.99999999999999999",
         "image": "\/edit\/content\/images\/1463062891.jpg"
+    },
+    "Testttt": {
+        "title": "Testttt",
+        "description": "Hk",
+        "startDate": "Sun May 15 2016",
+        "startTime": "23:58",
+        "place": "\u00f6ljk",
+        "lat": "8",
+        "long": "0",
+        "image": "\/edit\/content\/images\/1463136973.jpg"
     }
 }

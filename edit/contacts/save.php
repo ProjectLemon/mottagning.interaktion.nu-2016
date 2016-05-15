@@ -80,7 +80,6 @@ function delete($contacts_file_name) {
     }
 }
 
-
 // define ('SITE_ROOT', realpath(dirname(__FILE__))); // may need on server
 
 $image_dir = '../content/images/';

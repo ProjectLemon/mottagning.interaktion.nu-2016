@@ -1,6 +1,8 @@
 <script>
 /* Reaload page with filled content when changing select */
 var select = document.getElementById('edit-select');
+var selectorInput = document.getElementById('selector-input');
+
 select.addEventListener('change', function() {
     var value = select.options[select.selectedIndex].value;
     var id = select.options[select.selectedIndex].getAttribute('id');
@@ -41,6 +43,15 @@ var form = document.getElementById('edit-form');
 var response = document.getElementById('response');
 var deleteButton = document.getElementById('form-delete');
 var request = new XMLHttpRequest();
+var sending = false;
+
+/* When starting a submit */
+request.onreadystatechange = function() {
+    if (request.readyState == 1) {
+        sending = true;
+        startLoading();
+    }
+}
 
 form.noValidate = true;
 errorTime = 4000 // 4 seconds
@@ -66,14 +77,10 @@ form.addEventListener('submit', function(event) {
         }
         
     /* Ajax form submit */
-    } else {
+    } else if (!sending) {
         
         var formData = new FormData(event.target);
-        request.onreadystatechange = function() {
-            if (request.readyState == 1) {
-                startLoading();
-            }
-        }
+        
         request.onload = function(e) {
             if (request.status == 200) { // success
                 response.innerHTML = request.responseText;
@@ -89,7 +96,19 @@ form.addEventListener('submit', function(event) {
                     
                     deleteButton.disabled = false;
                     
-                    //history.replaceState();
+                    if (window.history && window.history.replaceState) {
+                        window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selector.value));
+                    }
+                    
+                // changed select entry:
+                } else if (selectorInput.value != select.value) {
+                    var option = select.options[select.selectedIndex];
+                    option.value = selectorInput.value;
+                    option.text = selectorInput.value;
+                    
+                    if (window.history && window.history.replaceState) {
+                        window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selectorInput.value));
+                    }
                 }
                 
             } else { // error
@@ -99,8 +118,9 @@ form.addEventListener('submit', function(event) {
             
             stopLoading();
         };
-        request.open('POST', 'save.php');
+        request.open('POST', 'save.php', true);
         request.send(formData);
+        response.innerHTML = '';
         
     }
     
@@ -110,18 +130,20 @@ form.addEventListener('submit', function(event) {
 /* Ajax delete submit */
 // Delete button has no actual submit attribute, as it should not be triggered with enter key
 deleteButton.addEventListener('click', function() {
-    request.open('POST', 'save.php');
     request.onload = function(e) {
         if (request.status == 200) {
             response.innerHTML = request.responseText;
+            // reaload and remove paramaters:
+            window.setTimeout(function() { location.href = location.protocol + '//' + location.host + location.pathname; }, 1200);
+            
         } else {
             response.innerHTML = request.responseText;
         }
+        stopLoading();
     }
+    request.open('POST', 'save.php', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     request.send(deleteButton.name+'='+deleteButton.innerHTML+'&'+select.name+'='+encodeURIComponent(select.value));
-    // reaload and remove paramaters:
-    window.setTimeout(function() { location.href = location.protocol + '//' + location.host + location.pathname; }, 1200);
 });
 
 var loadingBar = document.createElement('DIV');
@@ -141,6 +163,7 @@ function stopLoading() {
         
         window.setTimeout(function() {
             loadingBar.classList.remove('retract');
+            sending = false;
         }, 20);
     }, 1000);
 }

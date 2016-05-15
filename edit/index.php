@@ -12,5 +12,7 @@
     <?php
       include 'menu.php';
     ?>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><!-- Fuck, this is ugly. Why did I ever do this? -->
+    <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
   </body>
 </html>
