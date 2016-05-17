@@ -1,3 +1,12 @@
+/**
+* File:     contactContentHandler.js
+* Author:   Linus Lagerhjelm
+* Last      Modified: 2016-05-17
+* Purpose:  The script in this file requests the contact information for the
+*           group leaders from the server and then it generates the info
+*           elements that it paints to the screen
+*/
+
 var leaders = [];
 var cardColors = {
   "general": "#1e5e2f",
@@ -11,6 +20,7 @@ var cardColors = {
 
 getContactInfo();
 
+/* Reads group leader info from the server */
 function getContactInfo() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
@@ -19,6 +29,8 @@ function getContactInfo() {
       for (var obj in json) {
         leaders.push(json[obj]);
       }
+
+      //We're applying the same trick here as described in cardHandler.js
       paintContactCards();
     }
   };
@@ -26,6 +38,7 @@ function getContactInfo() {
   xhttp.send();
 }
 
+/* Generates HTML-nodes and paints them to the document */
 function paintContactCards() {
   for (var i = 0; i < leaders.length; i++) {
     leaders[i].group.toLowerCase();
@@ -40,8 +53,14 @@ function paintContactCards() {
   }
 }
 
+/*
+* We're using the role field that we get from the server but
+* since that field will be filled in by the user we want to make structure
+* it has the format we want since we're injecting it straight to the page
+*/
 function handleRoleParsing(role) {
-  var returnString = role.charAt(0).toUpperCase();
+  var returnString = document.createTextNode(role);
+  returnString = role.charAt(0).toUpperCase();
   returnString += role.substring(1);
   if (returnString === "General") {
     return returnString;
