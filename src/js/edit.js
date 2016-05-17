@@ -6,6 +6,8 @@ var selectorInput = document.getElementById('selector-input');
 select.addEventListener('change', function() {
     var value = select.options[select.selectedIndex].value;
     var id = select.options[select.selectedIndex].getAttribute('id');
+    
+    // Reload page with selected parameter
     if (id == 'select-new') {
         window.location.href = window.location.href.split('?')[0]
     } else {
@@ -20,6 +22,8 @@ var imageError = document.getElementById('form-image-error');
 imageUpload.addEventListener('change', function changeActivity(event) {
     var imageUploadShow = document.getElementById('image-upload-show');
     var image = URL.createObjectURL(event.target.files[0])
+    
+    // Change source of image or add new
     if (imageUploadShow) {
         imageUploadShow.src = image;
     } else {
@@ -28,8 +32,11 @@ imageUpload.addEventListener('change', function changeActivity(event) {
     }
     
     if (imageUpload.files && imageUpload.files[0]) {
-        if (imageUpload.files[0].size > 5*1024*1024) { // 5mb
+        
+        // Show error if image is larger than 5mb
+        if (imageUpload.files[0].size > 5*1024*1024) {
             
+            // Add error message
             var imageToBigError = function() {
                 imageError.style.display = 'block';
                 imageUpload.value = '';
@@ -42,6 +49,8 @@ imageUpload.addEventListener('change', function changeActivity(event) {
             imageUploadShow.addEventListener('load', imageToBigError);
             
         } else {
+            
+            // Remove error message
             imageError.style.display = 'none';
             imageUploadShow.style.opacity = '1';
         }
@@ -64,14 +73,19 @@ request.onreadystatechange = function() {
 }
 
 form.noValidate = true;
-errorTime = 4000 // 4 seconds
+errorTime = 4000; // 4 seconds
+
 form.addEventListener('submit', function(event) {
     
     /* Add cross-browser support for required */
-    if (!event.target.checkValidity()) {
+    if (!event.target.checkValidity()) { // if not valid
+        
+        // Show error message
         var formError = document.getElementById('form-error');
         formError.style.display = 'inline';
+        // Remove error message after a time
         window.setTimeout(function(){ formError.style.display = 'none'; }, errorTime);
+        
         // Mark all invalid inputs labels
         for (i=0; i<event.target.length; i++) {
             var input = event.target[i];
@@ -91,6 +105,7 @@ form.addEventListener('submit', function(event) {
         
         var formData = new FormData(event.target);
         
+        // When done
         request.onload = function(e) {
             if (request.status == 200) { // success
                 response.innerHTML = request.responseText;
@@ -140,6 +155,7 @@ form.addEventListener('submit', function(event) {
 /* Ajax delete submit */
 // Delete button has no actual submit attribute, as it should not be triggered with enter key
 deleteButton.addEventListener('click', function() {
+    // When done
     request.onload = function(e) {
         if (request.status == 200) {
             response.innerHTML = request.responseText;
@@ -160,9 +176,17 @@ deleteButton.addEventListener('click', function() {
 var loadingBar = document.createElement('DIV');
 loadingBar.classList.add('loading-bar');
 form.appendChild(loadingBar);
+
+/**
+ * Load progress bar width, not fully
+ */
 function startLoading() {
     loadingBar.style.width = '80%';
 }
+/**
+ * Load progress bar width fully, and add appropiet class states
+ * Set sending variable to false when done
+ */
 function stopLoading() {
     loadingBar.classList.add('done');
     loadingBar.style.width = '100%';
@@ -175,7 +199,7 @@ function stopLoading() {
         window.setTimeout(function() {
             loadingBar.classList.remove('retract');
             sending = false;
-        }, 20);
+        }, 30);
     }, 1000);
 }
 

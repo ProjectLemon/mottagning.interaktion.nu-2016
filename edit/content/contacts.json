@@ -4,14 +4,14 @@
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "general",
-        "image": "\/edit\/content\/images\/1463081691.jpg"
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Linnea Berglund": {
         "name": "Linnea Berglund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "blue",
-        "image": "\/edit\/content\/images\/1463081764.jpg"
+        "image": "\/resources\/img\/bg-large-process-comp.jpg"
     },
     "Aron Nisbel": {
         "name": "Aron Nisbel",
@@ -25,7 +25,7 @@
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "yellow",
-        "image": "\/edit\/content\/images\/1463239485.jpg"
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "Filip Bark": {
         "name": "Filip Bark",
@@ -39,20 +39,20 @@
         "mail": "asdf2",
         "phone": "asdf",
         "group": "red",
-        "image": "\/edit\/content\/images\/1463129657.jpg"
+        "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     "fdsa": {
         "name": "fdsa",
         "mail": "asdf",
         "phone": "asdf",
         "group": "general",
-        "image": "\/edit\/content\/images\/1463160891.png"
+        "image": "\/resources\/img\/bg-frosted-large.jpg"
     },
-    "testing 126": {
-        "name": "testing 126",
+    "testing 124": {
+        "name": "testing 124",
         "mail": "asdf",
         "phone": "asdf",
         "group": "red",
-        "image": "\/edit\/content\/images\/1463247372.jpg"
+        "image": "\/resources\/img\/bg-large-process-comp.jpg"
     }
 }

@@ -7,8 +7,8 @@
  * Setup
  */
 @mixin transition($transition...) {
-    -webkit-transition: $transition;
-    transition:         $transition;
+  -webkit-transition: $transition;
+  transition:         $transition;
 }
  
 $font: "Quicksand", Helvetica, Arial, sans-serif;
@@ -35,6 +35,7 @@ body {
   font-weight: 700;
   
   background: url('/resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
+  background-color: #aed9fb;
   background-size: cover;
 }
 #image-upload-show {
