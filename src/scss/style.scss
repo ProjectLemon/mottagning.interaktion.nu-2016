@@ -193,11 +193,6 @@ nav#navigation-bar {
       }
     }
     @media screen and (max-width: $phone-landscape-width) {
-      //Because the animations appear somewhat smoother on phone if
-      //We're animating over longer time
-      /*-webkit-transition: height .8s;
-      -moz-transition: height .8s;
-      transition: height 0.8s;*/
       margin: auto;
     }
   }
@@ -237,12 +232,18 @@ nav#navigation-bar {
   }
   h1 {
     font-size: 1.5em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   h2 {
     display: inline-block;
     margin: 0 10px;
   }
   .location {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     > img {
       margin-right: 2px;
       max-width: 20px;
