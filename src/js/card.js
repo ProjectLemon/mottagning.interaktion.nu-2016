@@ -76,8 +76,29 @@ var CardFactory = (function Card() {
       var card = _this.newCard(config);
 
       card.classList.add('mo-card', 'mo-card-activity', 'no-select');
+      card.expanded = false;
       card.addEventListener("click", function(e){
+        this.expanded = !this.expanded;
         this.classList.toggle('mo-card-expanded');
+        var cards = document.getElementsByClassName('mo-card');
+        var index = -1;
+        for (var i = 0; i < cards.length; i++) {
+          if (index == -1) {
+            if (cards[i] == this) {
+              index = i;
+            }
+            
+          } else {
+            
+            if (cards[i] != this) {
+              if (this.expanded) {
+                cards[i].classList.add('mo-card-move');
+              } else {
+                cards[i].classList.remove('mo-card-move');
+              }
+            }  
+          }
+        }
       }, false);
 
       return card;
