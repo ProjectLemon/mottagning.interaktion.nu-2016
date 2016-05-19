@@ -2,7 +2,7 @@
     "Test2": {
         "title": "Test2",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
-        "startDate": "Tue May 17 2016",
+        "startDate": "Fri May 27 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "123",
@@ -12,7 +12,7 @@
     "Vinbr\u00e4nnboll": {
         "title": "Vinbr\u00e4nnboll",
         "description": "This is an example card",
-        "startDate": "Sun May 15 2016",
+        "startDate": "Fri May 27 2016",
         "startTime": "15:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
@@ -22,7 +22,7 @@
     "Festival": {
         "title": "Festival",
         "description": "This is an example card",
-        "startDate": "Wed May 18 2016",
+        "startDate": "Sat May 28 2016",
         "startTime": "06:21",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
@@ -31,8 +31,8 @@
     },
     "Hurtidrutten": {
         "title": "Hurtidrutten",
-        "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do whatever I want because it's my code.",
-        "startDate": "Sun May 17 2016",
+        "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do",
+        "startDate": "Sat May 28 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
@@ -42,17 +42,17 @@
     "This is a really really really really really really really really really really really long title...": {
         "title": "This is a really really really really really really really really really really really long title...",
         "description": "Why is this description so loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
-        "startDate": "Thu May 19 2016",
+        "startDate": "Sun May 29 2016",
         "startTime": "23:59",
         "place": "What's up with all these long stringssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
         "lat": "99.99999999999999999",
         "long": "99.99999999999999999",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
+        "image": "\/edit\/content\/images\/1463477064.jpg"
     },
     "Testttt": {
         "title": "Testttt",
         "description": "Hk",
-        "startDate": "Sun May 15 2016",
+        "startDate": "Mon May 30 2016",
         "startTime": "23:58",
         "place": "\u00f6ljk",
         "lat": "8",

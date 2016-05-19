@@ -25,7 +25,7 @@
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "yellow",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
+        "image": "\/edit\/content\/images\/1463478280.jpg"
     },
     "Filip Bark": {
         "name": "Filip Bark",
@@ -34,8 +34,8 @@
         "group": "general",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-    "<script>alert('?')<\/script>": {
-        "name": "<script>alert('?')<\/script>",
+    "script": {
+        "name": "script",
         "mail": "asdf2",
         "phone": "asdf",
         "group": "red",

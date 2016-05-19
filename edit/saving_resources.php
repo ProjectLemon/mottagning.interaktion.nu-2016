@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * Verifies of all inputs were set in $_POST
+ * This function has and variable amount of argument which
+ * each should be the name of the required input
+ * 
+ * @throws RuntimeException If the required input was not set
+ */
 function verifyForm() {
     $inputs = func_get_args(); // variable arguments
     foreach ($inputs as $input) {
@@ -8,7 +14,19 @@ function verifyForm() {
         }
     }
 }
-function verifyUploadImage($image_name, $target_dir) {
+
+/**
+ * Will verify that image in $_FILES is valid jpg or png. 
+ * Will not move image out of tmp_dir
+ *
+ * @param string $image_name Image name inside $_FILES
+ * @param string $target_dir Directory which a place for the image should be tested
+ * @param string $max_file_size (optional) Max size of the image. Default to 5mb
+ * @return string A valid filename/path in which the file should be saved.
+ *                Name is taken from a unix timestamp
+ * @throws RuntimeException If image is not valid
+ */
+function verifyUploadImage($image_name, $target_dir, $max_file_size=5242880) {
     
     if (!isset($_FILES[$image_name]['tmp_name'])) {
         throw new RuntimeException('No image provided');
@@ -72,13 +90,23 @@ function verifyUploadImage($image_name, $target_dir) {
     }
 
     // Check filesize
-    if ($_FILES[$image_name]['size'] > 5*1024*1024) { // 5mb
-        throw new RuntimeException('Exceeded filesize limit (5mb).');
+    if ($_FILES[$image_name]['size'] > $max_file_size) {
+        throw new RuntimeException('Exceeded filesize limit ('.round($max_file_size/1024/1024, 2).'mb).');
     }
     
     return $target_file;
 }
 
+/**
+ * 
+ *
+ * @param $form_name
+ * @param $image_file_key
+ * @param $target_dir
+ * @param $parent_path
+ * @param $saving_object
+ * @param $formdata
+ */
 function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $saving_object, &$formdata) {
     
     // if new:
@@ -87,7 +115,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
             || $saving_object[$_POST[$form_name]][$image_file_key] == null  // activity exist but image is set to null
             || isset($_FILES[$image_file_key]) && $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new file is uploaded
         
-        $target_file = verifyUploadImage($image_file_key, $target_dir, $parent_path);
+        $target_file = verifyUploadImage($image_file_key, $target_dir);
         
         // Try to upload file
         if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) {
@@ -120,6 +148,14 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
     }
 }
 
+/**
+ * 
+ */
+function resize_image($image_path, $width, $height, $quality=60) {
+    list($orig_width, $orig_height) = getimagesize($filename);
+}
+
+
 /* Following validation functions requires $input_name to be name inside $_POST */
 function validateLength($input_name, $lenght) {
     $input = $_POST[$input_name];
@@ -137,7 +173,7 @@ function validateNumber($input_name) {
 
 function validateTime($input_name) {
     $input = $_POST[$input_name];
-    $regex_pattern = '/^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$/'; // format (H)H:MM
+    $regex_pattern = '/^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$/'; // format (H)H:MM
     $match = preg_match($regex_pattern, $input);
     if ($match == 0) {
         throw new RuntimeException("Input '$input' is not a valid time");

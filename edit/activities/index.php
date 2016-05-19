@@ -138,7 +138,7 @@ $selected = false;
       /* Validate time */
       var time = document.getElementById('form-time');
       var timeError = document.getElementById('form-time-error');
-      var regexpTime = new RegExp('^([0-1]?[0-9]|2[0-3]):([0-5][0-9])(:[0-5][0-9])?$');
+      var regexpTime = new RegExp('^([0-1]?[0-9]|2[0-3]):([0-5][0-9])$');
       time.addEventListener('change', function(event) {
           var timeLabel = event.target.parentNode;
           if (regexpTime.test(event.target.value) == false) {

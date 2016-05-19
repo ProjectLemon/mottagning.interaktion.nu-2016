@@ -142,6 +142,5 @@ $selected = false;
       }
     </script>
     <script src="/src/js/edit.js" async></script>
-    <?php include '../js.php' ?>
   </body>
 </html>
