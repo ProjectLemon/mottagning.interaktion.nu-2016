@@ -1,4 +1,13 @@
 
+/**
+* File:     main.js
+* Author:   Linus Lagerhjelm
+* Last      Modified: 2016-05-17
+* Purpose:  This file handles functionality that is re-occuring on every page
+*           on the site. Such as highlighting active page in menu and keeping
+*           the page title up do date with the current year.
+*/
+
 //Call "main" function
 (function main() {
   initializeMenu();
@@ -6,6 +15,7 @@
 }());
 
 //Functions
+/* Adds the active class to the menu item the user is currently visisting */
 function initializeMenu() {
   var subpages = ["contact", "info"];
   var address = window.location.href;
@@ -24,26 +34,7 @@ function initializeMenu() {
   activeCollapsed.classList.add("active");
 }
 
+/* Appends the current year to page title */
 function setPageTitle() {
   document.title += " "+new Date().getFullYear();
-}
-
-function showOverlay(message) {
-  var overlayBackground = document.createElement('div');
-  var messageContainer = document.createElement('div');
-
-  overlayBackground.style.cssText = "height:100%; width: 100%; position:fixed; top:0;right:0; z-index:100000000000000;background-color: rgba(0,0,0,.4);";
-  messageContainer.style.cssText = "position: absolute; margin:auto; top:50%; left:50%; transform: translate(-50%, -50%); width:300px; padding: 20px; background-color: #EDE4DA; text-align: center; color: black;";
-  messageContainer.innerHTML = message;
-
-  overlayBackground.id = "Site overlay";
-  overlayBackground.appendChild(messageContainer);
-  document.body.appendChild(overlayBackground);
-}
-
-function findElementInArray(array, element) {
-  for (var i = 0; i < array.length; i++) {
-    if (array[i] === element) { return i; }
-  }
-  return -1;
 }
