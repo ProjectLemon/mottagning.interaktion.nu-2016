@@ -46,3 +46,14 @@
   -ms-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
+
+@mixin transition($attr...) {
+  -webkit-transition: $attr;
+  -moz-transition: $attr;
+  transition: $attr;
+}
+@mixin box-shadow($attr...) {
+  -webkit-box-shadow: $attr;
+  -moz-box-shadow: $attr;
+  box-shadow: $attr;
+}

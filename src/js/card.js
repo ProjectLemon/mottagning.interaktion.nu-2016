@@ -53,13 +53,14 @@ var CardFactory = (function Card() {
       var location = "<h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3>";
       var description = "<div class='description animate'>"+config.description+"</div>";
       var directions = "<a onclick='cardFactory.openDirections(event, this)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>"
+      var background = "<div class='card-bg' style='background-color: "+config.color+";'></div>"
 
       //Save value for lat & long in order to use when on click is called
       card.setAttribute('data-lat', config.lat);
       card.setAttribute('data-long', config.long);
 
-      card.style.backgroundColor = config.color;
-      card.innerHTML += headerImg + titleText + startTime + startDate + location + description + directions;
+      //card.style.backgroundColor = config.color;
+      card.innerHTML +=  headerImg + titleText + startTime + startDate + location + description + directions + background;
 
       return card;
     }
@@ -77,28 +78,91 @@ var CardFactory = (function Card() {
 
       card.classList.add('mo-card', 'mo-card-activity', 'no-select');
       card.expanded = false;
+      var allCardsContainer = document.getElementById('activity-cards');
+      var activityCardPusher = document.getElementById('activity-card-pusher');
+      
+      var moveDown = function(element) {
+        element.style.transform += ' translateY(130px)';
+      };
+      var moveUp = function(element) {
+        element.style.transform = element.style.transform.replace('translateY(130px)', '');
+      };
+      card.expand = function() {
+        this.classList.add('expanded');
+        
+        var bg = this.getElementsByClassName('card-bg')[0];
+        bg.classList.add('will-change');
+        bg.style.transform += ' scaleY(2) translateY(25%)';
+        
+        var h = parseInt(activityCardPusher.style.height, 10);
+        if (isNaN(h)) {
+          activityCardPusher.style.height = '130px';
+        } else {
+          activityCardPusher.style.height = (h+130) + 'px';
+        }
+      }
+      card.contract = function() {
+        this.classList.remove('expanded');
+        
+        var bg = this.getElementsByClassName('card-bg')[0];
+        bg.classList.remove('will-change');
+        bg.style.transform = bg.style.transform.replace('scaleY(2)', '');
+        bg.style.transform = bg.style.transform.replace('translateY(25%)', '');
+        
+        var h = parseInt(activityCardPusher.style.height, 10);
+        if (!isNaN(h)) {
+          activityCardPusher.style.height = (h-130) + 'px';
+        }
+      }
+      
       card.addEventListener("click", function(e){
+        if (this.expanded) {
+          this.contract();
+        } else {
+          this.expand();
+        }
         this.expanded = !this.expanded;
-        this.classList.toggle('mo-card-expanded');
-        var cards = document.getElementsByClassName('mo-card');
+        
+        
+        var parentContainer = this.parentElement;
+        var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
         var index = -1;
-        for (var i = 0; i < cards.length; i++) {
+        for (var i = 0; i < cardsOfSameDay.length; i++) {
           if (index == -1) {
-            if (cards[i] == this) {
+            if (cardsOfSameDay[i] == this) {
               index = i;
             }
             
           } else {
-            
-            if (cards[i] != this) {
-              if (this.expanded) {
-                cards[i].classList.add('mo-card-move');
-              } else {
-                cards[i].classList.remove('mo-card-move');
-              }
-            }  
+            if (this.expanded) {
+              moveDown(cardsOfSameDay[i]);
+              cardsOfSameDay[i].classList.add('will-change');
+            } else {
+              moveUp(cardsOfSameDay[i]);
+              cardsOfSameDay[i].classList.remove('will-change');
+            }
           }
         }
+        var dateCardContainers = allCardsContainer.getElementsByClassName('mo-card-date-container');
+        index = -1;
+        for (var i = 0; i < dateCardContainers.length; i++) {
+          if (index == -1) {
+            if (dateCardContainers[i].contains(this)) {
+              index = i;
+            }
+            
+          } else {
+            if (this.expanded) {
+              moveDown(dateCardContainers[i]);
+              dateCardContainers[i].classList.add('will-change');
+            } else {
+              moveUp(dateCardContainers[i]);
+              dateCardContainers[i].classList.remove('will-change');
+            }
+          }
+        }
+        
+        
       }, false);
 
       return card;
