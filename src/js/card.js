@@ -47,14 +47,15 @@ var CardFactory = (function Card() {
       } else {
         headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
       }
-      var titleText = "<h1 class='titleText'>"+config.title+"</h1>";
+
+      var titleText = "<div><h1 class='titleText'>"+config.title+"</h1></div>";
       var startTime = "<h2 class='startTime'><img src='/resources/img/icons/clock.svg' class='fa-icon'>"+_this.formatTime(config.startDateTime)+"</h2>";
       var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startDateTime)+"</h2>";
       var location = "<h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3>";
       var description = "<div class='description animate'>"+config.description+"</div>";
-      var directions = "<a onclick='cardFactory.openDirections(event, this)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>"
+      var directions = "<a onclick='cardFactory.openDirections(event, this)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>";
 
-      //Save value for lat & long in order to use when on click is called
+      //Save value for lat & long in order to use when onClick() is called
       card.setAttribute('data-lat', config.lat);
       card.setAttribute('data-long', config.long);
 
@@ -74,6 +75,7 @@ var CardFactory = (function Card() {
     */
     _this.newActivityCard = function(config) {
       var card = _this.newCard(config);
+      card.innerHTML += "<div class='indicator-arrow-container'><img src='/resources/img/icons/angle-down.svg' class='indicator-arrow' alt='Image of an arrow pointing down in order to indicate that cards are clickable'></div>";
 
       card.classList.add('mo-card', 'mo-card-activity', 'no-select');
       card.addEventListener("click", function(e){
