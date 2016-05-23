@@ -21,6 +21,8 @@
 *           color:         A CSS color value. This will be the card's color
 */
 var CardFactory = (function Card() {
+  
+  var phoneLandscapeWidth = 740;
 
   /*
   * This object is returned when new Card() is called.
@@ -42,7 +44,7 @@ var CardFactory = (function Card() {
 
       //Since images won't be displayed on mobile screens we're preventing them
       //from being downloaded in the first place to improve performance
-      if(document.body.clientWidth <= 740) {
+      if(document.body.clientWidth <= phoneLandscapeWidth) {
         headerImg = "<img class='featured-image' src='' alt=''>";
       } else {
         headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
@@ -74,6 +76,16 @@ var CardFactory = (function Card() {
     * @return {HTML-node} - Activity card represented as a HTML-node
     */
     _this.newActivityCard = function(config) {
+      var expandScale;
+      var expandHeight;
+      if (document.body.clientWidth <= phoneLandscapeWidth) {
+        expandScale = 2;
+        expandHeight = 130;
+      } else {
+        expandScale = 1.4;
+        expandHeight = 140; // 40% of 350 (height of card)
+      }
+      
       var card = _this.newCard(config);
 
       card.classList.add('mo-card', 'mo-card-activity', 'no-select');
@@ -82,23 +94,23 @@ var CardFactory = (function Card() {
       var activityCardPusher = document.getElementById('activity-card-pusher');
       
       var moveDown = function(element) {
-        element.style.transform += ' translateY(130px)';
+        element.style.transform += ' translateY('+expandHeight+'px)';
       };
       var moveUp = function(element) {
-        element.style.transform = element.style.transform.replace('translateY(130px)', '');
+        element.style.transform = element.style.transform.replace('translateY('+expandHeight+'px)', '');
       };
       card.expand = function() {
         this.classList.add('expanded');
         
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.add('will-change');
-        bg.style.transform += ' scaleY(2) translateY(25%)';
+        bg.style.transform += ' scaleY('+expandScale+')';
         
         var h = parseInt(activityCardPusher.style.height, 10);
         if (isNaN(h)) {
-          activityCardPusher.style.height = '130px';
+          activityCardPusher.style.height = expandHeight+'px';
         } else {
-          activityCardPusher.style.height = (h+130) + 'px';
+          activityCardPusher.style.height = (h+expandHeight) + 'px';
         }
       }
       card.contract = function() {
@@ -106,12 +118,11 @@ var CardFactory = (function Card() {
         
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.remove('will-change');
-        bg.style.transform = bg.style.transform.replace('scaleY(2)', '');
-        bg.style.transform = bg.style.transform.replace('translateY(25%)', '');
+        bg.style.transform = bg.style.transform.replace('scaleY('+expandScale+')', '');
         
         var h = parseInt(activityCardPusher.style.height, 10);
         if (!isNaN(h)) {
-          activityCardPusher.style.height = (h-130) + 'px';
+          activityCardPusher.style.height = (h-expandHeight) + 'px';
         }
       }
       
@@ -124,25 +135,30 @@ var CardFactory = (function Card() {
         this.expanded = !this.expanded;
         
         
-        var parentContainer = this.parentElement;
-        var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
-        var index = -1;
-        for (var i = 0; i < cardsOfSameDay.length; i++) {
-          if (index == -1) {
-            if (cardsOfSameDay[i] == this) {
-              index = i;
-            }
-            
-          } else {
-            if (this.expanded) {
-              moveDown(cardsOfSameDay[i]);
-              cardsOfSameDay[i].classList.add('will-change');
+        /* Move all activities in same dat down */
+        if (document.body.clientWidth <= phoneLandscapeWidth) {
+          var parentContainer = this.parentElement;
+          var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
+          var index = -1;
+          for (var i = 0; i < cardsOfSameDay.length; i++) {
+            if (index == -1) {
+              if (cardsOfSameDay[i] == this) {
+                index = i;
+              }
+              
             } else {
-              moveUp(cardsOfSameDay[i]);
-              cardsOfSameDay[i].classList.remove('will-change');
+              if (this.expanded) {
+                moveDown(cardsOfSameDay[i]);
+                cardsOfSameDay[i].classList.add('will-change');
+              } else {
+                moveUp(cardsOfSameDay[i]);
+                cardsOfSameDay[i].classList.remove('will-change');
+              }
             }
           }
         }
+        
+        /* Move rest of days down */
         var dateCardContainers = allCardsContainer.getElementsByClassName('mo-card-date-container');
         index = -1;
         for (var i = 0; i < dateCardContainers.length; i++) {

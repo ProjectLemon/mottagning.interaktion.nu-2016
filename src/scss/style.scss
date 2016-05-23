@@ -156,6 +156,8 @@ nav#navigation-bar {
   word-wrap: break-word;
   
   position: relative; // for card-bg's position absolute
+  
+  @include transition(transform 0.5s);
 
   @media screen and (max-width: $phone-landscape-width) {
     height: 130px;
@@ -175,9 +177,6 @@ nav#navigation-bar {
     cursor: pointer;
     z-index: 2;
     margin: 1em;
-
-    /*Animate height*/
-    @include transition(transform 0.5s);
     
     @media screen and (max-width: $tablet-landscape-width) {
       margin: 10px;
@@ -193,7 +192,13 @@ nav#navigation-bar {
   &.mo-card-spotlight {
     width: 350px;
     height: 500px;
-
+    
+    .card-bg {
+      height: 500px;
+    }
+    .description, .directions {
+      opacity: 1;
+    }
     div.description {
       display: block;
       margin-left: 10px;
@@ -219,12 +224,18 @@ nav#navigation-bar {
     position: absolute;
     top: 0;
     z-index: -1;
-    height: 130px;
+    height: 350px;
     width: 100%;
     background-color: #7A1EA1; // Fallback color if javascript fails
     
     @include transition(transform 0.5s);
+    transform-origin: top;
+    
     @include box-shadow(3px 3px 10px 0px rgba(26,26,26,.75));
+    
+    @media screen and (max-width: $phone-landscape-width) {
+      height: 130px;
+    }
   }
 
   img {
