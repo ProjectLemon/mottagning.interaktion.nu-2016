@@ -52,6 +52,12 @@
   -moz-transition: $attr;
   transition: $attr;
 }
+@mixin transform($attr...) {
+  -webkit-transform: $attr;
+  -moz-transform: $attr;
+  -ms-transform: $attr;
+  transform: $attr;
+}
 @mixin box-shadow($attr...) {
   -webkit-box-shadow: $attr;
   -moz-box-shadow: $attr;

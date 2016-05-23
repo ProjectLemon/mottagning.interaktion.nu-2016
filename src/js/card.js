@@ -52,7 +52,7 @@ var CardFactory = (function Card() {
       var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startDateTime)+"</h2>";
       var location = "<h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3>";
       var description = "<div class='description animate'>"+config.description+"</div>";
-      var directions = "<a onclick='cardFactory.openDirections(event, this)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>"
+      var directions = "<a class='directions' style='background-color: "+config.color+"' onclick='cardFactory.openDirections(event, this)'><img src='/resources/img/icons/map-directions.svg'></a>"
       var background = "<div class='card-bg' style='background-color: "+config.color+";'></div>"
 
       //Save value for lat & long in order to use when on click is called

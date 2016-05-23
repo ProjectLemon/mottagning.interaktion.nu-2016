@@ -135,7 +135,6 @@ nav#navigation-bar {
 }
 // ======= Cards =======
 .mo-card-date-container {
-  //will-change: transform;
   
   @include transition(transform 0.5s);
   
@@ -147,9 +146,6 @@ nav#navigation-bar {
   }
 }
 .mo-card {
-  //@include forceHardwareAcceleration();
-  //will-change: transform;
-
   width: 300px;
   height: 350px;
   color: white;
@@ -234,17 +230,6 @@ nav#navigation-bar {
   img {
     width: 100%;
     max-width: 100%;
-    
-    &.directions {
-      float: right;
-      bottom: 10px;
-      margin-right: 10px;
-      width: 42px;
-      height: 42px;
-      box-shadow: 0 3px 5px 3px  rgba(#000, .25);
-      border-radius: 100%;
-      background-color: rgba(#fff, .25);
-    }
   }
   img.fa-icon {
     max-width: 14px;
@@ -273,23 +258,46 @@ nav#navigation-bar {
       margin-bottom: -2px;
     }
   }
+  .directions {
+    border-radius: 100%;
+    position: absolute;
+    right: 10px;
+    width: 42px;
+    height: 42px;
+    box-shadow: 0 3px 5px 3px  rgba(#000, .25);
+    border-radius: 100%;
+    
+    top: 430px;
+    @media screen and (max-width: $tablet-landscape-width) {
+      top: 430px;
+    }
+    @media screen and (max-width: $phone-landscape-width) {
+      top: 200px;
+    }
+    
+    img {
+      width: 42px;
+      height: 42px;
+      background-color: rgba(#fff, .25);
+      border-radius: 100%;
+    }
+  }
   .description, .directions {
     opacity: 0;
+    margin: 0 10px;
     @include transition(opacity .5s);
   }
 }
-
+/*
 .mo-card-expanded {
-  .card-bg {transform: scaleY(2) translateY(25%);}
-  /*height: 500px;
+  height: 500px;
   @media screen and (max-width: $phone-landscape-width) {
     height: 230px;
   }
   @media screen and (max-width: $phone-portrait-width) {
     height: 280px;
-  }*/
+  }
 
-  /*
   div.description {
     padding: 10px;
     font-size: 10pt;
@@ -304,9 +312,7 @@ nav#navigation-bar {
     cursor: pointer;
     @include animateCardExpand();
   }
-  */
-  
-  /*
+
   @-webkit-keyframes fadeInFromNone {
     0% { opacity: 0 }
     1% { opacity: 0 }
@@ -322,10 +328,11 @@ nav#navigation-bar {
     1% { opacity: 0 }
     100% { opacity: 1 }
   }
-  */
 }
+*/
 .will-change {
   will-change: transform;
+  @include transform(translateZ(0)); // hack for better browser support of will-change
 }
 
 
