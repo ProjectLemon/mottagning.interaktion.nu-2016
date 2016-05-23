@@ -43,16 +43,9 @@
 }
 
 @mixin animateRotate($degrees) {
-  -webkit-transform: rotate($degrees);
-  -moz-transform: rotate($degrees);
-  -ms-transform: rotate($degrees);
-  -o-transform: rotate($degrees);
-  transform: rotate($degrees);
-
-  -webkit-transition: 500ms ease all;
-  -moz-transition: 500ms ease all;
-  -o-transition: 500ms ease all;
-  transition: 500ms ease all;
+  
+  @include transform( rotate($degrees) );
+  @include transition( 500ms ease all );
 }
 
 @mixin keyFrames() {

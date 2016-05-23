@@ -237,6 +237,9 @@ nav#navigation-bar {
     @media screen and (max-width: $phone-landscape-width) {
       height: 130px;
     }
+    
+    &:active {
+    }
   }
 
   img {
@@ -344,6 +347,9 @@ nav#navigation-bar {
   @include keyFrames();
 }
 */
+img.indicator-arrow {
+  @include transition( 500ms ease transform );
+}
 .will-change {
   will-change: transform;
   @include transform(translateZ(0)); // hack for better browser support of will-change

@@ -23,6 +23,7 @@
 var CardFactory = (function Card() {
   
   var phoneLandscapeWidth = 740;
+  var bodyWidth = document.body.clientWidth;
 
   /*
   * This object is returned when new Card() is called.
@@ -79,7 +80,7 @@ var CardFactory = (function Card() {
     _this.newActivityCard = function(config) {
       var expandScale;
       var expandHeight;
-      if (document.body.clientWidth <= phoneLandscapeWidth) {
+      if (bodyWidth <= phoneLandscapeWidth) {
         expandScale = 2;
         expandHeight = 130;
       } else {
@@ -108,6 +109,9 @@ var CardFactory = (function Card() {
         bg.classList.add('will-change');
         bg.style.transform += ' scaleY('+expandScale+')';
         
+        var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        arrow.style.transform += ' rotate(180deg) translateY(-'+expandHeight+'px)';
+        
         var h = parseInt(activityCardPusher.style.height, 10);
         if (isNaN(h)) {
           activityCardPusher.style.height = expandHeight+'px';
@@ -121,6 +125,12 @@ var CardFactory = (function Card() {
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.remove('will-change');
         bg.style.transform = bg.style.transform.replace('scaleY('+expandScale+')', '');
+        
+        var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        var arrowTransform = arrow.style.transform;
+        arrowTransform = arrowTransform.replace('rotate(180deg)', '');
+        arrowTransform = arrowTransform.replace('translateY(-'+expandHeight+'px)', '');
+        arrow.style.transform = arrowTransform.replace(' ', '');;
         
         var h = parseInt(activityCardPusher.style.height, 10);
         if (!isNaN(h)) {
@@ -137,8 +147,8 @@ var CardFactory = (function Card() {
         this.expanded = !this.expanded;
         
         
-        /* Move all activities in same dat down */
-        if (document.body.clientWidth <= phoneLandscapeWidth) {
+        /* Move all activities in same date down */
+        if (bodyWidth <= phoneLandscapeWidth) {
           var parentContainer = this.parentElement;
           var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
           var index = -1;
