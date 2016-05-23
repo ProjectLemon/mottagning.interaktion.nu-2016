@@ -191,7 +191,7 @@ function addOffsetFields() {
 /* Gets a random color from the globally specified color array */
 function getRandomColor() {
   var min = 0;
-  var max = colors.length;
+  var max = colors.length-1;
   var index = Math.round(Math.random() * (max - min) + min);
   return colors[index];
 }

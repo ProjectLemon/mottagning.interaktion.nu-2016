@@ -72,3 +72,20 @@
     100% { opacity: 1 }
   }
 }
+
+@mixin transition($attr...) {
+  -webkit-transition: $attr;
+  -moz-transition: $attr;
+  transition: $attr;
+}
+@mixin transform($attr...) {
+  -webkit-transform: $attr;
+  -moz-transform: $attr;
+  -ms-transform: $attr;
+  transform: $attr;
+}
+@mixin box-shadow($attr...) {
+  -webkit-box-shadow: $attr;
+  -moz-box-shadow: $attr;
+  box-shadow: $attr;
+}

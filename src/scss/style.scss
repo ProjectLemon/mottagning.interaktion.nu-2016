@@ -7,16 +7,12 @@ html {
   color: white;
   font-family: 'Quicksand', sans-serif;
   background: url('/resources/img/bg-large-process-comp.jpg') no-repeat center center fixed;
-  -webkit-backround-size:cover;
-  -moz-background-size:cover;
-  -o-background-size: cover;
   background-size: cover;
   height: 100%;
   width: 100%;
 
   body.front-page {
     @include fadeOutBackground();
-    overflow-x: hidden;
   }
 
   a {
@@ -140,6 +136,9 @@ nav#navigation-bar {
 
 // ======= Cards =======
 .mo-card-date-container {
+  
+  @include transition(transform 0.5s);
+  
   @media screen and (max-width: $phone-landscape-width) {
     width: 100%;
     display: inline-block;
@@ -148,17 +147,18 @@ nav#navigation-bar {
   }
 }
 .mo-card {
-  @include forceHardwareAcceleration();
-
   width: 300px;
   height: 350px;
   color: white;
   position: relative;
-  background-color: #7A1EA1; /*Falback color if javascript fails*/
   display: block;
   float: left;
   margin: 16px auto 0 auto;
   word-wrap: break-word;
+  
+  position: relative; // for card-bg's position absolute
+  
+  @include transition(transform 0.5s);
 
   @media screen and (max-width: $phone-landscape-width) {
     height: 130px;
@@ -178,15 +178,7 @@ nav#navigation-bar {
     cursor: pointer;
     z-index: 2;
     margin: 1em;
-    /*Material box shadows*/
-    -webkit-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
-    -moz-box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
-    box-shadow: 3px 3px 10px 0px rgba(26,26,26,.75);
-
-    /*Animate height*/
-    -webkit-transition: height .5s;
-    -moz-transition: height .5s;
-    transition: height 0.5s;
+    
     @media screen and (max-width: $tablet-landscape-width) {
       margin: 10px;
       &:first-child {
@@ -201,7 +193,13 @@ nav#navigation-bar {
   &.mo-card-spotlight {
     width: 350px;
     height: 500px;
-
+    
+    .card-bg {
+      height: 500px;
+    }
+    .description, .directions {
+      opacity: 1;
+    }
     div.description {
       display: block;
       margin-left: 10px;
@@ -214,6 +212,30 @@ nav#navigation-bar {
       bottom: 0;
       right: 10px;
       max-width: 40px;
+    }
+  }
+  
+  &.expanded {
+    .description, .directions {
+      opacity: 1;
+    }
+  }
+  
+  .card-bg {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    height: 350px;
+    width: 100%;
+    background-color: #7A1EA1; // Fallback color if javascript fails
+    
+    @include transition(transform 0.5s);
+    transform-origin: top;
+    
+    @include box-shadow(3px 3px 10px 0px rgba(26,26,26,.75));
+    
+    @media screen and (max-width: $phone-landscape-width) {
+      height: 130px;
     }
   }
 
@@ -252,12 +274,37 @@ nav#navigation-bar {
     > img {
       margin-right: 2px;
       max-width: 20px;
-      position: relative;
-      top: 2px;
+      margin-bottom: -2px;
     }
   }
-  div.description {
-    display: none;
+  .directions {
+    border-radius: 100%;
+    position: absolute;
+    right: 10px;
+    width: 42px;
+    height: 42px;
+    box-shadow: 0 3px 5px 3px  rgba(#000, .25);
+    border-radius: 100%;
+    
+    top: 430px;
+    @media screen and (max-width: $tablet-landscape-width) {
+      top: 430px;
+    }
+    @media screen and (max-width: $phone-landscape-width) {
+      top: 200px;
+    }
+    
+    img {
+      width: 42px;
+      height: 42px;
+      background-color: rgba(#fff, .25);
+      border-radius: 100%;
+    }
+  }
+  .description, .directions {
+    opacity: 0;
+    margin: 0 10px;
+    @include transition(opacity .5s);
   }
   div.indicator-arrow-container {
     position: absolute;
@@ -266,7 +313,7 @@ nav#navigation-bar {
     text-align: center;
   }
 }
-
+/*
 .mo-card-expanded {
   height: 500px;
   @media screen and (max-width: $phone-landscape-width) {
@@ -296,9 +343,13 @@ nav#navigation-bar {
 
   @include keyFrames();
 }
+*/
+.will-change {
+  will-change: transform;
+  @include transform(translateZ(0)); // hack for better browser support of will-change
+}
 
 
-// ======= Cards =======
 
 
 img.test{
