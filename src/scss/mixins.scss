@@ -43,7 +43,7 @@
 }
 
 @mixin animateRotate($degrees) {
-  
+
   @include transform( rotate($degrees) );
   @include transition( 500ms ease all );
 }

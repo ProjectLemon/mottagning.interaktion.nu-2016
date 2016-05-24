@@ -130,15 +130,25 @@ html, body {
         .info-card {
           display: inline-block;
           width: 350px;
-          height: 250px;
-          margin: 2em;
+          height: 290px;
+          margin: 10px;
           vertical-align: top;
           text-align: left;
           background-color: #7A1EA1;
           padding: .5em;
+          @media screen and (max-width: 400px) {
+            width: 270px;
+            height: 340px;
+          }
           h1 {
             font-size: 2em;
             margin-bottom: 10px;
+          }
+          ul {
+            list-style-type: none;
+            li {
+              margin: .5em 0;
+            }
           }
         }
       }
