@@ -21,6 +21,9 @@
 *           color:         A CSS color value. This will be the card's color
 */
 var CardFactory = (function Card() {
+  
+  var phoneLandscapeWidth = 740;
+  var bodyWidth = document.body.clientWidth;
 
   /*
   * This object is returned when new Card() is called.
@@ -42,7 +45,7 @@ var CardFactory = (function Card() {
 
       //Since images won't be displayed on mobile screens we're preventing them
       //from being downloaded in the first place to improve performance
-      if(document.body.clientWidth <= 740) {
+      if(document.body.clientWidth <= phoneLandscapeWidth) {
         headerImg = "<img class='featured-image' src='' alt=''>";
       } else {
         headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
@@ -53,14 +56,15 @@ var CardFactory = (function Card() {
       var startDate = "<h2 class='date'><img src='/resources/img/icons/calendar.svg' class='fa-icon'>"+_this.formatDate(config.startDateTime)+"</h2>";
       var location = "<h3 class='location'><img src='/resources/img/icons/marker.svg' class='fa-icon'>"+config.place+"</h3>";
       var description = "<div class='description animate'>"+config.description+"</div>";
-      var directions = "<a onclick='cardFactory.openDirections(event, this)'><img src='/resources/img/icons/map-directions.svg' class='directions'></a>";
+      var directions = "<a class='directions' style='background-color: "+config.color+"' onclick='cardFactory.openDirections(event, this)'><img src='/resources/img/icons/map-directions.svg'></a>"
+      var background = "<div class='card-bg' style='background-color: "+config.color+";'></div>"
 
       //Save value for lat & long in order to use when onClick() is called
       card.setAttribute('data-lat', config.lat);
       card.setAttribute('data-long', config.long);
 
-      card.style.backgroundColor = config.color;
-      card.innerHTML += headerImg + titleText + startTime + startDate + location + description + directions;
+      //card.style.backgroundColor = config.color;
+      card.innerHTML +=  headerImg + titleText + startTime + startDate + location + description + directions + background;
 
       return card;
     }
@@ -74,12 +78,119 @@ var CardFactory = (function Card() {
     * @return {HTML-node} - Activity card represented as a HTML-node
     */
     _this.newActivityCard = function(config) {
+      var expandScale;
+      var expandHeight;
+      if (bodyWidth <= phoneLandscapeWidth) {
+        expandScale = 2;
+        expandHeight = 130;
+      } else {
+        expandScale = 1.4;
+        expandHeight = 140; // 40% of 350 (height of card)
+      }
+      
       var card = _this.newCard(config);
       card.innerHTML += "<div class='indicator-arrow-container'><img src='/resources/img/icons/angle-down.svg' class='indicator-arrow' alt='Image of an arrow pointing down in order to indicate that cards are clickable'></div>";
 
       card.classList.add('mo-card', 'mo-card-activity', 'no-select');
+      card.expanded = false;
+      var allCardsContainer = document.getElementById('activity-cards');
+      var activityCardPusher = document.getElementById('activity-card-pusher');
+      
+      var moveDown = function(element) {
+        element.style.transform += ' translateY('+expandHeight+'px)';
+      };
+      var moveUp = function(element) {
+        element.style.transform = element.style.transform.replace('translateY('+expandHeight+'px)', '');
+      };
+      card.expand = function() {
+        this.classList.add('expanded');
+        
+        var bg = this.getElementsByClassName('card-bg')[0];
+        bg.classList.add('will-change');
+        bg.style.transform += ' scaleY('+expandScale+')';
+        
+        var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        arrow.style.transform += ' rotate(180deg) translateY(-'+expandHeight+'px)';
+        
+        var h = parseInt(activityCardPusher.style.height, 10);
+        if (isNaN(h)) {
+          activityCardPusher.style.height = expandHeight+'px';
+        } else {
+          activityCardPusher.style.height = (h+expandHeight) + 'px';
+        }
+      }
+      card.contract = function() {
+        this.classList.remove('expanded');
+        
+        var bg = this.getElementsByClassName('card-bg')[0];
+        bg.classList.remove('will-change');
+        bg.style.transform = bg.style.transform.replace('scaleY('+expandScale+')', '');
+        
+        var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        var arrowTransform = arrow.style.transform;
+        arrowTransform = arrowTransform.replace('rotate(180deg)', '');
+        arrowTransform = arrowTransform.replace('translateY(-'+expandHeight+'px)', '');
+        arrow.style.transform = arrowTransform.replace(' ', '');;
+        
+        var h = parseInt(activityCardPusher.style.height, 10);
+        if (!isNaN(h)) {
+          activityCardPusher.style.height = (h-expandHeight) + 'px';
+        }
+      }
+      
       card.addEventListener("click", function(e){
-        this.classList.toggle('mo-card-expanded');
+        if (this.expanded) {
+          this.contract();
+        } else {
+          this.expand();
+        }
+        this.expanded = !this.expanded;
+        
+        
+        /* Move all activities in same date down */
+        if (bodyWidth <= phoneLandscapeWidth) {
+          var parentContainer = this.parentElement;
+          var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
+          var index = -1;
+          for (var i = 0; i < cardsOfSameDay.length; i++) {
+            if (index == -1) {
+              if (cardsOfSameDay[i] == this) {
+                index = i;
+              }
+              
+            } else {
+              if (this.expanded) {
+                moveDown(cardsOfSameDay[i]);
+                cardsOfSameDay[i].classList.add('will-change');
+              } else {
+                moveUp(cardsOfSameDay[i]);
+                cardsOfSameDay[i].classList.remove('will-change');
+              }
+            }
+          }
+        }
+        
+        /* Move rest of days down */
+        var dateCardContainers = allCardsContainer.getElementsByClassName('mo-card-date-container');
+        index = -1;
+        for (var i = 0; i < dateCardContainers.length; i++) {
+          if (index == -1) {
+            if (dateCardContainers[i].contains(this)) {
+              index = i;
+            }
+            
+          } else {
+            if (this.expanded) {
+              moveDown(dateCardContainers[i]);
+              dateCardContainers[i].classList.add('will-change');
+            } else {
+              moveUp(dateCardContainers[i]);
+              dateCardContainers[i].classList.remove('will-change');
+            }
+          }
+        }
+        
+        
       }, false);
 
       return card;
