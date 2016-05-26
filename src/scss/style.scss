@@ -6,14 +6,10 @@
 html {
   color: white;
   font-family: 'Quicksand', sans-serif;
-  background: url('/resources/img/bg-large-process-comp.jpg') no-repeat center center fixed;
+  background: url('/resources/img/bg-large-process-comp2.jpg') no-repeat center center fixed;
   background-size: cover;
   height: 100%;
   width: 100%;
-
-  body.front-page {
-    @include fadeOutBackground();
-  }
 
   a {
     cursor: pointer;
@@ -138,9 +134,9 @@ nav#navigation-bar {
 
 // ======= Cards =======
 .mo-card-date-container {
-  
+
   @include transition(transform 0.5s);
-  
+
   @media screen and (max-width: $phone-landscape-width) {
     width: 100%;
     display: inline-block;
@@ -157,9 +153,9 @@ nav#navigation-bar {
   float: left;
   margin: 16px auto 0 auto;
   word-wrap: break-word;
-  
+
   position: relative; // for card-bg's position absolute
-  
+
   @include transition(transform 0.5s);
 
   @media screen and (max-width: $phone-landscape-width) {
@@ -180,7 +176,7 @@ nav#navigation-bar {
     cursor: pointer;
     z-index: 2;
     margin: 1em;
-    
+
     @media screen and (max-width: $tablet-landscape-width) {
       margin: 10px;
       &:first-child {
@@ -195,7 +191,7 @@ nav#navigation-bar {
   &.mo-card-spotlight {
     width: 350px;
     height: 500px;
-    
+
     .card-bg {
       height: 500px;
     }
@@ -216,13 +212,13 @@ nav#navigation-bar {
       max-width: 40px;
     }
   }
-  
+
   &.expanded {
     .description, .directions {
       opacity: 1;
     }
   }
-  
+
   .card-bg {
     position: absolute;
     top: 0;
@@ -230,16 +226,15 @@ nav#navigation-bar {
     height: 350px;
     width: 100%;
     background-color: #7A1EA1; // Fallback color if javascript fails
-    
+
     @include transition(transform 0.5s);
     @include transform-origin(top);
-    
     @include box-shadow(3px 3px 10px 0px rgba(26,26,26,.75));
-    
+
     @media screen and (max-width: $phone-landscape-width) {
       height: 130px;
     }
-    
+
     &:active {
     }
   }
@@ -290,7 +285,7 @@ nav#navigation-bar {
     height: 42px;
     box-shadow: 0 3px 5px 3px  rgba(#000, .25);
     border-radius: 100%;
-    
+
     top: 430px;
     @media screen and (max-width: $tablet-landscape-width) {
       top: 430px;
@@ -298,7 +293,7 @@ nav#navigation-bar {
     @media screen and (max-width: $phone-landscape-width) {
       top: 200px;
     }
-    
+
     img {
       width: 42px;
       height: 42px;

@@ -228,7 +228,7 @@ var CardFactory = (function Card() {
     */
     _this.openDirections = function(e, node) {
       e.stopPropagation(); //Prevent the activity card to collapse
-      window.location.href = "https://www.google.com/maps/dir/Current+Location/'"+node.parentElement.getAttribute('data-lat')+","+node.parentElement.getAttribute('data-long')+"'";
+      window.open("https://www.google.com/maps/dir/Current+Location/'"+node.parentElement.getAttribute('data-lat')+","+node.parentElement.getAttribute('data-long')+"'",'_blank');
     }
 
     //Helper methods

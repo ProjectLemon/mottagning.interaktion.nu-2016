@@ -10,11 +10,11 @@
   -webkit-transition: $transition;
   transition:         $transition;
 }
- 
+
 $font: "Quicksand", Helvetica, Arial, sans-serif;
 $warning-background-color: #c17527; // orange
 $warning-color: #F99835; // orange
-  
+
 /**
  * Common
  */
@@ -33,7 +33,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 700;
-  
+
   background: url('/resources/img/bg-frosted-large-process-comp.jpg') no-repeat center center fixed; ;
   background-color: #aed9fb;
   background-size: cover;
@@ -51,7 +51,7 @@ body {
   margin: auto;
   box-shadow: 0 2px 8px 0 rgba(#000, .38);
   display: table;
-  
+
   span {
     display: table-cell;
     text-align: center;
@@ -87,22 +87,22 @@ body {
   bottom: 0;
   left: 0;
   opacity: 1;
-  
+
   width: 0%;
   @include transition(width 3s, opacity 1s);
-  
+
   &.done {
     @include transition(width .2s, opacity 1s);
     opacity: 0;
   }
-  
+
   &.retract {
     @include transition(width 0s, opacity 0s);
     opacity: 1;
   }
 }
 
- 
+
 /**
  * Layout
  */
@@ -114,23 +114,23 @@ body {
 }
 .menu {
   text-align: center;
-  
+
   li {
     list-style: none;
     display: inline-block;
     margin: 0 15px;
-    
+
     a {
       text-decoration: none;
       color: black;
-      
+
       &:hover {
         text-decoration: underline;
       }
     }
   }
 }
- 
+
 
 // Form layout
 #edit-form {
@@ -149,7 +149,7 @@ body {
   &.form-contact {
     background-color: #3374BA; // blue
   }
-  
+
   .form-content {
     width: 370px;
     margin: 10px auto;
@@ -161,13 +161,13 @@ body {
     font-family: $font;
     font-size: 16px;
     padding: 4px 8px;
-    margin-left: 12px; 
+    margin-left: 12px;
   }
   input:not([type="file"]), select, button {
     box-sizing: border-box;
     height: 32px;
   }
-  
+
   input[name="title"], input[name="name"] {
     width: 180px;
   }
@@ -177,7 +177,7 @@ body {
     font-family: $font;
     font-weight: 700;
   }
-  
+
   .form-date {
     float: right;
   }
@@ -186,41 +186,41 @@ body {
     margin-bottom: 10px;
     background: rgba(#fff, .62) url("/resources/img/icons/dropdown-arrow.svg") no-repeat 95% 50%;
   }
-  
+
   input[name="time"] {
     width: 100px;
   }
-  
+
   .form-description {
     display: block;
     margin-top: 10px;
     width: 100%;
   }
-  
+
   textarea[name="description"] {
     width: 100%;
     margin: 5px 0 0 0;
     box-sizing: border-box;
   }
-  
+
   input[name="place"] {
     width: 280px;
   }
-  
+
   .form-place {
     margin-bottom: 10px;
     display: inline-block;
   }
-  
+
   input[name="save"] {
     margin: 0;
   }
-  
+
   .form-phone {
     margin-top: 10px;
     display: inline-block;
   }
-  
+
   input[name="group"] {
     margin-right: 18px;
     position: relative;
@@ -244,7 +244,7 @@ body {
     &[value="general"] {
       background-color: #1E5E2F;
     }
-    
+
     &:checked {
       box-shadow: 0 0 4px 3px rgba(#fff, .6);
     }
@@ -254,7 +254,7 @@ body {
     margin: 15px 0 0 0;
     font-weight: 700;
   }
-  
+
   select {
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -269,23 +269,23 @@ body {
     padding: 4px 8px;
     margin-top: .3px;
     margin-left: 5px;
-    
+
     background: rgba(#fff, .62) url("/resources/img/icons/selector-arrow.svg") no-repeat 95% 50%;
     padding-right: 30px;
-    
+
     &:focus {
       outline: none;
     }
   }
-  
+
   button[name="delete"] {
     float: right;
-    
+
     &:not([disabled]) {
       box-shadow: 0px 3px 4px 0 rgba(#000, .5);
     }
   }
-  
+
   input[name="lat"], input[name="long"] {
     width: 90px;
   }
@@ -298,15 +298,15 @@ body {
     display: inline-block;
     margin-top: 10px;
   }
-  
+
   a {
     color: #93adff;
   }
-  
+
   #response {
     min-height: 1.2em;
     margin-left: 50px;
-    
+
     &.error {
       color: $warning-color;
     }
@@ -319,7 +319,7 @@ body {
   margin-bottom: 30px;
   color: black;
   text-decoration: none;
-  
+
   &:hover {
     text-decoration: underline;
   }
