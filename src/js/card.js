@@ -110,6 +110,7 @@ var CardFactory = (function Card() {
         bg.style.transform += ' scaleY('+expandScale+')';
         
         var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        arrow.classList.add('will-change');
         arrow.style.transform += ' rotate(180deg) translateY(-'+expandHeight+'px)';
         
         var h = parseInt(activityCardPusher.style.height, 10);
@@ -127,6 +128,7 @@ var CardFactory = (function Card() {
         bg.style.transform = bg.style.transform.replace('scaleY('+expandScale+')', '');
         
         var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        arrow.classList.remove('will-change');
         var arrowTransform = arrow.style.transform;
         arrowTransform = arrowTransform.replace('rotate(180deg)', '');
         arrowTransform = arrowTransform.replace('translateY(-'+expandHeight+'px)', '');

@@ -77,6 +77,7 @@ nav#navigation-bar {
         left: 0;
         img.fa-icon {
           max-width: 30px;
+          max-height: 30px;
         }
         &.active {
           background-color: #7A1EA1;
@@ -103,6 +104,7 @@ nav#navigation-bar {
     }
     img.fa-icon {
       max-width: 18px;
+      max-height: 18px;
       margin-right: 5px;
     }
   }
@@ -230,7 +232,7 @@ nav#navigation-bar {
     background-color: #7A1EA1; // Fallback color if javascript fails
     
     @include transition(transform 0.5s);
-    transform-origin: top;
+    @include transform-origin(top);
     
     @include box-shadow(3px 3px 10px 0px rgba(26,26,26,.75));
     

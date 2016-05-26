@@ -77,6 +77,11 @@
   -ms-transform: $attr;
   transform: $attr;
 }
+@mixin transform-origin($attr...) {
+  -webkit-transform-origin: $attr;
+  -ms-transform-origin: $attr;
+  transform-origin: $attr;
+}
 @mixin box-shadow($attr...) {
   -webkit-box-shadow: $attr;
   -moz-box-shadow: $attr;
