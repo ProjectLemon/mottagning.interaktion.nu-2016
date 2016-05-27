@@ -91,7 +91,9 @@ var CardFactory = (function Card() {
       var card = _this.newCard(config);
       card.innerHTML += "<div class='indicator-arrow-container'><img src='/resources/img/icons/angle-down.svg' class='indicator-arrow' alt='Image of an arrow pointing down in order to indicate that cards are clickable'></div>";
 
-      card.classList.add('mo-card', 'mo-card-activity', 'no-select');
+      card.classList.add('mo-card');
+      card.classList.add('mo-card-activity');
+      card.classList.add('no-select');
       card.expanded = false;
       var allCardsContainer = document.getElementById('activity-cards');
       var activityCardPusher = document.getElementById('activity-card-pusher');
@@ -213,7 +215,8 @@ var CardFactory = (function Card() {
       wrapper.id = "next-activity-card-wrapper"
       headline.id = "spotlight-card-headline"
       headline.innerHTML = "Next activity:";
-      card.classList.add('mo-card', 'mo-card-spotlight');
+      card.classList.add('mo-card');
+      card.classList.add('mo-card-spotlight');
       wrapper.appendChild(headline);
       wrapper.appendChild(card);
 
