@@ -344,8 +344,10 @@ nav#navigation-bar {
   @include keyFrames();
 }
 */
-img.indicator-arrow {
-  @include transition( 500ms ease transform );
+img.indicator-arrow, .indicator-arrow-container > svg {
+  width: 30px;
+  height: 30px;
+  @include transition( 500ms transform );
 }
 .will-change {
   will-change: transform;

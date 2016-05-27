@@ -1,7 +1,7 @@
 <?php
 /**
  * Verifies of all inputs were set in $_POST
- * This function has and variable amount of argument which
+ * This function has a variable amount of argument which
  * each should be the name of the required input
  * 
  * @throws RuntimeException If the required input was not set
@@ -9,7 +9,7 @@
 function verifyForm() {
     $inputs = func_get_args(); // variable arguments
     foreach ($inputs as $input) {
-        if (!isset($_POST[$input]) || $_POST[$input] == '') {
+        if (!isset($_POST[$input]) or $_POST[$input] == '') {
             throw new RuntimeException("No $input was set");
         }
     }
@@ -22,8 +22,7 @@ function verifyForm() {
  * @param string $image_name Image name inside $_FILES
  * @param string $target_dir Directory which a place for the image should be tested
  * @param string $max_file_size (optional) Max size of the image. Default to 5mb
- * @return string A valid filename/path in which the file should be saved.
- *                Name is taken from a unix timestamp
+ * @return string The type of the image, either 'png' or 'jpg'
  * @throws RuntimeException If image is not valid
  */
 function verifyUploadImage($image_name, $target_dir, $max_file_size=5242880) {
@@ -32,7 +31,7 @@ function verifyUploadImage($image_name, $target_dir, $max_file_size=5242880) {
         throw new RuntimeException('No image provided');
     }
     $tmp_file_name = $_FILES[$image_name]['tmp_name'];
-    if (!file_exists($tmp_file_name) || $tmp_file_name == '') {
+    if (!file_exists($tmp_file_name) or $tmp_file_name == '') {
         throw new RuntimeException('No image provided');
     }
     
@@ -69,14 +68,32 @@ function verifyUploadImage($image_name, $target_dir, $max_file_size=5242880) {
 
         throw new RuntimeException('Sorry, only JPG, JPEG & PNG files are allowed.');
     }
-    $extension = ($mime == 'image/png') ? '.png' : '.jpg';
+    $image_type = ($mime == 'image/png') ? 'png' : 'jpg';
+
+    // Check filesize
+    if ($_FILES[$image_name]['size'] > $max_file_size) {
+        throw new RuntimeException('Exceeded filesize limit ('.round($max_file_size/1024/1024, 2).'mb).');
+    }
     
-    
+    return $image_type;
+}
+
+/**
+ * Gets an avaible file name in $target_dir based on unix timestamp. Will wait for
+ * a maximum of 7 seconds if current timestamps is taken
+ *
+ * @param $target_dir Directory in which to check for new file name avaiblility
+ * @param $extension Extension to set to new file name
+ * @return string A file name which is not occupied
+ * @throws RuntimeException If no new file name based on unix timestamp becomes avaible
+ *                          under 7 seconds
+ */
+function getNewFilename($target_dir, $extension) {
     // Use unix timestamp as filename
     // Check if target file name already exists
     $exists = false;
     for ($i = 0; $i < 7; $i++) {
-        $target_file = $target_dir . time() . $extension;
+        $target_file = $target_dir . time() . '.' . $extension;
         
         if (!file_exists($target_file)) {
             $exists = false;
@@ -88,49 +105,44 @@ function verifyUploadImage($image_name, $target_dir, $max_file_size=5242880) {
     if ($exists) {
         throw new RuntimeException('To many uploads at the same time, try again later');
     }
-
-    // Check filesize
-    if ($_FILES[$image_name]['size'] > $max_file_size) {
-        throw new RuntimeException('Exceeded filesize limit ('.round($max_file_size/1024/1024, 2).'mb).');
-    }
-    
     return $target_file;
 }
 
 /**
- * 
+ * Will update image from form (if any) and save them back to $saving_object
  *
- * @param $form_name
- * @param $image_file_key
- * @param $target_dir
- * @param $parent_path
- * @param $saving_object
- * @param $formdata
+ * @param $form_name Name of form in $_POST
+ * @param $image_file_key Name of image in $_FILES
+ * @param $target_dir Directory to place new images
+ * @param $parent_path Path to website root, for absolute paths
+ * @param $saving_object Object into which old image paths is saved
+ * @param $formdata Object in which new image paths should be saved
+ * @throws RuntimeException If anything was invalid or otherwise failed with image
  */
 function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $saving_object, &$formdata) {
     
     // if new:
-    if (!array_key_exists($_POST[$form_name], $saving_object)               // activity does not exist
-            || !isset($saving_object[$_POST[$form_name]][$image_file_key])  // activity exist but with no image
-            || $saving_object[$_POST[$form_name]][$image_file_key] == null  // activity exist but image is set to null
-            || isset($_FILES[$image_file_key]) && $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new file is uploaded
+    if (!array_key_exists($_POST[$form_name], $saving_object)               // form value does not exist
+            or !isset($saving_object[$_POST[$form_name]][$image_file_key])  // form value exist but with no image
+            or $saving_object[$_POST[$form_name]][$image_file_key] == null  // form value exist but image is set to null
+            or isset($_FILES[$image_file_key]) and $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new image is uploaded
         
-        $target_file = verifyUploadImage($image_file_key, $target_dir);
+        $image_type = verifyUploadImage($image_file_key, $target_dir);
+        $target_file = getNewFilename($target_dir, $image_type);
         
         // Try to upload file
-        if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) {
+        //if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) { // if no gd image lib
+        if (resizeImage($_FILES[$image_file_key]['tmp_name'], $target_file, $image_type, 350)) {
             echo 'The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded. ';
         } else {
             throw new RuntimeException('Failed to move uploaded file.');
         }
-        $dir_name = basename((dirname(__FILE__))); // get current directory
-        $formdata[$image_file_key] = str_replace('..', $parent_path, $target_file);
+        $formdata[$image_file_key] = str_replace('..', $parent_path, $target_file); // make path absolute instead of relative
         
-        
-        // If replacing image
-        if (   array_key_exists($_POST[$form_name], $saving_object)             // object exist
-            && isset($saving_object[$_POST[$form_name]][$image_file_key])       // image is set in object
-            && $saving_object[$_POST[$form_name]][$image_file_key] != null      // image is not set to null
+        // If replacing image, delete old
+        if (   array_key_exists($_POST[$form_name], $saving_object)         // object exist
+            and isset($saving_object[$_POST[$form_name]][$image_file_key])  // image is set in object
+            and $saving_object[$_POST[$form_name]][$image_file_key] != null // image is not set to null
             ) {
                 
             $previous_image_file_name = $saving_object[$_POST[$form_name]][$image_file_key];
@@ -149,10 +161,62 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
 }
 
 /**
- * 
+ * Resize an image. Can be jpg or png and output will be the same type
+ *
+ * @param $src_path Path the image file
+ * @param $destination_path Path to save new resized image to
+ * @param $image_type Image type, should be 'png, 'jpg' or 'jpeg'
+ * @param $new_width (Optional) The width to resize to. If no width is set the new width
+ *                   will be based on ratio between new and old height. Meaning new height must
+ *                   be set if no new width i set.
+ * @param $new_height (Optional) The height to resize to. If no height is set the new height
+ *                   will be based on reation between new and old width. Meaning new width must
+ *                   be set if no new height is set
+ * @param $quality (Optional) Number between 0 to 100, where 0 is lowest quality and 100 highest. Default set to 80
+ * @param $replace (Optional) If new image should replace any file in $destination_path. Default set to true
+ * @return bool Whether the image save was successfull or not
+ * @throws InvalidArgumentException If invalid image type or both $new_width and $new_height was set to NULL
  */
-function resize_image($image_path, $width, $height, $quality=60) {
-    list($orig_width, $orig_height) = getimagesize($filename);
+function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL, $new_height=NULL, $quality=80, $replace=true) {
+    if ($image_type == 'png') {
+       $src = imagecreatefrompng($src_path);
+    } else if ($image_type == 'jpg' or $image_type == 'jpeg') {
+        $src = imagecreatefromjpeg($src_path);
+    } else {
+        throw new InvalidArgumentException('Invalid image type');
+    }
+    list($src_width, $src_height) = getimagesize($src_path);
+    
+    if ($new_height == NULL and $new_width == NULL) {
+        throw new InvalidArgumentException('Height or width must be provided');
+        
+    } else if ($new_height == NULL) {
+        $new_height = $new_width/$src_width*$src_height;
+    } else if ($new_width == NULL) {
+        $new_width = $new_height/$src_height*$src_width;
+    }
+    
+    $image = imagecreatetruecolor($new_width, $new_height);
+    imagefill($image, 0,0, imagecolorallocatealpha($image, 255, 255, 255, 127)); // make transparent
+
+    $success_copy = imagecopyresampled($image, $src, 0,0,0,0, $new_width, $new_height, $src_width, $src_height);
+    if (!$replace && file_exists($destination_path)) {
+        return false;
+    } else {
+      
+        if ($image_type == 'jpg' or $image_type == 'jpeg') {
+            $success_save = imagejpeg($image, $destination_path, $quality); // save image as compressed jpg
+        } else if ($image_type == 'png') {
+            imagesavealpha($image, true);
+            $success_save = imagepng($image, $destination_path, round($quality/10)); // save image as compressed png
+        }
+    }
+    
+    // Free memory
+    imagedestroy($image);
+    imagedestroy($src);
+    
+    return $success_copy and $success_save;
 }
 
 
