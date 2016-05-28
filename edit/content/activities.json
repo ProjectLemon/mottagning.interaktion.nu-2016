@@ -1,25 +1,5 @@
-{
-    "Test2": {
-        "title": "Test2",
-        "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
-        "startDate": "Sat May 28 2016",
-        "startTime": "16:00",
-        "place": "Campus\u00e4ngarna",
-        "lat": "123",
-        "long": "20.310395",
-        "image": "\/resources\/img\/DSC0477_small.jpg"
-    },
-    "Vinbr\u00e4nnboll": {
-        "title": "Vinbr\u00e4nnboll",
-        "description": "This is an example card",
-        "startDate": "Sat May 28 2016",
-        "startTime": "15:00",
-        "place": "Campus\u00e4ngarna",
-        "lat": "63.821171",
-        "long": "20.310395",
-        "image": "\/resources\/img\/bg-frosted-large-process-comp.jpg"
-    },
-    "Festival": {
+[
+    {
         "title": "Festival",
         "description": "This is an example card",
         "startDate": "Sat May 28 2016",
@@ -29,7 +9,37 @@
         "long": "20.310395",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-    "Hurtidrutten": {
+    {
+        "title": "Vinbr\u00e4nnboll",
+        "description": "This is an example card",
+        "startDate": "Sat May 28 2016",
+        "startTime": "15:00",
+        "place": "Campus\u00e4ngarna",
+        "lat": "63.821171",
+        "long": "20.310395",
+        "image": "\/resources\/img\/bg-frosted-large-process-comp.jpg"
+    },
+    {
+        "title": "Test2.2",
+        "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
+        "startDate": "Sat May 28 2016",
+        "startTime": "16:00",
+        "place": "Campus\u00e4ngarna",
+        "lat": "123",
+        "long": "20.310395",
+        "image": "\/resources\/img\/DSC0477_small.jpg"
+    },
+    {
+        "title": "test4",
+        "description": "afs",
+        "startDate": "Sun May 29 2016",
+        "startTime": "12:01",
+        "place": "fdsa",
+        "lat": "1",
+        "long": "2",
+        "image": "\/edit\/content\/images\/1464457188.png"
+    },
+    {
         "title": "Hurtidrutten",
         "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do",
         "startDate": "Sun May 29 2016",
@@ -39,7 +49,7 @@
         "long": "20.310395",
         "image": "\/resources\/img\/bg-large-process-comp.jpg"
     },
-    "This is a really really really really really really really really really really really long title...": {
+    {
         "title": "This is a really really really really really really really really really really really long title...",
         "description": "Why is this description so loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
         "startDate": "Sun May 29 2016",
@@ -49,8 +59,18 @@
         "long": "99.99999999999999999",
         "image": "\/edit\/content\/images\/1463477064.jpg"
     },
-    "Testttt": {
-        "title": "Testttt",
+    {
+        "title": "test3",
+        "description": "asdf",
+        "startDate": "Mon May 30 2016",
+        "startTime": "12:12",
+        "place": "fdsa",
+        "lat": "2",
+        "long": "1",
+        "image": "\/edit\/content\/images\/1464452881.png"
+    },
+    {
+        "title": "Testtttt",
         "description": "Hk",
         "startDate": "Mon May 30 2016",
         "startTime": "23:58",
@@ -58,5 +78,15 @@
         "lat": "8",
         "long": "0",
         "image": "\/edit\/content\/images\/1464355409.png"
+    },
+    {
+        "title": "test5",
+        "description": "dsfd",
+        "startDate": "Tue May 31 2016",
+        "startTime": "05:04",
+        "place": "fsa",
+        "lat": "21",
+        "long": "32",
+        "image": "\/edit\/content\/images\/1464467599.png"
     }
-}
+]

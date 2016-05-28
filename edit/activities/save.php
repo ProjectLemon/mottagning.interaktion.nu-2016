@@ -34,17 +34,58 @@ function save($activites_file_name, $target_dir, $parent_path) {
     // Open json data file
     $activites = json_decode(file_get_contents($activites_file_name), true);
 
+    $exists = false;
+    $index = NULL;
+    $activity = NULL;
+    // linear search for value
+    foreach ($activites as $i => $a) {
+        if ($a['title'] == $_POST['activity']) {
+            $exists = true;
+            $index = $i;
+            $activity = $a;
+        }
+    }
 
     // Update or set new image
-    updateImage('activity', 'image', $target_dir, $parent_path, $activites, $formdata);
+    updateImage('activity', 'image', $target_dir, $parent_path, $activity, $formdata);
 
-    // Add new data
-    if ($_POST['activity'] != $_POST['title']) { // Title has been changed
-        unset($activites[$_POST['activity']]);
-        $activites[$_POST['title']] = $formdata;    
+    // Add new data in sorted order (linear)
+    if ($exists) {
+        $inserted = false;
+        if ($activity['startDate'] != $formdata['startDate'] or $activity['startTime'] != $formdata['startTime']) {
+          
+            foreach ($activites as $i => $a) {
+                if ($a['title'] == $formdata['title']) {
+                    array_splice($activites, $i, 1); // remove value
+                }
+            }
+            foreach ($activites as $i => $a) {
+                
+                if (!$inserted and strtotime($a['startDate'].' '.$a['startTime']) > strtotime($formdata['startDate'].' '.$formdata['startTime'])) {
+                    array_splice($activites, $i, 0, array($formdata)); // insert
+                    $inserted = true;
+                }
+            }
+            if (!$inserted) {
+                $activites[] = $formdata; // insert in end
+            }
+            
+        } else {
+            $activites[$index] = $formdata;
+        }
         
     } else {
-        $activites[$_POST['title']] = $formdata;   
+        $inserted = false;
+        foreach ($activites as $i => $a) {
+            if (strtotime($a['startDate'] . $a['startTime']) > strtotime($formdata['startDate'] . $formdata['startTime'])) {
+                array_splice($activites, $i, 0, array($formdata));
+                $inserted = true;
+                break;
+            }
+        }
+        if (!$inserted) {
+            $activites[] = $formdata; // insert in end
+        }
     }
 
     // Convert back to json
@@ -64,18 +105,24 @@ function delete($activites_file_name) {
     verifyForm('activity');
     validateLength('activity', 100);
 
-    
     // Open json data file
-    $activites = json_decode(file_get_contents($activites_file_name), true);
+    $activities = json_decode(file_get_contents($activites_file_name), true);
     
-    if (!isset($activites[$_POST['activity']])) {
+    $index = NULL;
+    foreach ($activities as $i => $activity) {
+        if ($activity['title'] == $_POST['activity']) {
+            $index = $i;
+        }
+    }
+    
+    if ($index == NULL) {
         throw new RuntimeException('No such activity to delete');
     }
     
-    unset($activites[$_POST['activity']]); // Delete activity
+    unset($activities[$index]); // Delete activity
     
     // Convert back to json
-    $jsondata = json_encode($activites, JSON_PRETTY_PRINT);
+    $jsondata = json_encode($activities, JSON_PRETTY_PRINT);
        
     // Save to json data file
     if (file_put_contents($activites_file_name, $jsondata)) {
@@ -85,9 +132,6 @@ function delete($activites_file_name) {
         throw new RuntimeException('Could not save to file');
     }
 }
-
-
-// define ('SITE_ROOT', realpath(dirname(__FILE__))); // may need on server
 
 $image_dir = '../content/images/';
 $parent_path = '/edit';

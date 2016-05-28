@@ -1,58 +1,65 @@
-{
-    "Oscar Thorwid": {
+[
+    {
         "name": "Oscar Thorwid",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "general",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-    "Linnea Berglund": {
+    {
         "name": "Linnea Berglund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "blue",
         "image": "\/resources\/img\/bg-large-process-comp.jpg"
     },
-    "Aron Nisbel": {
+    {
         "name": "Aron Nisbel",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "red",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-    "Fredrik \u00d6stlund": {
+    {
         "name": "Fredrik \u00d6stlund",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "yellow",
         "image": "\/edit\/content\/images\/1463478280.jpg"
     },
-    "Filip Bark": {
+    {
         "name": "Filip Bark",
         "mail": "example@gmail.com",
         "phone": "070-231 32 32",
         "group": "general",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-    "script": {
+    {
         "name": "script",
         "mail": "asdf2",
         "phone": "asdf",
         "group": "red",
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
-    "fdsa": {
+    {
         "name": "fdsa",
         "mail": "asdf",
         "phone": "asdf",
         "group": "general",
         "image": "\/resources\/img\/bg-frosted-large.jpg"
     },
-    "testing 124": {
+    {
         "name": "testing 124",
         "mail": "asdf",
-        "phone": "asdf",
+        "phone": "asdf2",
         "group": "red",
-        "image": "\/resources\/img\/bg-large-process-comp.jpg"
+        "image": "\/edit\/content\/images\/1464450032.png"
+    },
+    {
+        "name": "test4",
+        "mail": "kjh",
+        "phone": "jk\u00f6",
+        "group": "general",
+        "image": "\/edit\/content\/images\/1464467490.png"
     }
-}
+]

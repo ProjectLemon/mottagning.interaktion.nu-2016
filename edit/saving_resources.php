@@ -115,18 +115,18 @@ function getNewFilename($target_dir, $extension) {
  * @param $image_file_key Name of image in $_FILES
  * @param $target_dir Directory to place new images
  * @param $parent_path Path to website root, for absolute paths
- * @param $saving_object Object into which old image paths is saved
+ * @param $saving_object Object into which previues image paths is saved
  * @param $formdata Object in which new image paths should be saved
  * @throws RuntimeException If anything was invalid or otherwise failed with image
  */
-function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $saving_object, &$formdata) {
-    
+function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $saving_object=null, &$formdata) {
+  
     // if new:
-    if (!array_key_exists($_POST[$form_name], $saving_object)               // form value does not exist
-            or !isset($saving_object[$_POST[$form_name]][$image_file_key])  // form value exist but with no image
-            or $saving_object[$_POST[$form_name]][$image_file_key] == null  // form value exist but image is set to null
-            or isset($_FILES[$image_file_key]) and $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) {  // new image is uploaded
-        
+    if ((isset($_FILES[$image_file_key]) and $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) // new image
+        or $saving_object == null                                                                     // new object
+        or !isset($saving_object[$image_file_key])                                                    // existing object don't have an image
+        or $saving_object[$image_file_key] == null) {                                                 // existing objects image is set to null
+    
         $image_type = verifyUploadImage($image_file_key, $target_dir);
         $target_file = getNewFilename($target_dir, $image_type);
         
@@ -140,12 +140,9 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
         $formdata[$image_file_key] = str_replace('..', $parent_path, $target_file); // make path absolute instead of relative
         
         // If replacing image, delete old
-        if (   array_key_exists($_POST[$form_name], $saving_object)         // object exist
-            and isset($saving_object[$_POST[$form_name]][$image_file_key])  // image is set in object
-            and $saving_object[$_POST[$form_name]][$image_file_key] != null // image is not set to null
-            ) {
-                
-            $previous_image_file_name = $saving_object[$_POST[$form_name]][$image_file_key];
+        if ($saving_object != null) {
+
+            $previous_image_file_name = $saving_object[$image_file_key];
             $previous_image_file_name = str_replace($parent_path, '..', $previous_image_file_name);
             
             // delete image
@@ -156,7 +153,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
         
     } else {
         // Use existing image
-        $formdata[$image_file_key] = $saving_object[$_POST[$form_name]][$image_file_key];
+        $formdata[$image_file_key] = $saving_object[$image_file_key];
     }
 }
 
