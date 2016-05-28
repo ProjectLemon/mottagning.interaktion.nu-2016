@@ -2,7 +2,7 @@
     "Test2": {
         "title": "Test2",
         "description": "This is an example card that has a lot of text. I mean it has a huge amount of text! HOw can it even be that it can contain this much text. It's so incredible much! Utg\u00e5ng: Origo",
-        "startDate": "Fri May 27 2016",
+        "startDate": "Sat May 28 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "123",
@@ -12,7 +12,7 @@
     "Vinbr\u00e4nnboll": {
         "title": "Vinbr\u00e4nnboll",
         "description": "This is an example card",
-        "startDate": "Fri May 27 2016",
+        "startDate": "Sat May 28 2016",
         "startTime": "15:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",
@@ -32,7 +32,7 @@
     "Hurtidrutten": {
         "title": "Hurtidrutten",
         "description": "WoW! OMG! So much text. There are so much text that I can't even begin to understand how much text there is. It's like, you know. More than 200 characters but guess what? I don't care because I can do",
-        "startDate": "Sat May 28 2016",
+        "startDate": "Sun May 29 2016",
         "startTime": "16:00",
         "place": "Campus\u00e4ngarna",
         "lat": "63.821171",

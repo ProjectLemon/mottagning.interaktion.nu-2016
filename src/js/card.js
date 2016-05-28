@@ -46,7 +46,7 @@ var CardFactory = (function Card() {
       //Since images won't be displayed on mobile screens we're preventing them
       //from being downloaded in the first place to improve performance
       if(document.body.clientWidth <= phoneLandscapeWidth) {
-        headerImg = "<img class='featured-image' src='' alt=''>";
+        headerImg = "";
       } else {
         headerImg = "<img class='featured-image' src='"+config.image+"' alt=''>";
       }
@@ -88,22 +88,22 @@ var CardFactory = (function Card() {
         expandHeight = 140; // 40% of 350 (height of card)
       }
       
+      // Make new activity card, with drop down arrow
       var card = _this.newCard(config);
       card.innerHTML += "<div class='indicator-arrow-container'><img src='/resources/img/icons/angle-down.svg' class='indicator-arrow' alt='Image of an arrow pointing down in order to indicate that cards are clickable'></div>";
 
       card.classList.add('mo-card');
       card.classList.add('mo-card-activity');
       card.classList.add('no-select');
+      
+      
+      
       card.expanded = false;
       var allCardsContainer = document.getElementById('activity-cards');
-      var activityCardPusher = document.getElementById('activity-card-pusher');
+      var activityCardPusher = document.getElementById('activity-card-pusher'); // empty element to expand page when
+                                               // activities get pushed, as transform does not expand page by itself
       
-      var moveDown = function(element) {
-        element.style.transform += ' translateY('+expandHeight+'px)';
-      };
-      var moveUp = function(element) {
-        element.style.transform = element.style.transform.replace('translateY('+expandHeight+'px)', '');
-      };
+      /* Expand card with all its transformation and animation */
       card.expand = function() {
         this.classList.add('expanded');
         
@@ -122,6 +122,7 @@ var CardFactory = (function Card() {
           activityCardPusher.style.height = (h+expandHeight) + 'px';
         }
       }
+      /* Contract card to its previous stae */
       card.contract = function() {
         this.classList.remove('expanded');
         
@@ -134,15 +135,23 @@ var CardFactory = (function Card() {
         var arrowTransform = arrow.style.transform;
         arrowTransform = arrowTransform.replace('rotate(180deg)', '');
         arrowTransform = arrowTransform.replace('translateY(-'+expandHeight+'px)', '');
-        arrow.style.transform = arrowTransform.replace(' ', '');;
+        arrow.style.transform = arrowTransform.replace(' ', '');
         
         var h = parseInt(activityCardPusher.style.height, 10);
         if (!isNaN(h)) {
           activityCardPusher.style.height = (h-expandHeight) + 'px';
         }
       }
+      /* Helper function for transforming y position */
+      var moveDown = function(element) {
+        element.style.transform += ' translateY('+expandHeight+'px)';
+      };
+      var moveUp = function(element) {
+        element.style.transform = element.style.transform.replace('translateY('+expandHeight+'px)', '');
+      };
       
       card.addEventListener("click", function(e){
+        // Expand/contract card
         if (this.expanded) {
           this.contract();
         } else {
@@ -151,7 +160,7 @@ var CardFactory = (function Card() {
         this.expanded = !this.expanded;
         
         
-        /* Move all activities in same date down */
+        /* Move all activities below card, in same date, down (if in mobile view) */
         if (bodyWidth <= phoneLandscapeWidth) {
           var parentContainer = this.parentElement;
           var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
@@ -164,11 +173,11 @@ var CardFactory = (function Card() {
               
             } else {
               if (this.expanded) {
-                moveDown(cardsOfSameDay[i]);
                 cardsOfSameDay[i].classList.add('will-change');
+                moveDown(cardsOfSameDay[i]);
               } else {
-                moveUp(cardsOfSameDay[i]);
                 cardsOfSameDay[i].classList.remove('will-change');
+                moveUp(cardsOfSameDay[i]);
               }
             }
           }
