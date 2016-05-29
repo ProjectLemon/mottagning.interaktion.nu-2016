@@ -30,6 +30,16 @@
         "image": "\/resources\/img\/DSC0477_small.jpg"
     },
     {
+        "title": "test6",
+        "description": "asdf",
+        "startDate": "Sun May 29 2016",
+        "startTime": "00:39",
+        "place": "fdsa",
+        "lat": "12",
+        "long": "32",
+        "image": "\/edit\/content\/images\/1464543821.png"
+    },
+    {
         "title": "test4",
         "description": "afs",
         "startDate": "Sun May 29 2016",

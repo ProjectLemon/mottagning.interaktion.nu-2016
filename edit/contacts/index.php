@@ -36,6 +36,7 @@ $selected = false;
       
         <ul id="select-list">
           <li><label>Ny kontakt<input id="select-new" type="radio" name="contact" value="Ny kontakt" required checked></label></li>
+          <li><hr></li>
           <?php 
             foreach ($contacts as $contact) {
                 $selected_attr = '';

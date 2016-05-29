@@ -116,6 +116,7 @@ form.addEventListener('submit', function(event) {
                 imageUpload.value = '';
                 imageUpload.required = false;
                 
+                var listPositionChanged = false;
                 var selected = select.querySelector('input:checked');
                 var date = document.getElementById('form-date');
                 var time = document.getElementById('form-time');
@@ -140,6 +141,7 @@ form.addEventListener('submit', function(event) {
                         window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selector.value));
                     }
                     
+                    listPositionChanged = true;
                     
                 // changed select entry:
                 } else if (selectorInput.value != selected.value) {
@@ -149,14 +151,15 @@ form.addEventListener('submit', function(event) {
                     if (window.history && window.history.replaceState) {
                         window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selectorInput.value));
                     }
-                    
+                }
                 // changed date or time
-                } else if (selected.getAttribute('data-datetime') != datetime) {
+                if (selected.id != 'select-new' && selected.getAttribute('data-datetime') != datetime) {
                     selected.setAttribute('data-datetime', datetime);
+                    listPositionChanged = true;
                 }
                 
                 /* Sort activity list according to date and time */
-                if (formEdit.classList.contains('form-activity')) {
+                if (listPositionChanged && formEdit.classList.contains('form-activity')) {
                     var activitiesCollection = select.getElementsByTagName('input');
                     var activities = Array.prototype.slice.call(activitiesCollection);
                     select.innerHTML = '<li><label>'+activities[0].value+activities[0].outerHTML+'</label></li>'; // create new form label
