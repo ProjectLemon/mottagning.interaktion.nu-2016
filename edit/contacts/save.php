@@ -23,19 +23,29 @@ function save($contacts_file_name, $target_dir, $parent_path) {
 
     // Open json data file
     $contacts = json_decode(file_get_contents($contacts_file_name), true);
-
+    
+    $exists = false;
+    $index = NULL;
+    $contact = NULL;
+    // linear search for value
+    foreach ($contacts as $i => $c) {
+        if ($c['name'] == $_POST['contact']) {
+            $exists = true;
+            $index = $i;
+            $contact = $c;
+        }
+    }
 
     // Verify image if new
-    updateImage('contact', 'image', $target_dir, $parent_path, $contacts, $formdata);
+    updateImage('contact', 'image', $target_dir, $parent_path, $contact, $formdata);
 
     // Add new data
-    if ($_POST['contact'] != $_POST['name']) { // Name has been changed
-        unset($contacts[$_POST['contact']]);
-        $contacts[$_POST['name']] = $formdata;    
-        
+    if ($exists) {
+        $contacts[$index] = $formdata;
     } else {
-        $contacts[$_POST['name']] = $formdata;   
+        $contacts[] = $formdata; // insert in end
     }
+        
 
     // Convert back to json
     $jsondata = json_encode($contacts, JSON_PRETTY_PRINT);
@@ -50,23 +60,25 @@ function save($contacts_file_name, $target_dir, $parent_path) {
 }
 
 function delete($contacts_file_name) {
-    
-    if (!isset($_POST['contact']) || $_POST['contact'] == '') {
-        throw new RuntimeException('No contact was selected');
-    }
-    // All form data should be in order (not image)
-    $formdata = array(
-        'contact' => $_POST['contact'],
-    );
+
+    verifyForm('contact');
+    validateLength('contact', 100);
     
     // Open json data file
     $contacts = json_decode(file_get_contents($contacts_file_name), true);
     
-    if (!isset($contacts[$_POST['contact']])) {
+    $index = NULL;
+    foreach ($contacts as $i => $contact) {
+        if ($contact['name'] == $_POST['contact']) {
+            $index = $i;
+        }
+    }
+    
+    if ($index == NULL) {
         throw new RuntimeException('No such contact to delete');
     }
     
-    unset($contacts[$_POST['contact']]); // Delete activity
+    unset($contacts[$index]); // Delete activity
     
     // Convert back to json
     $jsondata = json_encode($contacts, JSON_PRETTY_PRINT);
@@ -79,8 +91,6 @@ function delete($contacts_file_name) {
         throw new RuntimeException('Could not save to file');
     }
 }
-
-// define ('SITE_ROOT', realpath(dirname(__FILE__))); // may need on server
 
 $image_dir = '../content/images/';
 $parent_path = '/edit';

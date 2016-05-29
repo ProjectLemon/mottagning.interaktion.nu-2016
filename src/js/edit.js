@@ -1,11 +1,12 @@
 
 /* Reaload page with filled content when changing select */
-var select = document.getElementById('edit-select');
+var select = document.getElementById('select-list');
 var selectorInput = document.getElementById('selector-input');
 
-select.addEventListener('change', function() {
-    var value = select.options[select.selectedIndex].value;
-    var id = select.options[select.selectedIndex].getAttribute('id');
+select.addEventListener('change', function(event) {
+    var checkedElement = event.target;
+    var value = checkedElement.value;
+    var id = checkedElement.getAttribute('id');
     
     // Reload page with selected parameter
     if (id == 'select-new') {
@@ -58,7 +59,8 @@ imageUpload.addEventListener('change', function changeActivity(event) {
 });
 
 
-var form = document.getElementById('edit-form');
+var form = document.getElementById('form');
+var formEdit = document.getElementById('edit-form');
 var response = document.getElementById('response');
 var deleteButton = document.getElementById('form-delete');
 var request = new XMLHttpRequest();
@@ -111,13 +113,27 @@ form.addEventListener('submit', function(event) {
                 response.innerHTML = request.responseText;
                 response.classList.remove('error');
                 
+                imageUpload.value = '';
+                imageUpload.required = false;
+                
+                var listPositionChanged = false;
+                var selected = select.querySelector('input:checked');
+                var date = document.getElementById('form-date');
+                var time = document.getElementById('form-time');
+                var datetime;
+                var datetimeAttributeString = '';
+                if (date && time) {
+                    datetime = date.value+' '+time.value;
+                    datetimeAttributeString = 'data-datetime="'+datetime+'"';
+                }
                 // new select:
-                if (select.selectedIndex == 0) {
-                    var option = document.createElement('option');
+                if (selected.id == 'select-new') {
+                    var newListItem = document.createElement('li');
                     var selector = document.getElementById('selector-input');
-                    option.text = selector.value;
-                    select.add(option);
-                    option.selected = true;
+                    var datetimeString;
+                    
+                    newListItem.innerHTML = '<label>'+selector.value+'<input type="radio" name="'+select.getElementsByTagName('input')[0].name+'" value="'+selector.value+'" '+datetimeAttributeString+' required checked></label>';
+                    select.appendChild(newListItem);
                     
                     deleteButton.disabled = false;
                     
@@ -125,14 +141,51 @@ form.addEventListener('submit', function(event) {
                         window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selector.value));
                     }
                     
+                    listPositionChanged = true;
+                    
                 // changed select entry:
-                } else if (selectorInput.value != select.value) {
-                    var option = select.options[select.selectedIndex];
-                    option.value = selectorInput.value;
-                    option.text = selectorInput.value;
+                } else if (selectorInput.value != selected.value) {
+                    selected.value = selectorInput.value;
+                    selected.parentElement.innerHTML = selectorInput.value + selected.outerHTML;
                     
                     if (window.history && window.history.replaceState) {
                         window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selectorInput.value));
+                    }
+                }
+                // changed date or time
+                if (selected.id != 'select-new' && selected.getAttribute('data-datetime') != datetime) {
+                    selected.setAttribute('data-datetime', datetime);
+                    listPositionChanged = true;
+                }
+                
+                /* Sort activity list according to date and time */
+                if (listPositionChanged && formEdit.classList.contains('form-activity')) {
+                    var activitiesCollection = select.getElementsByTagName('input');
+                    var activities = Array.prototype.slice.call(activitiesCollection);
+                    select.innerHTML = '<li><label>'+activities[0].value+activities[0].outerHTML+'</label></li>'; // create new form label
+                    
+                    activities.sort(function(a, b) {
+                        var aDate = new Date(a.getAttribute('data-datetime'));
+                        var bDate = new Date(b.getAttribute('data-datetime'));
+                        if (aDate < bDate) {
+                            return -1;
+                        } else if (aDate > bDate) {
+                            return 1;
+                        } else {
+                            return 0;
+                        }
+                    });
+                    
+                    var lastActivityDate = null;
+                    for (var i = 1; i < activities.length; i++) { // 1 becauce create new form label already been added
+                        var activity = activities[i];
+                        var activityDate = activity.getAttribute('data-datetime').slice(0, -5);
+                        if (activityDate != lastActivityDate || lastActivityDate == null) {
+                            select.innerHTML += '<li><h3 class="select-seperator">'+activityDate+'</h3><hr></li>';
+                        }
+                        lastActivityDate = activityDate;
+                
+                        select.innerHTML += '<li><label>'+activity.value+activity.outerHTML+'</label></li>';
                     }
                 }
                 
@@ -167,15 +220,16 @@ deleteButton.addEventListener('click', function() {
         }
         stopLoading();
     }
+    var selected = select.querySelector('input:checked');
     request.open('POST', 'save.php', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.send(deleteButton.name+'='+deleteButton.innerHTML+'&'+select.name+'='+encodeURIComponent(select.value));
+    request.send(deleteButton.name+'='+deleteButton.innerHTML+'&'+selected.name+'='+encodeURIComponent(selected.value));
 });
 
 /* Loading bar for server requests */
 var loadingBar = document.createElement('DIV');
 loadingBar.classList.add('loading-bar');
-form.appendChild(loadingBar);
+formEdit.appendChild(loadingBar);
 
 /**
  * Load progress bar width, not fully
