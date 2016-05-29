@@ -49,7 +49,7 @@ function getActivityContent() {
         *  different fields while our card library assumes a correctly formated
         *  JavaScript Date-string
         */
-        var activityDate = new Date(json[obj].startDate + json[obj].startTime);
+        var activityDate = new Date(json[obj].startDate +' '+ json[obj].startTime);
 
         //combine date and time to one attribute
         delete json[obj].startDate;
