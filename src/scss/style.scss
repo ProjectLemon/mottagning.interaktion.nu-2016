@@ -157,6 +157,7 @@ nav#navigation-bar {
   position: relative; // for card-bg's position absolute
 
   @include transition(transform 0.5s);
+  @include transition(height 0.5s);
 
   @media screen and (max-width: $phone-landscape-width) {
     height: 130px;
@@ -228,6 +229,7 @@ nav#navigation-bar {
     background-color: #7A1EA1; // Fallback color if javascript fails
 
     @include transition(transform 0.5s);
+    @include transition(height 0.5s);
     @include transform-origin(top);
     @include box-shadow(3px 3px 10px 0px rgba(26,26,26,.75));
 
@@ -304,7 +306,8 @@ nav#navigation-bar {
   .description, .directions {
     opacity: 0;
     margin: 0 10px;
-    @include transition(opacity .5s);
+    @include transition(opacity linear .5s);
+    transition-timing-function: linear;
   }
   div.indicator-arrow-container {
     position: absolute;
@@ -313,37 +316,38 @@ nav#navigation-bar {
     text-align: center;
   }
 }
-/*
+
 .mo-card-expanded {
-  height: 500px;
-  @media screen and (max-width: $phone-landscape-width) {
-    height: 230px;
+  @media screen and (min-width: $tablet-portrait-width) {
+    
+    height: 500px;
+    
+    .card-bg {
+      height: 500px;
+    }
+  
+    div.description {
+      padding: 10px;
+      font-size: 10pt;
+      @include animateCardExpand();
+    }
+    img.directions {
+      position: absolute;
+      z-index: 10;
+      bottom: 10px;
+      right: 10px;
+      max-width: 30px;
+      cursor: pointer;
+      @include animateCardExpand();
+    }
+    img.indicator-arrow {
+      @include animateRotate(180deg);
+    }
+  
+    @include keyFrames();
   }
-  @media screen and (max-width: $phone-portrait-width) {
-    height: 280px;
-  }
-
-  div.description {
-    padding: 10px;
-    font-size: 10pt;
-    @include animateCardExpand();
-  }
-  img.directions {
-    position: absolute;
-    z-index: 10;
-    bottom: 10px;
-    right: 10px;
-    max-width: 30px;
-    cursor: pointer;
-    @include animateCardExpand();
-  }
-  img.indicator-arrow {
-    @include animateRotate(180deg);
-  }
-
-  @include keyFrames();
 }
-*/
+
 img.indicator-arrow, .indicator-arrow-container > svg {
   width: 30px;
   height: 30px;

@@ -23,7 +23,6 @@
 var CardFactory = (function Card() {
   
   var phoneLandscapeWidth = 740;
-  var bodyWidth = document.body.clientWidth;
 
   /*
   * This object is returned when new Card() is called.
@@ -78,6 +77,7 @@ var CardFactory = (function Card() {
     * @return {HTML-node} - Activity card represented as a HTML-node
     */
     _this.newActivityCard = function(config) {
+      var bodyWidth = document.body.clientWidth;
       var expandScale;
       var expandHeight;
       if (bodyWidth <= phoneLandscapeWidth) {
@@ -151,17 +151,19 @@ var CardFactory = (function Card() {
       };
       
       card.addEventListener("click", function(e){
-        // Expand/contract card
-        if (this.expanded) {
-          this.contract();
-        } else {
-          this.expand();
-        }
-        this.expanded = !this.expanded;
-        
-        
-        /* Move all activities below card, in same date, down (if in mobile view) */
+        this.classList.toggle('mo-card-expanded');
+        bodyWidth = document.body.clientWidth;
         if (bodyWidth <= phoneLandscapeWidth) {
+          // Expand/contract card
+          if (this.expanded) {
+            this.contract();
+          } else {
+            this.expand();
+          }
+          this.expanded = !this.expanded;
+          
+          
+          /* Move all activities below card, in same date, down (if in mobile view) */
           var parentContainer = this.parentElement;
           var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
           var index = -1;
@@ -181,24 +183,24 @@ var CardFactory = (function Card() {
               }
             }
           }
-        }
-        
-        /* Move rest of days down */
-        var dateCardContainers = allCardsContainer.getElementsByClassName('mo-card-date-container');
-        index = -1;
-        for (var i = 0; i < dateCardContainers.length; i++) {
-          if (index == -1) {
-            if (dateCardContainers[i].contains(this)) {
-              index = i;
-            }
-            
-          } else {
-            if (this.expanded) {
-              moveDown(dateCardContainers[i]);
-              dateCardContainers[i].classList.add('will-change');
+          
+          /* Move rest of days down */
+          var dateCardContainers = allCardsContainer.getElementsByClassName('mo-card-date-container');
+          index = -1;
+          for (var i = 0; i < dateCardContainers.length; i++) {
+            if (index == -1) {
+              if (dateCardContainers[i].contains(this)) {
+                index = i;
+              }
+              
             } else {
-              moveUp(dateCardContainers[i]);
-              dateCardContainers[i].classList.remove('will-change');
+              if (this.expanded) {
+                moveDown(dateCardContainers[i]);
+                dateCardContainers[i].classList.add('will-change');
+              } else {
+                moveUp(dateCardContainers[i]);
+                dateCardContainers[i].classList.remove('will-change');
+              }
             }
           }
         }
