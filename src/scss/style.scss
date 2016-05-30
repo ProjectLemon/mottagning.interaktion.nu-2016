@@ -325,13 +325,12 @@ nav#navigation-bar {
 
 .mo-card-expanded {
   @media screen and (min-width: $phone-landscape-width) {
-    
     height: 500px;
-    
+
     .card-bg {
       height: 500px;
     }
-  
+
     div.description {
       padding: 10px;
       font-size: 10pt;
@@ -348,7 +347,7 @@ nav#navigation-bar {
     img.indicator-arrow {
       @include animateRotate(180deg);
     }
-  
+
     @include keyFrames();
   }
 }
