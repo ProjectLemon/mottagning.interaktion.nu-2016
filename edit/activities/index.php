@@ -61,11 +61,11 @@ $selected = false;
         </ul>
         
         <div id="edit-form" class="form-activity">
-          <button id="form-delete" type="button" name="delete"
-              <?php 
-                if (!$selected) { echo 'disabled'; }
-              ?>>Radera aktivitet</button>
-          
+      
+          <?php 
+            if ($selected) { echo '<button id="form-delete" type="button" name="delete" >Radera aktivitet</button>'; }
+          ?>
+      
           <label>Titel:<input id="selector-input" type="text" name="title" maxlength="100" required 
               <?php
                 if ($selected && property_exists($selected, 'title')) echo 'value="'.htmlspecialchars($selected->title).'"'

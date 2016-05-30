@@ -60,7 +60,7 @@ imageUpload.addEventListener('change', function changeActivity(event) {
 
 
 var form = document.getElementById('form');
-var formEdit = document.getElementById('edit-form');
+var editForm = document.getElementById('edit-form');
 var response = document.getElementById('response');
 var deleteButton = document.getElementById('form-delete');
 var request = new XMLHttpRequest();
@@ -130,12 +130,17 @@ form.addEventListener('submit', function(event) {
                 if (selected.id == 'select-new') {
                     var newListItem = document.createElement('li');
                     var selector = document.getElementById('selector-input');
-                    var datetimeString;
+                    var deleteButton = document.createElement('button');
+                    deleteButton.setAttribute('id', 'form-delete');
+                    deleteButton.setAttribute('type', 'button');
+                    deleteButton.setAttribute('name', 'delete');
+                    deleteButton.innerHTML = 'Radera';
+                    deleteButton.addEventListener('click', deleteButtonListener);
+                    editForm.insertBefore(deleteButton, editForm.firstChild);
                     
                     newListItem.innerHTML = '<label>'+selector.value+'<input type="radio" name="'+select.getElementsByTagName('input')[0].name+'" value="'+selector.value+'" '+datetimeAttributeString+' required checked></label>';
                     select.appendChild(newListItem);
                     
-                    deleteButton.disabled = false;
                     
                     if (window.history && window.history.replaceState) {
                         window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selector.value));
@@ -159,7 +164,7 @@ form.addEventListener('submit', function(event) {
                 }
                 
                 /* Sort activity list according to date and time */
-                if (listPositionChanged && formEdit.classList.contains('form-activity')) {
+                if (listPositionChanged && editForm.classList.contains('form-activity')) {
                     var activitiesCollection = select.getElementsByTagName('input');
                     var activities = Array.prototype.slice.call(activitiesCollection);
                     select.innerHTML = '<li><label>'+activities[0].value+activities[0].outerHTML+'</label></li>'; // create new form label
@@ -207,7 +212,7 @@ form.addEventListener('submit', function(event) {
 
 /* Ajax delete submit */
 // Delete button has no actual submit attribute, as it should not be triggered with enter key
-deleteButton.addEventListener('click', function() {
+function deleteButtonListener() {
     // When done
     request.onload = function(e) {
         if (request.status == 200) {
@@ -223,13 +228,14 @@ deleteButton.addEventListener('click', function() {
     var selected = select.querySelector('input:checked');
     request.open('POST', 'save.php', true);
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.send(deleteButton.name+'='+deleteButton.innerHTML+'&'+selected.name+'='+encodeURIComponent(selected.value));
-});
+    request.send(event.target.name+'='+event.target.innerHTML+'&'+selected.name+'='+encodeURIComponent(selected.value));
+}
+if (deleteButton) {deleteButton.addEventListener('click', deleteButtonListener);}
 
 /* Loading bar for server requests */
 var loadingBar = document.createElement('DIV');
 loadingBar.classList.add('loading-bar');
-formEdit.appendChild(loadingBar);
+editForm.appendChild(loadingBar);
 
 /**
  * Load progress bar width, not fully

@@ -51,10 +51,9 @@ $selected = false;
         </ul>
       
         <div id="edit-form" class="form-contact">
-          <button id="form-delete" type="button" name="delete" 
-              <?php 
-                if (!$selected) { echo 'disabled'; } else { echo 'class="button"'; }
-              ?>>Radera kontakt</button>
+          <?php 
+            if ($selected) { echo '<button id="form-delete" type="button" name="delete" >Radera kontakt</button>'; }
+          ?>
           
           <div><label>Namn:<input id="selector-input" type="text" name="name" maxlength="100" required 
               <?php
