@@ -112,12 +112,15 @@ function paintActiviyCards() {
       container = document.createElement('div');
       container.setAttribute("data", startDateTime);
       container.classList.add('mo-card-date-container');
+      container.style.width = "670px";
       container.id = startDateTime.toDateString().replace(/ /g,"");
       var cardContainer = document.getElementById('activity-cards');
       cardContainer.appendChild(container);
     }
     activities[index].color = getRandomColor();
-    container.appendChild(cardFactory.newActivityCard(activities[index]));
+    //if(container.childNodes.length < 2) {
+      container.appendChild(cardFactory.newActivityCard(activities[index]));
+    //}
   }
 }
 

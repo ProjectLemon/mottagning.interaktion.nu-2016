@@ -58,6 +58,7 @@ html, body {
   #activity-cards {
     margin: -5em auto 200px auto;
     display: table;
+    width: 670px;
     @media screen and (max-width: $tablet-portrait-width) {
       width: 100%;
       margin: 2em auto 0 auto;
@@ -67,6 +68,8 @@ html, body {
       display:table-row;
       margin-top: 1em;
       position: relative;
+      width: 670px;
+      overflow: scroll;
       @media screen and (max-width: $phone-landscape-width) {
         display: block;
       }
@@ -75,7 +78,7 @@ html, body {
         font-size: 24pt;
         margin-left: -7em;
         margin-top: 80px;
-        
+
         @media screen and (max-width: 1180px) {
           margin-left: -5;
           font-size: 18pt;

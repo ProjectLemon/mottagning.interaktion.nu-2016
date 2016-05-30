@@ -1,7 +1,7 @@
 <head>
   <title>Mottagningen: Redigera</title>
   <meta charset="UTF-8">
-  <link href="/resources/css/edit.css" rel="stylesheet" type="text/css">
+  <link href="/resources/css/edit.min.css" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="apple-touch-icon" sizes="57x57" href="/resources/img/favicon/apple-touch-icon-57x57.png">
