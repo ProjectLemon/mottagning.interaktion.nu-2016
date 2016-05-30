@@ -156,8 +156,7 @@ nav#navigation-bar {
 
   position: relative; // for card-bg's position absolute
 
-  @include transition(transform 0.5s);
-  @include transition(height 0.5s);
+  @include transition(all 0.5s);
 
   @media screen and (max-width: $phone-landscape-width) {
     height: 130px;
@@ -228,8 +227,7 @@ nav#navigation-bar {
     width: 100%;
     background-color: #7A1EA1; // Fallback color if javascript fails
 
-    @include transition(transform 0.5s);
-    @include transition(height 0.5s);
+    @include transition(all 0.5s);
     @include transform-origin(top);
     @include box-shadow(3px 3px 10px 0px rgba(26,26,26,.75));
 
@@ -303,11 +301,20 @@ nav#navigation-bar {
       border-radius: 100%;
     }
   }
-  .description, .directions {
+  .description {
     opacity: 0;
     margin: 0 10px;
     @include transition(opacity linear .5s);
     transition-timing-function: linear;
+  }
+  .directions {
+    opacity: 0;
+    margin: 0 10px;
+    @include transition(opacity .1s);
+  }
+  .directions.slow {
+    @include transition(opacity .9s);
+    transition-delay: .3s;
   }
   div.indicator-arrow-container {
     position: absolute;
@@ -318,7 +325,7 @@ nav#navigation-bar {
 }
 
 .mo-card-expanded {
-  @media screen and (min-width: $tablet-portrait-width) {
+  @media screen and (min-width: $phone-portrait-width) {
     
     height: 500px;
     
@@ -338,7 +345,6 @@ nav#navigation-bar {
       right: 10px;
       max-width: 30px;
       cursor: pointer;
-      @include animateCardExpand();
     }
     img.indicator-arrow {
       @include animateRotate(180deg);

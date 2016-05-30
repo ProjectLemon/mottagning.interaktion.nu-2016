@@ -20,8 +20,9 @@
 *           long:          Longitude coordinates for the activitys location
 *           color:         A CSS color value. This will be the card's color
 */
+
 var CardFactory = (function Card() {
-  
+
   var phoneLandscapeWidth = 740;
 
   /*
@@ -87,7 +88,7 @@ var CardFactory = (function Card() {
         expandScale = 1.4;
         expandHeight = 140; // 40% of 350 (height of card)
       }
-      
+
       // Make new activity card, with drop down arrow
       var card = _this.newCard(config);
       card.innerHTML += "<div class='indicator-arrow-container'><img src='/resources/img/icons/angle-down.svg' class='indicator-arrow' alt='Image of an arrow pointing down in order to indicate that cards are clickable'></div>";
@@ -95,26 +96,37 @@ var CardFactory = (function Card() {
       card.classList.add('mo-card');
       card.classList.add('mo-card-activity');
       card.classList.add('no-select');
-      
-      
-      
+
+
+
       card.expanded = false;
       var allCardsContainer = document.getElementById('activity-cards');
       var activityCardPusher = document.getElementById('activity-card-pusher'); // empty element to expand page when
                                                // activities get pushed, as transform does not expand page by itself
-      
+
+
+      var transformAdd = function(element, newTransform) {
+        element.style.transform += ' '+newTransform;;
+        element.style.WebkitTransition += ' '+newTransform;
+      };
+      var transformRemove = function(element, oldTransform) {
+        element.style.transform = element.style.transform.replace(oldTransform, '');;
+        element.style.WebkitTransition = element.style.WebkitTransition.replace(oldTransform, '');
+      };
       /* Expand card with all its transformation and animation */
       card.expand = function() {
         this.classList.add('expanded');
-        
+        //for(val of this.children) {if(val.classList.contains("directions")){val.classList.toggle("slow")}};
+
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.add('will-change');
-        bg.style.transform += ' scaleY('+expandScale+')';
         
+        transformAdd(bg, 'scaleY('+expandScale+')');
+
         var arrow = this.getElementsByClassName('indicator-arrow')[0];
         arrow.classList.add('will-change');
-        arrow.style.transform += ' rotate(180deg) translateY(-'+expandHeight+'px)';
-        
+        transformAdd(arrow, 'rotate(180deg) translateY(-'+expandHeight+'px');
+
         var h = parseInt(activityCardPusher.style.height, 10);
         if (isNaN(h)) {
           activityCardPusher.style.height = expandHeight+'px';
@@ -125,18 +137,19 @@ var CardFactory = (function Card() {
       /* Contract card to its previous stae */
       card.contract = function() {
         this.classList.remove('expanded');
-        
+        //for(val of this.children) {if(val.classList.contains("directions")){val.classList.toggle("slow")}};
+
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.remove('will-change');
-        bg.style.transform = bg.style.transform.replace('scaleY('+expandScale+')', '');
-        
+        transformRemove(bg, 'scaleY('+expandScale+')');
+
         var arrow = this.getElementsByClassName('indicator-arrow')[0];
         arrow.classList.remove('will-change');
         var arrowTransform = arrow.style.transform;
-        arrowTransform = arrowTransform.replace('rotate(180deg)', '');
-        arrowTransform = arrowTransform.replace('translateY(-'+expandHeight+'px)', '');
-        arrow.style.transform = arrowTransform.replace(' ', '');
-        
+        transformRemove(arrow, 'rotate(180deg)');
+        transformRemove(arrow, 'translateY(-'+expandHeight+'px)');
+        transformRemove(arrow, ' ');
+
         var h = parseInt(activityCardPusher.style.height, 10);
         if (!isNaN(h)) {
           activityCardPusher.style.height = (h-expandHeight) + 'px';
@@ -144,15 +157,16 @@ var CardFactory = (function Card() {
       }
       /* Helper function for transforming y position */
       var moveDown = function(element) {
-        element.style.transform += ' translateY('+expandHeight+'px)';
+        transformAdd(element, 'translateY('+expandHeight+'px)')
       };
       var moveUp = function(element) {
-        element.style.transform = element.style.transform.replace('translateY('+expandHeight+'px)', '');
+        transformRemove(element, 'translateY('+expandHeight+'px)');
       };
-      
+
       card.addEventListener("click", function(e){
         this.classList.toggle('mo-card-expanded');
         bodyWidth = document.body.clientWidth;
+
         if (bodyWidth <= phoneLandscapeWidth) {
           // Expand/contract card
           if (this.expanded) {
@@ -172,7 +186,7 @@ var CardFactory = (function Card() {
               if (cardsOfSameDay[i] == this) {
                 index = i;
               }
-              
+
             } else {
               if (this.expanded) {
                 cardsOfSameDay[i].classList.add('will-change');
@@ -192,7 +206,6 @@ var CardFactory = (function Card() {
               if (dateCardContainers[i].contains(this)) {
                 index = i;
               }
-              
             } else {
               if (this.expanded) {
                 moveDown(dateCardContainers[i]);
@@ -204,8 +217,8 @@ var CardFactory = (function Card() {
             }
           }
         }
-        
-        
+
+
       }, false);
 
       return card;

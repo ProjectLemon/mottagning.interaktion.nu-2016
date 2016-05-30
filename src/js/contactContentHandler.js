@@ -47,15 +47,15 @@ function paintContactCards() {
     div.style.backgroundColor = cardColors[leaders[i].group];
     div.innerHTML = "<div class=\"profile-picture-wrapper\"><h1 class=\"name\">"+leaders[i].name+
     "</h1><img class=\"profile-pic\" src=\""+leaders[i].image+"\"><h2 class=\"general-or-leader\">"+handleRoleParsing(leaders[i].group)+ //
-    "</h2><p><a href='tel:"+leaders[i].phone+"'><img class='fa-icon' src=\"/resources/img/icons/phone.svg\" alt=\"Ring\">"+leaders[i].phone+
-    "</p></a><p><a href='mailto:"+leaders[i].mail+"'><img class='fa-icon' src=\"/resources/img/icons/mail.svg\" alt=\"Maila\">"+leaders[i].mail+"</a></p></div>";
+    "</h2><p><a href='tel:"+leaders[i].phone+"'><img class='fa-icon' style='max-height: 15px;' src=\"/resources/img/icons/phone.svg\" alt=\"Ring\">"+leaders[i].phone+
+    "</p></a><p><a href='mailto:"+leaders[i].mail+"'><img class='fa-icon' style='max-height: 15px;' src=\"/resources/img/icons/mail.svg\" alt=\"Maila\">"+leaders[i].mail+"</a></p></div>";
     document.getElementById('contact-info-content').appendChild(div);
   }
 }
 
 /*
 * We're using the role field that we get from the server but
-* since that field will be filled in by the user we want to make structure
+* since that field will be filled in by the user we want to make sure
 * it has the format we want since we're injecting it straight to the page
 */
 function handleRoleParsing(role) {
