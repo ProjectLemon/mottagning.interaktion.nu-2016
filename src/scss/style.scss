@@ -301,10 +301,19 @@ nav#navigation-bar {
       border-radius: 100%;
     }
   }
-  .description, .directions {
+  .description {
     opacity: 0;
     margin: 0 10px;
     @include transition(opacity .5s);
+  }
+  .directions {
+    opacity: 0;
+    margin: 0 10px;
+    @include transition(opacity .1s);
+  }
+  .directions.slow {
+    @include transition(opacity .9s);
+    transition-delay: .3s;
   }
   div.indicator-arrow-container {
     position: absolute;
