@@ -107,11 +107,11 @@ var CardFactory = (function Card() {
 
       var transformAdd = function(element, newTransform) {
         element.style.transform += ' '+newTransform;;
-        element.style.WebkitTransition += ' '+newTransform;
+        element.style.webkitTransform += ' '+newTransform;
       };
       var transformRemove = function(element, oldTransform) {
         element.style.transform = element.style.transform.replace(oldTransform, '');;
-        element.style.WebkitTransition = element.style.WebkitTransition.replace(oldTransform, '');
+        element.style.webkitTransform = element.style.webkitTransform.replace(oldTransform, '');
       };
       /* Expand card with all its transformation and animation */
       card.expand = function() {
@@ -128,8 +128,10 @@ var CardFactory = (function Card() {
         transformAdd(bg, 'scaleY('+expandScale+')');
 
         var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        var arrowContainer = this.getElementsByClassName('indicator-arrow-container')[0];
         arrow.classList.add('will-change');
-        transformAdd(arrow, 'rotate(180deg) translateY(-'+expandHeight+'px');
+        transformAdd(arrow, 'rotate(180deg)');
+        transformAdd(arrow, 'translateY(-'+expandHeight+'px');
 
         var h = parseInt(activityCardPusher.style.height, 10);
         if (isNaN(h)) {
@@ -154,6 +156,7 @@ var CardFactory = (function Card() {
         transformRemove(bg, 'scaleY('+expandScale+')');
 
         var arrow = this.getElementsByClassName('indicator-arrow')[0];
+        var arrowContainer = this.getElementsByClassName('indicator-arrow-container')[0];
         arrow.classList.remove('will-change');
         var arrowTransform = arrow.style.transform;
         transformRemove(arrow, 'rotate(180deg)');

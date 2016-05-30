@@ -35,7 +35,13 @@ $selected = false;
       <form id="form" action="save.php" method="POST" enctype="multipart/form-data">
         
         <ul id="select-list">
-          <li><label>Ny aktivitet<input id="select-new" type="radio" name="activity" value="Ny aktivitet" required checked></label></li>
+          <?php
+            $selected_attr = ''; 
+            if ($param == 'Ny aktivitet') {
+              $selected_attr = 'checked'; 
+            }
+          ?>
+          <li><label>Ny aktivitet<input id="select-new" type="radio" name="activity" value="Ny aktivitet" required <?php echo $selected_attr; ?>></label></li>
           <?php 
             $lastActivityDate = NULL;
             foreach ($activites as $activity) {
@@ -171,6 +177,8 @@ $selected = false;
               descriptionError.style.display = '';
           }
       });
+      
+      document.getElementById('select-list').querySelector('input[checked]').checked = true;
     </script>
     <script src="/src/js/edit.js" async></script>
   </body>
