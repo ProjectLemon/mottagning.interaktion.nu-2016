@@ -324,7 +324,7 @@ nav#navigation-bar {
 }
 
 .mo-card-expanded {
-  @media screen and (min-width: $phone-portrait-width) {
+  @media screen and (min-width: $phone-landscape-width) {
     
     height: 500px;
     

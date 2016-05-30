@@ -112,7 +112,6 @@ function paintActiviyCards() {
       container = document.createElement('div');
       container.setAttribute("data", startDateTime);
       container.classList.add('mo-card-date-container');
-      container.style.width = "670px";
       container.id = startDateTime.toDateString().replace(/ /g,"");
       var cardContainer = document.getElementById('activity-cards');
       cardContainer.appendChild(container);

@@ -68,8 +68,6 @@ html, body {
       display: table-row;
       margin-top: 1em;
       position: relative;
-      width: 670px;
-      overflow: scroll;
       @media screen and (max-width: $phone-landscape-width) {
         display: block;
       }
