@@ -116,7 +116,11 @@ var CardFactory = (function Card() {
       /* Expand card with all its transformation and animation */
       card.expand = function() {
         this.classList.add('expanded');
-        //for(val of this.children) {if(val.classList.contains("directions")){val.classList.toggle("slow")}};
+        for(var i = 0; i < this.children.length; i++) {
+          if(this.children[i].classList.contains("directions")){
+            this.children[i].classList.toggle("slow");
+          }
+        };
 
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.add('will-change');
@@ -137,7 +141,13 @@ var CardFactory = (function Card() {
       /* Contract card to its previous stae */
       card.contract = function() {
         this.classList.remove('expanded');
-        //for(val of this.children) {if(val.classList.contains("directions")){val.classList.toggle("slow")}};
+        
+        for(var i = 0; i < this.children.length; i++) {
+          if(this.children[i].classList.contains("directions")){
+            this.children[i].classList.toggle("slow");
+          }
+        };
+
 
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.remove('will-change');

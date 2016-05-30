@@ -143,17 +143,17 @@ body {
   list-style: none;
   padding: 0;
   margin: 0;
-  
-  .select-seperator {  
+
+  .select-seperator {
     font-size: 16px;
     margin: 10px 0 0 0;
   }
-  
+
   hr {
     margin: 0 0 5px 0;
     border-style: solid;
   }
-  
+
   label {
     position: relative;
     display: inline-block;
@@ -164,7 +164,7 @@ body {
     white-space: nowrap;
     overflow: hidden;
     box-shadow: 0 2px 5px 0 rgba(#000, .15);
-    
+
     input {
       position: absolute;
       top: 0px;
@@ -175,7 +175,7 @@ body {
       height: 30px;
       z-index: -1;
       background-color: rgba(#fff, .3);
-      
+
       &:checked {
         background-color: rgba(#fff, .95);
       }
