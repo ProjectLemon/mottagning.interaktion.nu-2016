@@ -106,12 +106,18 @@ var CardFactory = (function Card() {
 
 
       var transformAdd = function(element, newTransform) {
-        element.style.transform += ' '+newTransform;;
-        element.style.webkitTransform += ' '+newTransform;
+        if (element.style.transform) {
+          element.style.transform += ' '+newTransform;
+        } else {
+          element.style.webkitTransform += ' '+newTransform;
+        }
       };
       var transformRemove = function(element, oldTransform) {
-        element.style.transform = element.style.transform.replace(oldTransform, '');;
-        element.style.webkitTransform = element.style.webkitTransform.replace(oldTransform, '');
+        if (element.style.transform) {
+          element.style.transform = element.style.transform.replace(oldTransform, '');;
+        } else {
+          element.style.webkitTransform = element.style.webkitTransform.replace(oldTransform, '');
+        }
       };
       /* Expand card with all its transformation and animation */
       card.expand = function() {
@@ -131,7 +137,7 @@ var CardFactory = (function Card() {
         var arrowContainer = this.getElementsByClassName('indicator-arrow-container')[0];
         arrow.classList.add('will-change');
         transformAdd(arrow, 'rotate(180deg)');
-        transformAdd(arrow, 'translateY(-'+expandHeight+'px');
+        transformAdd(arrowContainer, 'translateY('+expandHeight+'px)');
 
         var h = parseInt(activityCardPusher.style.height, 10);
         if (isNaN(h)) {
@@ -160,8 +166,9 @@ var CardFactory = (function Card() {
         arrow.classList.remove('will-change');
         var arrowTransform = arrow.style.transform;
         transformRemove(arrow, 'rotate(180deg)');
-        transformRemove(arrow, 'translateY(-'+expandHeight+'px)');
+        transformRemove(arrowContainer, 'translateY('+expandHeight+'px)');
         transformRemove(arrow, ' ');
+        transformRemove(arrowContainer, ' ');
 
         var h = parseInt(activityCardPusher.style.height, 10);
         if (!isNaN(h)) {

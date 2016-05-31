@@ -241,6 +241,8 @@ nav#navigation-bar {
     &:active {
     }
   }
+  
+  
 
   img {
     width: 100%;
@@ -337,6 +339,9 @@ nav#navigation-bar {
     bottom: 0;
     width: 100%;
     text-align: center;
+    
+    transition: transform .5s;
+    -webkit-transition: -webkit-transform .5s;
   }
 }
 
@@ -361,7 +366,7 @@ nav#navigation-bar {
   }
 }
 
-img.indicator-arrow, .indicator-arrow-container > svg {
+img.indicator-arrow {
   width: 30px;
   height: 30px;
   @include transition( 500ms transform );
