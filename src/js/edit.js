@@ -94,7 +94,7 @@ request.onreadystatechange = function() {
 }
 
 form.noValidate = true;
-errorTime = 4000; // 4 seconds
+errorTime = 6000; // 6 seconds
 
 form.addEventListener('submit', function(event) {
 
@@ -236,8 +236,10 @@ function deleteButtonListener() {
     request.onload = function(e) {
         if (request.status == 200) {
             response.innerHTML = request.responseText;
+            editForm.style.background = 'transparent';
+            editForm.style.boxShadow = 'none';
             // reaload and remove paramaters:
-            window.setTimeout(function() { location.href = location.protocol + '//' + location.host + location.pathname; }, 1200);
+            window.setTimeout(function() {location.href = location.protocol + '//' + location.host + location.pathname; }, 800);
 
         } else {
             response.innerHTML = request.responseText;
