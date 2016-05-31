@@ -141,6 +141,11 @@ nav#navigation-bar {
     padding: 0 1em;
     box-sizing: border-box;
   }
+  .card-row-wrapper {
+    display: inline-block;
+    float: left;
+    width: 100%;
+  }
 }
 .mo-card {
   width: 300px;
