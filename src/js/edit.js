@@ -7,7 +7,7 @@ select.addEventListener('change', function(event) {
     var checkedElement = event.target;
     var value = checkedElement.value;
     var id = checkedElement.getAttribute('id');
-    
+
     // Reload page with selected parameter
     if (id == 'select-new') {
         window.location.href = window.location.href.split('?')[0]
@@ -23,34 +23,35 @@ var imageError = document.getElementById('form-image-error');
 imageUpload.addEventListener('change', function changeActivity(event) {
     var imageUploadShow = document.getElementById('image-upload-show');
     var image = URL.createObjectURL(event.target.files[0])
-    
+
     // Change source of image or add new
     if (imageUploadShow) {
         imageUploadShow.src = image;
     } else {
         imageUpload.parentNode.insertAdjacentHTML('beforebegin', '<img id="image-upload-show" src="'+image+'">');
-        var imageUploadShow = document.getElementById('image-upload-show');
+        imageUploadShow = document.getElementById('image-upload-show');
+        imageUploadShow.addEventListener("load",tmp);
     }
-    
+
     if (imageUpload.files && imageUpload.files[0]) {
-        
+
         // Show error if image is larger than 5mb
         if (imageUpload.files[0].size > 5*1024*1024) {
-            
+
             // Add error message
             var imageToBigError = function() {
                 imageError.style.display = 'block';
                 imageUpload.value = '';
-                imageUploadShow.style.opacity = '.3'; 
-                
+                imageUploadShow.style.opacity = '.3';
+
                 // only trigger once
                 imageUploadShow.removeEventListener('load', imageToBigError);
             };
             // wait till image is shown
             imageUploadShow.addEventListener('load', imageToBigError);
-            
+
         } else {
-            
+
             // Remove error message
             imageError.style.display = 'none';
             imageUploadShow.style.opacity = '1';
@@ -58,6 +59,24 @@ imageUpload.addEventListener('change', function changeActivity(event) {
     }
 });
 
+function tmp() {
+  var cropLimit = 247;
+  var croppedHeight = 200;
+  var imageUploadShow = document.getElementById('image-upload-show');
+  if (imageUploadShow.offsetHeight > cropLimit) {
+    var barHeight = Math.round((imageUploadShow.clientHeight-cropLimit)/2);
+    var bar = document.createElement('div');
+    bar.style.width = imageUploadShow.clientWidth+"px";
+    bar.style.height = barHeight+"px";
+    bar.style.background = "rgba(0,0,0,.7)";
+    bar.style.position = "absolute";
+    imageUploadShow.parentNode.insertBefore(bar, imageUploadShow);
+
+    var bar2 = bar.cloneNode();
+    bar2.style.marginTop = (imageUploadShow.clientHeight-barHeight)+"px";
+    imageUploadShow.parentNode.insertBefore(bar2, imageUploadShow);
+  }
+}
 
 var form = document.getElementById('form');
 var editForm = document.getElementById('edit-form');
@@ -78,16 +97,16 @@ form.noValidate = true;
 errorTime = 4000; // 4 seconds
 
 form.addEventListener('submit', function(event) {
-    
+
     /* Add cross-browser support for required */
     if (!event.target.checkValidity()) { // if not valid
-        
+
         // Show error message
         var formError = document.getElementById('form-error');
         formError.style.display = 'inline';
         // Remove error message after a time
         window.setTimeout(function(){ formError.style.display = 'none'; }, errorTime);
-        
+
         // Mark all invalid inputs labels
         for (i=0; i<event.target.length; i++) {
             var input = event.target[i];
@@ -101,21 +120,21 @@ form.addEventListener('submit', function(event) {
                 })(input.parentNode), errorTime);
             }
         }
-        
+
     /* Ajax form submit */
     } else if (!sending) {
-        
+
         var formData = new FormData(event.target);
-        
+
         // When done
         request.onload = function(e) {
             if (request.status == 200) { // success
                 response.innerHTML = request.responseText;
                 response.classList.remove('error');
-                
+
                 imageUpload.value = '';
                 imageUpload.required = false;
-                
+
                 var listPositionChanged = false;
                 var selected = select.querySelector('input:checked');
                 var date = document.getElementById('form-date');
@@ -137,22 +156,22 @@ form.addEventListener('submit', function(event) {
                     deleteButton.innerHTML = 'Radera';
                     deleteButton.addEventListener('click', deleteButtonListener);
                     editForm.insertBefore(deleteButton, editForm.firstChild);
-                    
+
                     newListItem.innerHTML = '<label>'+selector.value+'<input type="radio" name="'+select.getElementsByTagName('input')[0].name+'" value="'+selector.value+'" '+datetimeAttributeString+' required checked></label>';
                     select.appendChild(newListItem);
-                    
-                    
+
+
                     if (window.history && window.history.replaceState) {
                         window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selector.value));
                     }
-                    
+
                     listPositionChanged = true;
-                    
+
                 // changed select entry:
                 } else if (selectorInput.value != selected.value) {
                     selected.value = selectorInput.value;
                     selected.parentElement.innerHTML = selectorInput.value + selected.outerHTML;
-                    
+
                     if (window.history && window.history.replaceState) {
                         window.history.replaceState({}, document.title, location.pathname+'?select='+encodeURIComponent(selectorInput.value));
                     }
@@ -162,13 +181,13 @@ form.addEventListener('submit', function(event) {
                     selected.setAttribute('data-datetime', datetime);
                     listPositionChanged = true;
                 }
-                
+
                 /* Sort activity list according to date and time */
                 if (listPositionChanged && editForm.classList.contains('form-activity')) {
                     var activitiesCollection = select.getElementsByTagName('input');
                     var activities = Array.prototype.slice.call(activitiesCollection);
                     select.innerHTML = '<li><label>'+activities[0].value+activities[0].outerHTML+'</label></li>'; // create new form label
-                    
+
                     activities.sort(function(a, b) {
                         var aDate = new Date(a.getAttribute('data-datetime'));
                         var bDate = new Date(b.getAttribute('data-datetime'));
@@ -180,7 +199,7 @@ form.addEventListener('submit', function(event) {
                             return 0;
                         }
                     });
-                    
+
                     var lastActivityDate = null;
                     for (var i = 1; i < activities.length; i++) { // 1 becauce create new form label already been added
                         var activity = activities[i];
@@ -189,24 +208,24 @@ form.addEventListener('submit', function(event) {
                             select.innerHTML += '<li><h3 class="select-seperator">'+activityDate+'</h3><hr></li>';
                         }
                         lastActivityDate = activityDate;
-                
+
                         select.innerHTML += '<li><label>'+activity.value+activity.outerHTML+'</label></li>';
                     }
                 }
-                
+
             } else { // error
                 response.innerHTML = request.responseText;
                 response.classList.add('error');
             }
-            
+
             stopLoading();
         };
         request.open('POST', 'save.php', true);
         request.send(formData);
         response.innerHTML = '';
-        
+
     }
-    
+
     event.preventDefault();
 }, false);
 
@@ -219,7 +238,7 @@ function deleteButtonListener() {
             response.innerHTML = request.responseText;
             // reaload and remove paramaters:
             window.setTimeout(function() { location.href = location.protocol + '//' + location.host + location.pathname; }, 1200);
-            
+
         } else {
             response.innerHTML = request.responseText;
         }
@@ -250,12 +269,12 @@ function startLoading() {
 function stopLoading() {
     loadingBar.classList.add('done');
     loadingBar.style.width = '100%';
-    
+
     window.setTimeout(function() {
         loadingBar.classList.remove('done');
         loadingBar.classList.add('retract');
         loadingBar.style.width = '';
-        
+
         window.setTimeout(function() {
             loadingBar.classList.remove('retract');
             sending = false;
@@ -270,4 +289,3 @@ for (var i = readonly.length-1; i >= 0; i--) {
     readonly[i].addEventListener('mousedown', preventDefault);
     readonly[i].addEventListener('keydown', preventDefault);
 }
-
