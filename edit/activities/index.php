@@ -38,7 +38,7 @@ $selected = false;
           <?php
             $selected_attr = ''; 
             if ($param == 'Ny aktivitet') {
-              $selected_attr = 'checked'; 
+                $selected_attr = 'checked'; 
             }
           ?>
           <li><label>Ny aktivitet<input id="select-new" type="radio" name="activity" value="Ny aktivitet" required <?php echo $selected_attr; ?>></label></li>

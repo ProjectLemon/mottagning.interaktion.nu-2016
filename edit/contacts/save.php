@@ -77,7 +77,11 @@ function delete($contacts_file_name) {
     if ($index == NULL) {
         throw new RuntimeException('No such contact to delete');
     }
-    
+
+    $image_path = str_replace($parent_path, '..', $contacts[$index][$image_file_key]);
+    if (file_exists($image_path)) {
+        unlink($image_path);
+    }
     unset($contacts[$index]); // Delete activity
     
     // Convert back to json
@@ -109,7 +113,7 @@ try {
         
     } elseif (isset($_POST['delete'])) {
         
-        delete($contacts_file_name);
+        delete($contacts_file_name, $parent_path, 'image');
         
     } else {
         throw new RuntimeException('No action provided');

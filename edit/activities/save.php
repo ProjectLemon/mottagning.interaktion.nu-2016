@@ -100,7 +100,7 @@ function save($activites_file_name, $target_dir, $parent_path) {
     }
 }
 
-function delete($activites_file_name) {
+function delete($activites_file_name, $parent_path, $image_file_key) {
     
     verifyForm('activity');
     validateLength('activity', 100);
@@ -119,6 +119,10 @@ function delete($activites_file_name) {
         throw new RuntimeException('No such activity to delete');
     }
     
+    $image_path = str_replace($parent_path, '..', $$activities[$index][$image_file_key]);
+    if (file_exists($image_path)) {
+        unlink($image_path);
+    }
     unset($activities[$index]); // Delete activity
     
     // Convert back to json
@@ -149,7 +153,7 @@ try {
         
     } elseif (isset($_POST['delete'])) {
         
-        delete($activites_file_name);
+        delete($activites_file_name, $parent_path, 'image');
         
     } else {
         

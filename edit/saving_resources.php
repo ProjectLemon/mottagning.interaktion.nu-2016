@@ -132,7 +132,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
         
         // Try to upload file
         //if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) { // if no gd image lib
-        if (resizeImage($_FILES[$image_file_key]['tmp_name'], $target_file, $image_type, 350)) {
+        if (resizeImage($_FILES[$image_file_key]['tmp_name'], $target_file, $image_type, 300, NULL, 200)) {
             echo 'The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded. ';
         } else {
             throw new RuntimeException('Failed to move uploaded file.');
@@ -174,7 +174,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
  * @return bool Whether the image save was successfull or not
  * @throws InvalidArgumentException If invalid image type or both $new_width and $new_height was set to NULL
  */
-function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL, $new_height=NULL, $quality=80, $replace=true, $crop_height=NULL) {
+function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL, $new_height=NULL, $crop_height=NULL, $quality=80, $replace=true) {
     if ($image_type == 'png') {
        $src = imagecreatefrompng($src_path);
     } else if ($image_type == 'jpg' or $image_type == 'jpeg') {
@@ -199,8 +199,9 @@ function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL,
     $success_copy = imagecopyresampled($image, $src, 0,0,0,0, $new_width, $new_height, $src_width, $src_height);
     
     if ($crop_height and $new_height > $crop_height) {
-        $diff = $new_height - 200;
-        $image = imagecrop($image, array('x' =>0, 'y' => floor($diff/2), 'width' => $new_width, 'height'=> 200));
+        $diff = $new_height - $crop_height;
+        echo 'diff:', floor($diff/2);
+        $image = imagecrop($image, array('x' => 0, 'y' => floor($diff/2), 'width' => $new_width, 'height'=> 200));
     }
     if (!$replace && file_exists($destination_path)) {
         return false;
