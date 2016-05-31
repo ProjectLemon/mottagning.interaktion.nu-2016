@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="sv">
+	<head>
+		<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+		<title>ID Mottagning </title>
+    <link rel="stylesheet" href="/resources/css/style.min.css">
+
+    <link rel="apple-touch-icon" sizes="57x57" href="/resources/img/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/resources/img/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/resources/img/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/resources/img/favicon/apple-touch-icon-76x76.png">
+    <link rel="icon" type="image/png" href="/resources/img/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/resources/img/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/resources/img/favicon/manifest.json">
+    <link rel="mask-icon" href="/resources/img/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#7a1ea1">
+    <meta name="msapplication-config" content="/resources/img/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#7a1ea1">
+    <style media="screen">
+      body, html {
+        height: 100%;
+      }
+      .nalle-wrapper {
+        width: 100%;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .nalle {
+        position: relative;
+        width: 500px;
+        margin: auto;
+      }
+      h1 {
+        position: absolute;
+        margin-left: 40px;
+        font-size: 1.5em;
+      }
+      a {
+        position: absolute;
+        margin-top: 30px;
+        margin-left: 10px;
+        text-decoration: underline !important;
+        color: blue;
+      }
+    </style>
+	</head>
+
+	<body class="front-page">
+		<nav id="navigation-bar">
+      <!--Menu to show in expanded mode-->
+			<ul class="navbar-expanded">
+        <li onclick="location.href = '/'"id="schedule" class="menu-item">
+		       <img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema">Schema
+				</li><li onclick="location.href = '/contact/index.html'"id="contact" class="menu-item" >
+          <img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt">Kontakt
+				</li><li onclick="location.href = '/info/index.html'" id="info" class="menu-item">
+          <img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta">Bra att veta
+        </li><!--
+			--></ul>
+
+      <!--Menu to show in collapsed mode-->
+      <ul class="navbar-collapsed">
+        <li onclick="location.href = '/'" id="schedule-collapsed" class="menu-item">
+		       <img class="fa-icon" src="/resources/img/icons/calendar.svg" alt="Schema">
+				</li><li onclick="location.href = '/contact/index.html'" id="contact-collapsed" class="menu-item" >
+          <img class="fa-icon" src="/resources/img/icons/phone.svg" alt="Kontakt">
+				</li><li onclick="location.href = '/info/index.html'" id="info-collapsed" class="menu-item">
+          <img class="fa-icon" src="/resources/img/icons/info.svg" alt="Bra att veta">
+        </li><!--
+      --></ul>
+		</nav>
+    <div class="nalle-wrapper">
+        <img src="/resources/img/Nalle.svg" class="nalle" alt="" />
+        <h1>404 Här finns inget!</h1>
+        <a href="/"><h3>Tillbaka till startsidan!</h3></a>
+    </div>
+
+    <script type="text/javascript" src="/src/js/fonts.js"></script>
+    <script type="text/javascript" src="/src/js/main.js"></script>
+</body>
+</html>
