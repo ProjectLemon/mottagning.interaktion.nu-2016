@@ -8,7 +8,6 @@ html {
   font-family: 'Quicksand', sans-serif;
   background: url('/resources/img/bg-large-process-comp2.jpg') no-repeat center center fixed;
   background-size: cover;
-  height: 100%;
   width: 100%;
 
   a {
@@ -126,7 +125,7 @@ nav#navigation-bar {
   }
 }
 #spotlight-card-headline {
-  margin: 0;
+  margin: 10px 0 0 0;
 }
 #spotlight-card {
   margin-top: 1em;
