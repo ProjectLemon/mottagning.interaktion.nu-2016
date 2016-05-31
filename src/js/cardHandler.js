@@ -123,9 +123,9 @@ function paintActiviyCards() {
     * side by side within a single day and therefore we have the below block.
     * Basically what we're doing is, if we have more than two cards per day we
     * create another wrapper div. This is done to prevent jumpy behaviour when
-    * cards on the row above is expanded
+    * cards on the row above is expanded (but only for desktop sites)
     */
-    if(container.childNodes.length < 2) {
+    if (container.childNodes.length < 2) {
       container.appendChild(cardFactory.newActivityCard(activities[index]));
     } else if (container.getElementsByClassName('card-row-wrapper').length > 0) {
         var elem = container.getElementsByClassName('card-row-wrapper');
@@ -137,11 +137,13 @@ function paintActiviyCards() {
           wrapper.appendChild(cardFactory.newActivityCard(activities[index]));
           container.appendChild(wrapper);
         }
-    } else {
+    } else if (document.body.clientWidth > 740) {
       var wrapper = document.createElement('div');
       wrapper.classList.add('card-row-wrapper');
       wrapper.appendChild(cardFactory.newActivityCard(activities[index]));
       container.appendChild(wrapper);
+    } else {
+      container.appendChild(cardFactory.newActivityCard(activities[index]));
     }
   }
 }
