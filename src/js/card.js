@@ -124,7 +124,7 @@ var CardFactory = (function Card() {
 
         var bg = this.getElementsByClassName('card-bg')[0];
         bg.classList.add('will-change');
-        
+
         transformAdd(bg, 'scaleY('+expandScale+')');
 
         var arrow = this.getElementsByClassName('indicator-arrow')[0];
@@ -143,7 +143,7 @@ var CardFactory = (function Card() {
       /* Contract card to its previous stae */
       card.contract = function() {
         this.classList.remove('expanded');
-        
+
         for(var i = 0; i < this.children.length; i++) {
           if(this.children[i].classList.contains("directions")){
             this.children[i].classList.toggle("slow");
@@ -178,6 +178,11 @@ var CardFactory = (function Card() {
 
       card.addEventListener("click", function(e){
         this.classList.toggle('mo-card-expanded');
+        for(var i = 0; i < this.children.length; i++) {
+          if(this.children[i].classList.contains("directions")){
+            this.children[i].classList.toggle("slow");
+          }
+        };
         bodyWidth = document.body.clientWidth;
 
         if (bodyWidth <= phoneLandscapeWidth) {
@@ -188,8 +193,8 @@ var CardFactory = (function Card() {
             this.expand();
           }
           this.expanded = !this.expanded;
-          
-          
+
+
           /* Move all activities below card, in same date, down (if in mobile view) */
           var parentContainer = this.parentElement;
           var cardsOfSameDay = parentContainer.getElementsByClassName('mo-card');
@@ -210,7 +215,7 @@ var CardFactory = (function Card() {
               }
             }
           }
-          
+
           /* Move rest of days down */
           var dateCardContainers = allCardsContainer.getElementsByClassName('mo-card-date-container');
           index = -1;
