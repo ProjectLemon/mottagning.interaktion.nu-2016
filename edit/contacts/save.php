@@ -48,7 +48,7 @@ function save($contacts_file_name, $target_dir, $parent_path) {
         
 
     // Convert back to json
-    $jsondata = json_encode($contacts, JSON_PRETTY_PRINT);
+    $jsondata = json_encode($contacts);
 	   
     // Save to json data file
     if (file_put_contents($contacts_file_name, $jsondata)) {
@@ -85,7 +85,7 @@ function delete($contacts_file_name) {
     unset($contacts[$index]); // Delete activity
     
     // Convert back to json
-    $jsondata = json_encode($contacts, JSON_PRETTY_PRINT);
+    $jsondata = json_encode($contacts);
        
     // Save to json data file
     if (file_put_contents($contacts_file_name, $jsondata)) {
@@ -115,7 +115,12 @@ try {
         
         delete($contacts_file_name, $parent_path, 'image');
         
+    } elseif (isset($_POST['delete-all'])) {
+      
+        deleteALL($contacts_file_name);
+        
     } else {
+      
         throw new RuntimeException('No action provided');
     }
     

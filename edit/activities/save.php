@@ -89,7 +89,7 @@ function save($activites_file_name, $target_dir, $parent_path) {
     }
 
     // Convert back to json
-    $jsondata = json_encode($activites, JSON_PRETTY_PRINT);
+    $jsondata = json_encode($activites);
 	   
     // Save to json data file
     if (file_put_contents($activites_file_name, $jsondata)) {
@@ -126,7 +126,7 @@ function delete($activites_file_name, $parent_path, $image_file_key) {
     unset($activities[$index]); // Delete activity
     
     // Convert back to json
-    $jsondata = json_encode($activities, JSON_PRETTY_PRINT);
+    $jsondata = json_encode($activities);
        
     // Save to json data file
     if (file_put_contents($activites_file_name, $jsondata)) {
@@ -154,6 +154,10 @@ try {
     } elseif (isset($_POST['delete'])) {
         
         delete($activites_file_name, $parent_path, 'image');
+        
+    } elseif (isset($_POST['delete-all'])) {
+      
+        deleteALL($activites_file_name);
         
     } else {
         

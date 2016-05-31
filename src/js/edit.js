@@ -284,6 +284,77 @@ function stopLoading() {
     }, 1000);
 }
 
+/**
+ * Delete all forms
+ */ 
+var deleteAllButton = document.getElementById('form-delete-all');
+var confirmText = 'mottagning';
+var confirmResponse = false;
+var deleteConfirm = function(event) {
+  
+    var inputText = event.target.querySelector('input[name="confirm"]');
+    if (inputText.value == confirmText) {
+      
+      request.onload = function(e) {
+          if (request.status == 200) {
+              response.innerHTML = request.responseText;
+              editForm.style.background = 'transparent';
+              editForm.style.boxShadow = 'none';
+              // reaload and remove paramaters:
+              window.setTimeout(function() {location.href = location.protocol + '//' + location.host + location.pathname; }, 800);
+              
+          }
+      }
+      request.open('POST', 'save.php', true);
+      request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+      request.send('delete-all=true');
+      
+    } else if (confirmResponse == false) {
+        var responseP = document.createElement('p');
+        responseP.innerHTML = 'Skriv in ordet "'+confirmText+'"!';
+        event.target.appendChild(responseP)
+        confirmResponse = true; 
+    }
+    
+    event.preventDefault();
+};
+
+deleteAllButton.addEventListener('click', function() { 
+    var overlay = document.createElement('div');
+    overlay.setAttribute('class', 'confirm-overlay');
+    overlay.addEventListener('click', closeConfirm);
+    
+    var closeButton = document.createElement('img');
+    closeButton.src = '/resources/img/icons/close.svg';
+    closeButton.setAttribute('class', 'close');
+    
+    var formContentName = deleteAllButton.innerHTML.split(' ').pop();
+    var popup = document.createElement('form');
+    popup.setAttribute('class', 'confirm-delete-all');
+    popup.innerHTML = 
+        '<h1>Bekräfta</h1>' +
+        '<p>Detta kommer radera ALLA '+formContentName+'. <br>Skriv in ordet "'+confirmText+'" nedan för att bekräfta</p>' +
+        '<input type="text" name="confirm">' +
+        '<input type="submit" name="delete-all" value="Radera">';
+    
+    var closeConfirm = function(event) {
+        if (event.target === overlay || event.target === closeButton) {
+            overlay.parentNode.removeChild(overlay);
+        }
+        event.stopPropagation();
+    };
+
+    closeButton.addEventListener('click', closeConfirm);
+    overlay.addEventListener('click', closeConfirm);
+    popup.addEventListener('submit', deleteConfirm);
+    
+    popup.appendChild(closeButton);
+    overlay.appendChild(popup);
+
+    document.body.appendChild(overlay);
+});
+
+
 /* Make input readonly through code to not collide with require attribute  */
 var readonly = document.getElementsByClassName('readonly');
 var preventDefault = function(event) { event.preventDefault(); };

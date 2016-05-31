@@ -221,6 +221,14 @@ function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL,
     return $success_copy and $success_save;
 }
 
+/**
+ * This function will clear all values in a json by replacing them with an empty array
+ *
+ * @param $path Path to json file
+ */
+function deleteALL($path) {
+  file_put_contents($path, json_encode([]));
+}
 
 /* Following validation functions requires $input_name to be name inside $_POST */
 function validateLength($input_name, $lenght) {
