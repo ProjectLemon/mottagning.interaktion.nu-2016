@@ -174,7 +174,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
  * @return bool Whether the image save was successfull or not
  * @throws InvalidArgumentException If invalid image type or both $new_width and $new_height was set to NULL
  */
-function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL, $new_height=NULL, $quality=80, $replace=true) {
+function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL, $new_height=NULL, $quality=80, $replace=true, $crop_height=NULL) {
     if ($image_type == 'png') {
        $src = imagecreatefrompng($src_path);
     } else if ($image_type == 'jpg' or $image_type == 'jpeg') {
@@ -197,6 +197,11 @@ function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL,
     imagefill($image, 0,0, imagecolorallocatealpha($image, 255, 255, 255, 127)); // make transparent
 
     $success_copy = imagecopyresampled($image, $src, 0,0,0,0, $new_width, $new_height, $src_width, $src_height);
+    
+    if ($crop_height and $new_height > $crop_height) {
+        $diff = $new_height - 200;
+        $image = imagecrop($image, array('x' =>0, 'y' => floor($diff/2), 'width' => $new_width, 'height'=> 200));
+    }
     if (!$replace && file_exists($destination_path)) {
         return false;
     } else {
