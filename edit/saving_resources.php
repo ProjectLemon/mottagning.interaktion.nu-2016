@@ -200,7 +200,6 @@ function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL,
     
     if ($crop_height and $new_height > $crop_height) {
         $diff = $new_height - $crop_height;
-        echo 'diff:', floor($diff/2);
         $image = imagecrop($image, array('x' => 0, 'y' => floor($diff/2), 'width' => $new_width, 'height'=> 200));
     }
     if (!$replace && file_exists($destination_path)) {

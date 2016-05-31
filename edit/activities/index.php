@@ -36,13 +36,8 @@ $selected = false;
         
         <ul id="select-list">
           <?php
-            $selected_attr = ''; 
-            if ($param == 'Ny aktivitet') {
-                $selected_attr = 'checked'; 
-            }
-          ?>
-          <li><label>Ny aktivitet<input id="select-new" type="radio" name="activity" value="Ny aktivitet" required <?php echo $selected_attr; ?>></label></li>
-          <?php 
+            $radio_list = '';
+            
             $lastActivityDate = NULL;
             foreach ($activites as $activity) {
                 $selected_attr = '';
@@ -51,12 +46,19 @@ $selected = false;
                     $selected_attr = 'checked';
                 }
                 if ($activity->startDate != $lastActivityDate or $lastActivityDate === NULL) {
-                    echo '<li><h3 class="select-seperator">'.$activity->startDate.'</h3><hr></li>';
+                    $radio_list .= '<li><h3 class="select-seperator">'.$activity->startDate.'</h3><hr></li>';
                 }
                 $lastActivityDate = $activity->startDate;
                 
-                echo '<li><label>'.htmlspecialchars($activity->title).'<input type="radio" name="activity" value="'.htmlspecialchars($activity->title).'" data-datetime="'.$activity->startDate.' '.$activity->startTime.'" required '.$selected_attr.'></label></li>';
+                $radio_list .= '<li><label>'.htmlspecialchars($activity->title).'<input type="radio" name="activity" value="'.htmlspecialchars($activity->title).'" data-datetime="'.$activity->startDate.' '.$activity->startTime.'" required '.$selected_attr.'></label></li>';
             }
+            
+            $selected_attr = ''; 
+            if (!$selected) {
+                $selected_attr = 'checked'; 
+            }
+            echo '<li><label>Ny aktivitet<input id="select-new" type="radio" name="activity" value="Ny aktivitet" required '.$selected_attr.'></label></li>';
+            echo $radio_list;
           ?>
         </ul>
         

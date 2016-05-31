@@ -1,35 +1,5 @@
 [
     {
-        "title": "test3",
-        "description": "asdf",
-        "startDate": "Mon May 30 2016",
-        "startTime": "12:12",
-        "place": "fdsa",
-        "lat": "2",
-        "long": "1",
-        "image": "\/edit\/content\/images\/1464452881.png"
-    },
-    {
-        "title": "Testtttt",
-        "description": "Hk",
-        "startDate": "Mon May 30 2016",
-        "startTime": "23:58",
-        "place": "\u00f6ljk",
-        "lat": "8",
-        "long": "0",
-        "image": "\/edit\/content\/images\/1464355409.png"
-    },
-    {
-        "title": "This is a really really really really really really really really really really really long title...",
-        "description": "Why is this description so loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong",
-        "startDate": "Mon May 30 2016",
-        "startTime": "23:59",
-        "place": "What's up with all these long stringssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
-        "lat": "99.99999999999999999",
-        "long": "99.99999999999999999",
-        "image": "\/edit\/content\/images\/1464618007.jpg"
-    },
-    {
         "title": "Festival",
         "description": "This is an example card",
         "startDate": "Tue May 31 2016",
@@ -68,16 +38,6 @@
         "lat": "21",
         "long": "32",
         "image": "\/edit\/content\/images\/1464467599.png"
-    },
-    {
-        "title": "test4",
-        "description": "afs",
-        "startDate": "Wed Jun 01 2016",
-        "startTime": "12:01",
-        "place": "fdsa",
-        "lat": "1",
-        "long": "2",
-        "image": "\/edit\/content\/images\/1464457188.png"
     },
     {
         "title": "Hurtidrutten",
@@ -150,6 +110,26 @@
         "image": "\/edit\/content\/images\/1464692946.jpg"
     },
     {
+        "title": "expand1",
+        "description": "fsad",
+        "startDate": "Thu Jun 02 2016",
+        "startTime": "12:12",
+        "place": "asdf",
+        "lat": "1",
+        "long": "2",
+        "image": "\/edit\/content\/images\/1464695870.jpg"
+    },
+    {
+        "title": "1",
+        "description": "-",
+        "startDate": "Thu Jun 02 2016",
+        "startTime": "12:00",
+        "place": "-",
+        "lat": "1",
+        "long": "1",
+        "image": "\/edit\/content\/images\/1464699427.jpg"
+    },
+    {
         "title": "rank up",
         "description": "erouh",
         "startDate": "Thu Jun 02 2016",
@@ -168,15 +148,5 @@
         "lat": "0",
         "long": "0",
         "image": "\/edit\/content\/images\/1464634953.jpg"
-    },
-    {
-        "title": "12:36",
-        "description": "wer",
-        "startDate": "Thu Jun 02 2016",
-        "startTime": "12:36",
-        "place": "we",
-        "lat": "1",
-        "long": "2",
-        "image": "\/edit\/content\/images\/1464695273.jpg"
     }
 ]

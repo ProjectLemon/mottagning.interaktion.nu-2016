@@ -35,9 +35,9 @@ $selected = false;
       <form id="form" action="save.php" method="POST" enctype="multipart/form-data">
       
         <ul id="select-list">
-          <li><label>Ny kontakt<input id="select-new" type="radio" name="contact" value="Ny kontakt" required checked></label></li>
-          <li><hr></li>
-          <?php 
+          <?php
+            $radio_list = '';
+            
             foreach ($contacts as $contact) {
                 $selected_attr = '';
                 if ($contact->name == $param) {
@@ -45,8 +45,16 @@ $selected = false;
                     $selected_attr = 'checked';
                 }
                 
-                echo '<li><label>'.htmlspecialchars($contact->name).'<input type="radio" name="contact" value="'.htmlspecialchars($contact->name).'" required '.$selected_attr.'></label></li>';
+                $radio_list .= '<li><label>'.htmlspecialchars($contact->name).'<input type="radio" name="contact" value="'.htmlspecialchars($contact->name).'" required '.$selected_attr.'></label></li>';
             }
+
+            $selected_attr = '';
+            if (!$selected) {
+                $selected_attr = 'checked';
+            }
+            echo '<li><label>Ny kontakt<input id="select-new" type="radio" name="contact" value="Ny kontakt" required '.$selected_attr.'></label></li>
+          <li><hr></li>';
+            echo $radio_list;
           ?>
         </ul>
       
