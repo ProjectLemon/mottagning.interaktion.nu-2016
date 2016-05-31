@@ -125,7 +125,10 @@ $selected = false;
           <div id="response"></div>
         </div>
       </form>
-      <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
+      <div class="extra">
+        <a href="/" class="back-to-main-page">← Tillbaka till huvudsidan</a>
+        <button id="form-delete-all" type="button" name="delete-all" >Radera <strong>alla</strong> kontakter</button>
+      </div>
     </div>
     
     <script>
