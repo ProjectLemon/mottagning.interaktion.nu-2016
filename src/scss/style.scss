@@ -20,7 +20,7 @@ html {
     }
   }
   .no-select {
-    //-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   }
   #logo {
     img {
@@ -162,7 +162,7 @@ nav#navigation-bar {
   @include transition(all 0.5s);
 
   @media screen and (max-width: $phone-landscape-width) {
-    height: 130px;
+    height: 155px;
     width: 100%;
     display: block;
     float: none;
@@ -235,14 +235,14 @@ nav#navigation-bar {
     @include box-shadow(3px 3px 10px 0px rgba(26,26,26,.75));
 
     @media screen and (max-width: $phone-landscape-width) {
-      height: 130px;
+      height: 155px;
     }
 
     &:active {
     }
   }
-  
-  
+
+
 
   img {
     width: 100%;
@@ -296,7 +296,7 @@ nav#navigation-bar {
       top: 430px;
     }
     @media screen and (max-width: $phone-landscape-width) {
-      top: 200px;
+      top: 230px;
     }
 
     img {
@@ -312,7 +312,7 @@ nav#navigation-bar {
     padding: 10px 0;
     font-size: 10pt;
 
-    @include transition(opacity .1s);
+    @include transition(opacity .2s);
   }
   .directions {
     opacity: 0;
@@ -339,7 +339,7 @@ nav#navigation-bar {
     bottom: 0;
     width: 100%;
     text-align: center;
-    
+
     transition: transform .5s;
     -webkit-transition: -webkit-transform .5s;
   }
