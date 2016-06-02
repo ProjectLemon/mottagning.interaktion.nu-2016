@@ -2,7 +2,7 @@
 
 <?php
 
-$contacts_file_name = '../content/contacts.json';
+$contacts_file_name = '../../content/contacts.json';
 if (file_exists($contacts_file_name)) {
     $content = file_get_contents($contacts_file_name); 
 } else {

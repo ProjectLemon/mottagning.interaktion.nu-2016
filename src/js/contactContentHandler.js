@@ -34,7 +34,7 @@ function getContactInfo() {
       paintContactCards();
     }
   };
-  xhttp.open("GET", "/edit/content/contacts.json", true);
+  xhttp.open("GET", "/content/contacts.json", true);
   xhttp.send();
 }
 

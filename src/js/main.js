@@ -39,6 +39,10 @@ function setPageTitle() {
   document.title += " "+new Date().getFullYear();
 }
 
-Array.prototype.last = function last() {
-  return this[this.length-1];
-}
+/* Add last() function to all arrays without appearing in enumerations */
+Object.defineProperty(Array.prototype, 'last', {
+    enumerable: false,
+    value: function last() {
+      return this[this.length-1];
+    }
+});

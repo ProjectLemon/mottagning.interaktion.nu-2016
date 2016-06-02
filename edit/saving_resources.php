@@ -119,7 +119,7 @@ function getNewFilename($target_dir, $extension) {
  * @param $formdata Object in which new image paths should be saved
  * @throws RuntimeException If anything was invalid or otherwise failed with image
  */
-function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $saving_object=null, &$formdata) {
+function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $path_to_content, $saving_object=null, &$formdata) {
   
     // if new:
     if ((isset($_FILES[$image_file_key]) and $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) // new image
@@ -131,19 +131,18 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $sa
         $target_file = getNewFilename($target_dir, $image_type);
         
         // Try to upload file
-        //if (move_uploaded_file($_FILES[$image_file_key]['tmp_name'], $target_file)) { // if no gd image lib
         if (resizeImage($_FILES[$image_file_key]['tmp_name'], $target_file, $image_type, 300, NULL, 200)) {
             echo 'The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded. ';
         } else {
             throw new RuntimeException('Failed to move uploaded file.');
         }
-        $formdata[$image_file_key] = str_replace('..', $parent_path, $target_file); // make path absolute instead of relative
+        $formdata[$image_file_key] = str_replace($path_to_content, $parent_path, $target_file); // make path absolute instead of relative
         
         // If replacing image, delete old
         if ($saving_object != null) {
 
             $previous_image_file_name = $saving_object[$image_file_key];
-            $previous_image_file_name = str_replace($parent_path, '..', $previous_image_file_name);
+            $previous_image_file_name = str_replace($parent_path, $path_to_content, $previous_image_file_name);
             
             // delete image
             if (file_exists($previous_image_file_name)) {
