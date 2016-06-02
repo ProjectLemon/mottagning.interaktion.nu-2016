@@ -2,7 +2,7 @@
 
 <?php
 
-$activites_file_name = '../content/activities.json';
+$activites_file_name = '../../content/activities.json';
 if (file_exists($activites_file_name)) {
     $content = file_get_contents($activites_file_name); 
 } else {

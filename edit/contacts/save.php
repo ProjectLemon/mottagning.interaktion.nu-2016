@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
     
 require '../saving_resources.php';
 
-function save($contacts_file_name, $target_dir, $parent_path) {
+function save($contacts_file_name, $target_dir, $parent_path, $path_to_content) {
 
     // Validate Form Data
     verifyForm('name', 'mail', 'phone', 'group');
@@ -37,7 +37,7 @@ function save($contacts_file_name, $target_dir, $parent_path) {
     }
 
     // Verify image if new
-    updateImage('contact', 'image', $target_dir, $parent_path, $contact, $formdata);
+    updateImage('contact', 'image', $target_dir, $parent_path, $path_to_content, $contact, $formdata);
 
     // Add new data
     if ($exists) {
@@ -96,20 +96,21 @@ function delete($contacts_file_name) {
     }
 }
 
-$image_dir = '../content/images/';
-$parent_path = '/edit';
-$contacts_file_name = '../content/contacts.json';
+$image_dir = '../../content/images/';
+$path_to_content = '../../';
+$parent_path = '/';
+$contacts_file_name = '../../content/contacts.json';
 if (!file_exists($contacts_file_name)) {
     // create file if not exist:
     $file = fopen($contacts_file_name, 'w');
-    fwrite($file, '{}');
+    fwrite($file, '[]');
     fclose($file); 
 }
 
 try {
     if (isset($_POST['save'])) {
         
-        save($contacts_file_name, $image_dir, $parent_path);
+        save($contacts_file_name, $image_dir, $parent_path, $path_to_content);
         
     } elseif (isset($_POST['delete'])) {
         

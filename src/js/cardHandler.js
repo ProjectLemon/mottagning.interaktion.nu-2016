@@ -81,7 +81,7 @@ function getActivityContent() {
       addOffsetFields();
     }
   };
-  xhttp.open("GET", "/edit/content/activities.json", true);
+  xhttp.open("GET", "/content/activities.json", true);
   xhttp.send();
 }
 

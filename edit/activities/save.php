@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=utf-8');
     
 require '../saving_resources.php';
 
-function save($activites_file_name, $target_dir, $parent_path) {
+function save($activites_file_name, $target_dir, $parent_path, $path_to_content) {
     $image_file_key = 'image';
 
     // Validate Form Data
@@ -47,7 +47,7 @@ function save($activites_file_name, $target_dir, $parent_path) {
     }
 
     // Update or set new image
-    updateImage('activity', 'image', $target_dir, $parent_path, $activity, $formdata);
+    updateImage('activity', 'image', $target_dir, $parent_path, $path_to_content, $activity, $formdata);
 
     // Add new data in sorted order (linear)
     if ($exists) {
@@ -137,19 +137,21 @@ function delete($activites_file_name, $parent_path, $image_file_key) {
     }
 }
 
-$image_dir = '../content/images/';
-$parent_path = '/edit';
-$activites_file_name = '../content/activities.json';
+$image_dir = '../../content/images/';
+$path_to_content = '../../';
+$parent_path = '/';
+$activites_file_name = '../../content/activities.json';
 if (!file_exists($activites_file_name)) {
+    // create file if not exist
     $file = fopen($activites_file_name, 'w');
-    fwrite($file, '{}');
-    fclose($file); // create file if not exist
+    fwrite($file, '[]');
+    fclose($file);
 }
 
 try {
     if (isset($_POST['save'])) {
         
-        save($activites_file_name, $image_dir, $parent_path);
+        save($activites_file_name, $image_dir, $parent_path, $path_to_content);
         
     } elseif (isset($_POST['delete'])) {
         
