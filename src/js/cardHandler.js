@@ -224,14 +224,16 @@ function getRandomColor() {
 */
 function calculateDateOffset(toDate) {
   var now = new Date();
-  var offsett = Math.abs(toDate.getDate()-now.getDate());
-  if (offsett === 0) {
+  var offsettDate = Math.abs(toDate.getDate()-now.getDate());
+  var offsetMonth = Math.abs(toDate.getMonth()-now.getMonth());
+  console.log(offsetMonth);
+  if (offsettDate === 0 && offsetMonth === 0) {
     return "Senare idag"
   }
-  offsett = Math.floor(offsett);
-  if (offsett === 1) {
+  offsettDate = Math.floor(offsettDate);
+  if (offsettDate === 1 && offsetMonth === 0) {
     return "Imorgon";
-  } else if (offsett < 7) {
+  } else if (offsettDate < 7 && offsetMonth === 0) {
     var days = ["Söndag", "Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag"];
     return days[toDate.getDay()];
   }
