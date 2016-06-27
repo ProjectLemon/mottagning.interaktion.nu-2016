@@ -37,7 +37,7 @@ function save($contacts_file_name, $target_dir, $parent_path, $path_to_content) 
     }
 
     // Verify image if new
-    updateImage('contact', 'image', $target_dir, $parent_path, $path_to_content, $contact, $formdata);
+    updateImage('contact', 'image', $target_dir, $parent_path, $path_to_content, $contact, $formdata, ['new_width' => 300, 'new_height' => 300], ['crop_width' => 300, 'crop_height' => 300]);
 
     // Add new data
     if ($exists) {

@@ -21,63 +21,48 @@ var imageUpload = document.getElementById('image-upload');
 var imageError = document.getElementById('form-image-error');
 
 imageUpload.addEventListener('change', function changeActivity(event) {
-    var imageUploadShow = document.getElementById('image-upload-show');
-    var image = URL.createObjectURL(event.target.files[0])
-
-    // Change source of image or add new
-    if (imageUploadShow) {
-        imageUploadShow.src = image;
-        imageUploadShow.addEventListener("load", showCropOverlay);
-    } else {
-        imageUpload.parentNode.insertAdjacentHTML('beforebegin', '<img id="image-upload-show" src="'+image+'">');
-        imageUploadShow = document.getElementById('image-upload-show');
-        imageUploadShow.addEventListener("load",showCropOverlay);
-    }
-
-    if (imageUpload.files && imageUpload.files[0]) {
-
-        // Show error if image is larger than 5mb
-        if (imageUpload.files[0].size > 5*1024*1024) {
-
-            // Add error message
-            var imageToBigError = function() {
-                imageError.style.display = 'block';
-                imageUpload.value = '';
-                imageUploadShow.style.opacity = '.3';
-
-                // only trigger once
-                imageUploadShow.removeEventListener('load', imageToBigError);
-            };
-            // wait till image is shown
-            imageUploadShow.addEventListener('load', imageToBigError);
-
+    var file = event.target.files[0];
+    if (file != null) {
+        var imageUploadShow = document.getElementById('image-upload-show');
+        var image = URL.createObjectURL(file);
+    
+        // Change source of image or add new
+        if (imageUploadShow) {
+            imageUploadShow.src = image;
+            imageUploadShow.addEventListener('load', showCropOverlay); // extend function showCropOverlay for changing image event
         } else {
-
-            // Remove error message
-            imageError.style.display = 'none';
-            imageUploadShow.style.opacity = '1';
+            imageUpload.parentNode.insertAdjacentHTML('beforebegin', '<img id="image-upload-show" src="'+image+'">');
+            imageUploadShow = document.getElementById('image-upload-show');
+            imageUploadShow.addEventListener('load', showCropOverlay);
+        }
+    
+        if (imageUpload.files && imageUpload.files[0]) {
+    
+            // Show error if image is larger than 5mb
+            if (imageUpload.files[0].size > 5*1024*1024) {
+    
+                // Add error message
+                var imageToBigError = function() {
+                    imageError.style.display = 'block';
+                    imageUpload.value = '';
+                    imageUploadShow.style.opacity = '.3';
+    
+                    // only trigger once
+                    imageUploadShow.removeEventListener('load', imageToBigError);
+                };
+                // wait till image is shown
+                imageUploadShow.addEventListener('load', imageToBigError);
+    
+            } else {
+    
+                // Remove error message
+                imageError.style.display = 'none';
+                imageUploadShow.style.opacity = '1';
+            }
         }
     }
 });
 
-function showCropOverlay() {
-  var cropLimit = 247;
-  var croppedHeight = 200;
-  var imageUploadShow = document.getElementById('image-upload-show');
-  if (imageUploadShow.offsetHeight > cropLimit) {
-    var barHeight = Math.round((imageUploadShow.clientHeight-cropLimit)/2);
-    var bar = document.createElement('div');
-    bar.style.width = imageUploadShow.clientWidth+"px";
-    bar.style.height = barHeight+"px";
-    bar.style.background = "rgba(0,0,0,.7)";
-    bar.style.position = "absolute";
-    imageUploadShow.parentNode.insertBefore(bar, imageUploadShow);
-
-    var bar2 = bar.cloneNode();
-    bar2.style.marginTop = (imageUploadShow.clientHeight-barHeight)+"px";
-    imageUploadShow.parentNode.insertBefore(bar2, imageUploadShow);
-  }
-}
 
 var form = document.getElementById('form');
 var editForm = document.getElementById('edit-form');

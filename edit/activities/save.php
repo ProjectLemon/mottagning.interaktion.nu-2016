@@ -47,7 +47,7 @@ function save($activites_file_name, $target_dir, $parent_path, $path_to_content)
     }
 
     // Update or set new image
-    updateImage('activity', 'image', $target_dir, $parent_path, $path_to_content, $activity, $formdata);
+    updateImage('activity', 'image', $target_dir, $parent_path, $path_to_content, $activity, $formdata, ['new_width' => 300], ['crop_height' => 200]);
 
     // Add new data in sorted order (linear)
     if ($exists) {

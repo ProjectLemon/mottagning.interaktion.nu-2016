@@ -117,9 +117,11 @@ function getNewFilename($target_dir, $extension) {
  * @param $parent_path Path to website root, for absolute paths
  * @param $saving_object Object into which previues image paths is saved
  * @param $formdata Object in which new image paths should be saved
+ * @param $crop If image should be cropped, an associative array can be given with one or more of these keys:
+ *                'crop_height', 'crop_width'
  * @throws RuntimeException If anything was invalid or otherwise failed with image
  */
-function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $path_to_content, $saving_object=null, &$formdata) {
+function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $path_to_content, $saving_object=null, &$formdata, $size, $crop) {
   
     // if new:
     if ((isset($_FILES[$image_file_key]) and $_FILES[$image_file_key]['error'] != UPLOAD_ERR_NO_FILE) // new image
@@ -131,7 +133,7 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $pa
         $target_file = getNewFilename($target_dir, $image_type);
         
         // Try to upload file
-        if (resizeImage($_FILES[$image_file_key]['tmp_name'], $target_file, $image_type, 300, NULL, 200)) {
+        if (resizeImage($_FILES[$image_file_key]['tmp_name'], $target_file, $image_type, $size, $crop)) {
             echo 'The file '. basename( $_FILES[$image_file_key]['name']). ' has been uploaded. ';
         } else {
             throw new RuntimeException('Failed to move uploaded file.');
@@ -168,12 +170,14 @@ function updateImage($form_name, $image_file_key, $target_dir, $parent_path, $pa
  * @param $new_height (Optional) The height to resize to. If no height is set the new height
  *                   will be based on reation between new and old width. Meaning new width must
  *                   be set if no new height is set
+ * @param $crop If image should be cropped, an associative array can be given with one or more of these keys:
+ *                'crop_height', 'crop_width'
  * @param $quality (Optional) Number between 0 to 100, where 0 is lowest quality and 100 highest. Default set to 80
  * @param $replace (Optional) If new image should replace any file in $destination_path. Default set to true
  * @return bool Whether the image save was successfull or not
  * @throws InvalidArgumentException If invalid image type or both $new_width and $new_height was set to NULL
  */
-function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL, $new_height=NULL, $crop_height=NULL, $quality=80, $replace=true) {
+function resizeImage($src_path, $destination_path, $image_type, $size, $crop=NULL, $quality=100, $replace=true) {
     if ($image_type == 'png') {
        $src = imagecreatefrompng($src_path);
     } else if ($image_type == 'jpg' or $image_type == 'jpeg') {
@@ -183,24 +187,68 @@ function resizeImage($src_path, $destination_path, $image_type, $new_width=NULL,
     }
     list($src_width, $src_height) = getimagesize($src_path);
     
-    if ($new_height == NULL and $new_width == NULL) {
+    if (!isset($size['new_height']) and !isset($size['new_width'])) {
         throw new InvalidArgumentException('Height or width must be provided');
         
-    } else if ($new_height == NULL) {
-        $new_height = $new_width/$src_width*$src_height;
-    } else if ($new_width == NULL) {
-        $new_width = $new_height/$src_height*$src_width;
+    } else if (!isset($size['new_height'])) {
+        $new_width = $size['new_width'];
+        $width_ratio = $new_width/$src_width;
+        $new_height = $width_ratio*$src_height;
+        
+    } else if (!isset($size['new_width'])) {
+        $new_height = $size['new_height'];
+        $height_ratio = $new_height/$src_height;
+        $new_width = $height_ratio*$src_width;
+        
+    } else {
+        if (isset($crop['crop_height']) and isset($crop['crop_width'])) {
+            // if cropping both width and height, one must only take the bigger size in consideration
+            if ($src_width - $src_height >= 0) {
+                $new_height = $size['new_height'];
+                $height_ratio = $new_height/$src_height;
+                $new_width = $height_ratio*$src_width;
+            } else {
+                $new_width = $size['new_width'];
+                $width_ratio = $new_width/$src_width;
+                $new_height = $width_ratio*$src_height;
+            }
+            
+        } else {
+            $new_width = $size['new_width'];
+            $new_height = $size['new_height'];   
+        }
     }
-    
-    $image = imagecreatetruecolor($new_width, $new_height);
-    imagefill($image, 0,0, imagecolorallocatealpha($image, 255, 255, 255, 127)); // make transparent
 
-    $success_copy = imagecopyresampled($image, $src, 0,0,0,0, $new_width, $new_height, $src_width, $src_height);
-    
-    if ($crop_height and $new_height > $crop_height) {
-        $diff = $new_height - $crop_height;
-        $image = imagecrop($image, array('x' => 0, 'y' => floor($diff/2), 'width' => $new_width, 'height'=> 200));
+    $src_x = 0;
+    $src_y = 0;
+    if ($crop) {
+            
+        // calculate new width and height for cropped image
+        if (isset($crop['crop_height']) and $new_height > $crop['crop_height']) {
+            $diff_h = $new_height - $crop['crop_height'];
+            $diff_h_src = $diff_h*$src_width/$new_width;
+            
+            $new_height = $crop['crop_height'];
+            $src_y = round($diff_h_src/2);
+            $src_height = $src_height - round($diff_h_src);
+        }
+        
+        if (isset($crop['crop_width']) and $new_width > $crop['crop_width']) {
+            $diff_w = $new_width - $crop['crop_width'];
+            $diff_w_src = $diff_w*$src_height/$new_height;
+            
+            $new_width = $crop['crop_width'];
+            $src_x = round($diff_w_src/2);
+            $src_width = $src_width - round($diff_w_src);
+        }
     }
+
+    $image = imagecreatetruecolor($new_width, $new_height);
+    if ($image_type == 'png') {
+        imagefill($image, 0,0, imagecolorallocatealpha($image, 255, 255, 255, 127)); // make transparent
+    }
+    $success_copy = imagecopyresampled($image, $src, 0,0, $src_x, $src_y, $new_width, $new_height, $src_width, $src_height);
+
     if (!$replace && file_exists($destination_path)) {
         return false;
     } else {

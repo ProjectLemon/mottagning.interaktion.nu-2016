@@ -184,6 +184,38 @@ $selected = false;
       });
       
       document.getElementById('select-list').querySelector('input[checked]').checked = true;
+
+      /**
+       * Will add an overlay over image to show where croppings will be made.
+       * Is triggered automatically when user adds image 
+       */
+      function showCropOverlay() {
+        var imageUploadShow = document.getElementById('image-upload-show');
+        var cropOverlay = document.getElementById('crop-overlay');
+        if (cropOverlay == null) {
+          cropOverlay = document.createElement('div');
+          cropOverlay.id = 'crop-overlay';
+          cropOverlay.style.position = 'absolute';
+          imageUploadShow.parentNode.insertBefore(cropOverlay, imageUploadShow);
+        }
+        
+        var cropLimit = 247;
+        var croppedHeight = 200;
+        
+        if (imageUploadShow.offsetHeight > cropLimit) {
+          var barHeight = Math.round((imageUploadShow.clientHeight-cropLimit)/2);
+          var style = 'width: '+imageUploadShow.clientWidth+'px; '+
+                      'height: '+barHeight+'px; '+
+                      'background-color: rgba(0,0,0,.7); '+
+                      'position: absolute;';
+          cropOverlay.innerHTML = '<div style="'+style+'"></div>'+
+                                  '<div style="'+style+' margin-top: '+(imageUploadShow.clientHeight-barHeight)+'px"></div>';
+
+        } else {
+          // remove existing crop overlay if not needed
+          cropOverlay.innerHTML = "";
+        }
+      }
     </script>
     <script src="/src/js/edit.js" async></script>
   </body>

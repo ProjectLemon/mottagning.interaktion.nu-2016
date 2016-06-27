@@ -155,6 +155,30 @@ $selected = false;
           imageShow.addEventListener('click', function() {
               image.click();
           });
+          showCropOverlay();
+      }
+
+      /**
+       * Will add an overlay over image to show where croppings will be made.
+       * Is triggered automatically when user adds image 
+       */
+      function showCropOverlay() {
+        var imageUploadShow = document.getElementById('image-upload-show');
+        var cropOverlay = document.getElementById('crop-overlay');
+        if (cropOverlay == null) {
+          cropOverlay = document.createElement('div');
+          cropOverlay.id = 'crop-overlay';
+          cropOverlay.style.position = 'absolute';
+          imageUploadShow.parentNode.insertBefore(cropOverlay, imageUploadShow);
+        }
+        
+        var minSide = Math.min(imageUploadShow.clientWidth, imageUploadShow.clientHeight)
+        
+        var style = 'width: '+imageUploadShow.clientWidth+'px; '+
+                    'height: '+imageUploadShow.clientHeight+'px; '+
+                    'background: -webkit-radial-gradient(50% 50%, circle, transparent '+minSide/2+'px, rgba(0,0,0,.7) 0px); '+
+                    'position: absolute;';
+        cropOverlay.innerHTML = '<div style="'+style+'"></div>';
       }
     </script>
     <script src="/src/js/edit.js" async></script>

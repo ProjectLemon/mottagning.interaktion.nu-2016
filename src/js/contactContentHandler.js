@@ -65,13 +65,14 @@ function handleRoleParsing(role) {
   if (returnString === "General") {
     return returnString;
   }
-  var translation = {
+  var translations = {
     "red":"röd",
     "röd":"red",
     "blue":"blå",
     "blå":"blue",
     "yellow":"gul",
-    "gul":"yellow"
+    "gul":"yellow",
+    "general":"general"
   }
   return translations[returnString]+" gruppledare";
 }
