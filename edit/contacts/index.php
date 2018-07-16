@@ -2,9 +2,17 @@
 
 <?php
 
+$hasheduser  = file_get_contents("../stuff/user.txt");
+$hashedpass  = file_get_contents("../stuff/pass.txt");
+$session_key = $hasheduser . $hashedpass;
+if (!isset($_COOKIE['session_key']) && $_COOKIE['session_key'] !== $session_key) {
+  echo "Unauthorized, please login";
+  exit;
+}
+
 $contacts_file_name = '../../content/contacts.json';
 if (file_exists($contacts_file_name)) {
-    $content = file_get_contents($contacts_file_name); 
+    $content = file_get_contents($contacts_file_name);
 } else {
     $content = null;
 }
@@ -31,20 +39,20 @@ $selected = false;
   <body>
     <div class="wrapper">
       <?php include '../menu.php' ?>
-      
+
       <form id="form" action="save.php" method="POST" enctype="multipart/form-data">
-      
+
         <ul id="select-list">
           <?php
             $radio_list = '';
-            
+
             foreach ($contacts as $contact) {
                 $selected_attr = '';
                 if ($contact->name == $param) {
                     $selected = $contact;
                     $selected_attr = 'checked';
                 }
-                
+
                 $radio_list .= '<li><label>'.htmlspecialchars($contact->name).'<input type="radio" name="contact" value="'.htmlspecialchars($contact->name).'" required '.$selected_attr.'></label></li>';
             }
 
@@ -57,20 +65,20 @@ $selected = false;
             echo $radio_list;
           ?>
         </ul>
-      
+
         <div id="edit-form" class="form-contact">
-          <?php 
+          <?php
             if ($selected) { echo '<button id="form-delete" type="button" name="delete" >Radera kontakt</button>'; }
           ?>
-          
-          <div><label>Namn:<input id="selector-input" type="text" name="name" maxlength="100" required 
+
+          <div><label>Namn:<input id="selector-input" type="text" name="name" maxlength="100" required
               <?php
                 if ($selected && property_exists($selected, 'name')) echo 'value="'.htmlspecialchars($selected->name).'"'
               ?>>
           </label></div>
-          
+
           <div class="form-content">
-          
+
             <?php
               if ($selected && property_exists($selected, 'image')) {
                 echo '<img id="image-upload-show" src="'.htmlspecialchars($selected->image).'">Ersätt';
@@ -85,19 +93,19 @@ $selected = false;
             </label>
             <div id="form-image-error" class="input-error-message">Bilden får inte vara mer än 5mb</div>
             <br>
-            
-            <label>Mail:<input name="mail" type="text" maxlength="100" required <?php 
+
+            <label>Mail:<input name="mail" type="text" maxlength="100" required <?php
               if ($selected && property_exists($selected, 'mail')) echo 'value="'.htmlspecialchars($selected->mail).'"';
             ?>></label>
             <br>
-            
-            <label class="form-phone">Telefon:<input name="phone" type="text" maxlength="20" required <?php 
+
+            <label class="form-phone">Telefon:<input name="phone" type="text" maxlength="20" required <?php
               if ($selected && property_exists($selected, 'phone')) echo 'value="'.htmlspecialchars($selected->phone).'"';
             ?>></label>
             <br>
             <div id="form-groups">
                 <h3 class="group-title">Grupp:</h3>
-                <?php 
+                <?php
                     if ($selected && property_exists($selected, 'group')) {
                         $selected->group;
                     }
@@ -105,9 +113,9 @@ $selected = false;
                     foreach ($group_colors as $color => $color_name) {
                         $checked = '';
                         if (   ($selected
-                                && property_exists($selected, 'group') 
+                                && property_exists($selected, 'group')
                                 && $selected->group == $color)
-                                  || 
+                                  ||
                                (!$selected && $color == 'blue') // check first element if no privious selected
                            ) {
                             $checked = 'checked';
@@ -117,10 +125,10 @@ $selected = false;
                 ?>
             </div>
             <br>
-            
+
             <input type="submit" name="save" value="Spara" class="button">
             <span id="form-error">Var snäll och fyll i hela formuläret</span>
-            
+
           </div>
           <div id="response"></div>
         </div>
@@ -130,24 +138,24 @@ $selected = false;
         <button id="form-delete-all" type="button" name="delete-all" >Radera <strong>alla</strong> kontakter</button>
       </div>
     </div>
-    
+
     <script>
       var form = document.getElementById('form');
       var editForm = document.getElementById('edit-form');
-        
+
       /* Change background based on group */
       var groupColors = {red: '#C62828', blue: '#3374BA', yellow: '#d8bd2f', general: '#1E5E2F'}
-      
+
       // Change background color immediately
       editForm.style.backgroundColor = groupColors[editForm.querySelector('input[name="group"]:checked').value];
-      
+
       var groupButtons = editForm.querySelectorAll('[name="group"]');
       for (i = groupButtons.length-1; i >= 0; i--) {
           groupButtons[i].addEventListener('change', function(event) {
               editForm.style.backgroundColor = groupColors[event.target.defaultValue];
           });
       }
-      
+
       /* Link clicking on image to upload image */
       var imageShow = document.getElementById('image-upload-show');
       var image = document.getElementById('image-upload');
@@ -160,7 +168,7 @@ $selected = false;
 
       /**
        * Will add an overlay over image to show where croppings will be made.
-       * Is triggered automatically when user adds image 
+       * Is triggered automatically when user adds image
        */
       function showCropOverlay() {
         var imageUploadShow = document.getElementById('image-upload-show');
@@ -171,9 +179,9 @@ $selected = false;
           cropOverlay.style.position = 'absolute';
           imageUploadShow.parentNode.insertBefore(cropOverlay, imageUploadShow);
         }
-        
+
         var minSide = Math.min(imageUploadShow.clientWidth, imageUploadShow.clientHeight)
-        
+
         var style = 'width: '+imageUploadShow.clientWidth+'px; '+
                     'height: '+imageUploadShow.clientHeight+'px; '+
                     'background: -webkit-radial-gradient(50% 50%, circle, transparent '+minSide/2+'px, rgba(0,0,0,.7) 0px); '+
@@ -181,6 +189,6 @@ $selected = false;
         cropOverlay.innerHTML = '<div style="'+style+'"></div>';
       }
     </script>
-    <script src="/src/js/edit.js" async></script>
+    <script src="/resources/js/edit.min.js" async></script>
   </body>
 </html>
