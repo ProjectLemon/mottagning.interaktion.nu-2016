@@ -111,6 +111,7 @@ form.addEventListener('submit', function(event) {
     } else if (!sending) {
 
         var formData = new FormData(event.target);
+        formData.append('save', true);
 
         // When done
         request.onload = function(e) {
